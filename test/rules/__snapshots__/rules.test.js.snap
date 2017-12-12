@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multiple rules should retain error class when a field has other rules that run afterwards which are valid 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input maxlength=\\"6\\" pattern=\\"[a-zA-Z]+\\" value=\\"testFail\\" class=\\"has-error\\"><p class=\\"form-error\\">This field must not exceed 6 characters in length.</p>
+                                </form>"
+`;

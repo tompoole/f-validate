@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`error messages by default should apply error class to an invalid field 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                </form>"
+`;
+
+exports[`error messages by default should not apply error class to a valid field 1`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                    <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
+                                </form>"
+`;
+
+exports[`error messages by default should remove the error message if a previously invalid field is now valid 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                    </form>"
+`;
+
+exports[`error messages by default should remove the error message if a previously invalid field is now valid 2`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                        <input required=\\"\\" class=\\"has-success\\"><p class=\\"form-error is-hidden\\"></p>
+                                    </form>"
+`;
+
+exports[`error messages by default should replace the existing error message when validating multiple times 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" maxlength=\\"3\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                </form>"
+`;
+
+exports[`error messages by default should replace the existing error message when validating multiple times 2`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" maxlength=\\"3\\" class=\\"has-error\\"><p class=\\"form-error\\">This field must not exceed 3 characters in length.</p>
+                                </form>"
+`;
+
+exports[`error messages when set to display as a group should display an error message grouped above the submit button when \`groupErrorPlacement\` is set as that selector 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"x\\" class=\\"has-error\\">
+                                    <ul class=\\"form-errors\\"><li>This field is required.</li><li>This field must be at least 2 characters in length.</li></ul><button type=\\"submit\\"></button>
+                                </form>"
+`;
+
+exports[`error messages when set to display as a group should display error messages grouped above the specified selector when \`groupErrorPlacement\` is set as a selector 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"x\\" class=\\"has-error\\">
+                                    <ul class=\\"form-errors\\"><li>This field is required.</li><li>This field must be at least 2 characters in length.</li></ul><p data-errors-placement=\\"\\">arbitrary text</p>
+                                    <button type=\\"submit\\"></button>
+                                </form>"
+`;
+
+exports[`error messages when set to display as a group should display error messages grouped at the bottom of the form when \`groupErrorPlacement\` is set to \`bottom\` 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"x\\" class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field is required.</li><li>This field must be at least 2 characters in length.</li></ul>
+                                </form>"
+`;
+
+exports[`error messages when set to display as a group should display error messages grouped at the top if \`groupErrorPlacement\` is set but an element is not found 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field is required.</li><li>This field must be at least 2 characters in length.</li></ul>
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"x\\" class=\\"has-error\\">
+                                </form>"
+`;
+
+exports[`error messages when set to display as a group should display error messages grouped at the top of the form when \`groupErrorPlacement\` is set to \`top\` 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field is required.</li><li>This field must be at least 2 characters in length.</li></ul>
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"x\\" class=\\"has-error\\">
+                                </form>"
+`;
+
+exports[`error messages when set to display as a group should not display error messages when the form is valid 1`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                    <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"xx\\" class=\\"has-success\\">
+                                </form>"
+`;
+
+exports[`error messages when set to display as a group should remove error messages if the form is valid after previously being invalid 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field is required.</li><li>This field is required.</li></ul>
+                                </form>"
+`;
+
+exports[`error messages when set to display as a group should remove error messages if the form is valid after previously being invalid 2`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                    <input required=\\"\\" class=\\"has-success\\">
+                                    <input required=\\"\\" minlength=\\"2\\" class=\\"has-success\\"><ul class=\\"form-errors is-hidden\\"></ul>
+                                </form>"
+`;
+
+exports[`error messages when set to display as a group should replace existing error messages when validated multiple times 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field is required.</li><li>This field is required.</li></ul>
+                                </form>"
+`;
+
+exports[`error messages when set to display as a group should replace existing error messages when validated multiple times 2`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-success\\">
+                                    <input required=\\"\\" minlength=\\"2\\" class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field must be at least 2 characters in length.</li></ul>
+                                </form>"
+`;
+
+exports[`error messages with a custom message defined should apply error class to an invalid field 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" data-val-required-error=\\"custom required error message\\" class=\\"has-error\\"><p class=\\"form-error\\">custom required error message</p>
+                                </form>"
+`;
+
+exports[`error messages with a custom message defined should not apply error class to a valid field 1`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                    <input required=\\"\\" value=\\"x\\" data-val-required-error=\\"custom required error message\\" class=\\"has-success\\">
+                                </form>"
+`;
+
+exports[`error messages with a custom message defined should remove the error message if a previously invalid field is now valid 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                        <input required=\\"\\" data-val-required-error=\\"custom required error message\\" class=\\"has-error\\"><p class=\\"form-error\\">custom required error message</p>
+                                    </form>"
+`;
+
+exports[`error messages with a custom message defined should remove the error message if a previously invalid field is now valid 2`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                        <input required=\\"\\" data-val-required-error=\\"custom required error message\\" class=\\"has-success\\"><p class=\\"form-error is-hidden\\"></p>
+                                    </form>"
+`;
+
+exports[`error messages with a custom message defined should replace the existing error message when validating multiple times 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" maxlength=\\"3\\" data-val-required-error=\\"custom required error message\\" data-val-maxlength-error=\\"custom maxlength error message\\" class=\\"has-error\\"><p class=\\"form-error\\">custom required error message</p>
+                                </form>"
+`;
+
+exports[`error messages with a custom message defined should replace the existing error message when validating multiple times 2`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" maxlength=\\"3\\" data-val-required-error=\\"custom required error message\\" data-val-maxlength-error=\\"custom maxlength error message\\" class=\\"has-error\\"><p class=\\"form-error\\">custom maxlength error message</p>
+                                </form>"
+`;
+
+exports[`error messages with custom positioning set on field should display the error message directly adjacent to the specified element 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                        <input required=\\"\\" data-val-error-placement=\\".arbitrary-element\\" class=\\"has-error\\">
+                                        <span class=\\"arbitrary-element\\">arbitrary info text</span><p class=\\"form-error\\">This field is required.</p>
+                                    </form>"
+`;
+
+exports[`error messages with custom positioning set on field should replace an existing error message if one is already present 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                        <input required=\\"\\" data-val-error-placement=\\".arbitrary-element\\" class=\\"has-error\\">
+                                        <span class=\\"arbitrary-element\\">arbitrary info text</span>
+                                        <p class=\\"form-error\\">This field is required.</p>
+                                    </form>"
+`;
