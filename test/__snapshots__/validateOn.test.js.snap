@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`validateOn blur should not run validation on other fields 1`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                        <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
+                                        <input required=\\"\\">
+                                    </form>"
+`;
+
+exports[`validateOn blur should not validate if field is empty and not required 1`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                        <input minlength=\\"6\\">
+                                    </form>"
+`;
+
+exports[`validateOn blur should set form state to invalid, as first select has been touched and no option selected 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                <div data-val-group=\\"\\" data-val-dateinfuture=\\"\\" class=\\"has-error\\">
+                                     <select data-val-dateinfuture-type=\\"year\\" data-touched=\\"true\\">
+                                        <option value=\\"\\"></option>
+                                    </select>
+                                    <select data-val-dateinfuture-type=\\"month\\" data-touched=\\"true\\">
+                                        <option value=\\"\\"></option>
+                                        <option value=\\"01\\" selected=\\"\\"></option>
+                                    </select>
+                                </div><p class=\\"form-error\\">This date must be in the future.</p>
+                            </form>"
+`;
+
+exports[`validateOn blur should set form state to invalid, as second select has been touched and no value selected 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                <div data-val-group=\\"\\" data-val-dateinfuture=\\"\\" class=\\"has-error\\">
+                                     <select data-val-dateinfuture-type=\\"year\\" data-touched=\\"true\\">
+                                        <option value=\\"\\"></option>
+                                        <option value=\\"2018\\"></option>
+                                        <option value=\\"2019\\"></option>
+                                        <option value=\\"2020\\" selected=\\"\\"></option>
+                                    </select>
+                                    <select data-val-dateinfuture-type=\\"month\\" data-touched=\\"true\\">
+                                        <option value=\\"\\"></option>
+                                    </select>
+                                </div><p class=\\"form-error\\">This date must be in the future.</p>
+                            </form>"
+`;
+
+exports[`validateOn blur should set form state to valid, as first select has not been touched yet 1`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                <div data-val-group=\\"\\" data-val-dateinfuture=\\"\\" class=\\"has-success\\">
+                                     <select data-val-dateinfuture-type=\\"year\\">
+                                        <option value=\\"\\"></option>
+                                    </select>
+                                    <select data-val-dateinfuture-type=\\"month\\" data-touched=\\"true\\">
+                                        <option value=\\"\\"></option>
+                                        <option value=\\"01\\" selected=\\"\\"></option>
+                                    </select>
+                                </div>
+                            </form>"
+`;
+
+exports[`validateOn blur should set form state to valid, as second select has not been touched 1`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                <div data-val-group=\\"\\" data-val-dateinfuture=\\"\\" class=\\"has-success\\">
+                                     <select data-val-dateinfuture-type=\\"year\\" data-touched=\\"true\\">
+                                        <option value=\\"\\"></option>
+                                        <option value=\\"2018\\"></option>
+                                        <option value=\\"2019\\"></option>
+                                        <option value=\\"2020\\" selected=\\"\\"></option>
+                                    </select>
+                                    <select data-val-dateinfuture-type=\\"month\\">
+                                        <option value=\\"\\"></option>
+                                    </select>
+                                </div>
+                            </form>"
+`;
+
+exports[`validateOn blur should validate if field is empty 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                    </form>"
+`;
+
+exports[`validateOn blur should validate valid form 1`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                        <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
+                                    </form>"
+`;
+
+exports[`validateOn keyup should not validate if field is empty and not required 1`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                        <input minlength=\\"6\\">
+                                    </form>"
+`;
+
+exports[`validateOn keyup should validate if field is empty 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                    </form>"
+`;
+
+exports[`validateOn keyup should validate valid form 1`] = `
+"<form novalidate=\\"\\" class=\\"has-success\\">
+                                        <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
+                                    </form>"
+`;
