@@ -204,7 +204,7 @@ describe('options', () => {
 
 });
 
-describe('validation tests', () => {
+describe('validation rules', () => {
 
     it('an empty form should return valid', () => {
 
@@ -243,7 +243,7 @@ describe('validation tests', () => {
             it('should return invalid for a required input with no value (data-attribute)', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input data-required /></form>';
+                document.body.innerHTML = '<form><input data-val-required /></form>';
                 const form = document.querySelector('form');
 
                 // Act
@@ -258,7 +258,7 @@ describe('validation tests', () => {
             it('should validate a required input with a value', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input value="x" data-required /></form>';
+                document.body.innerHTML = '<form><input value="x" data-val-required /></form>';
                 const form = document.querySelector('form');
 
                 // Act
@@ -271,6 +271,607 @@ describe('validation tests', () => {
             });
 
         });
+
+        describe('select', () => {
+
+            it('should return invalid for a required select with no value', () => {
+
+                // Arrange
+                document.body.innerHTML = `<form>
+                                                <select required>
+                                                    <option value="">Please select an option</option>
+                                                    <option value="x">X</option>
+                                                </select>
+                                            </form>`;
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should return invalid for a required select with no value', () => {
+
+                // Arrange
+                document.body.innerHTML = `<form>
+                                                <select required>
+                                                    <option value="">Please select an option</option>
+                                                    <option value="x" selected>X</option>
+                                                </select>
+                                            </form>`;
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+            it('should return invalid for a required select with no value (data-attribute)', () => {
+
+                // Arrange
+                document.body.innerHTML = `<form>
+                                                <select data-val-required>
+                                                    <option value="">Please select an option</option>
+                                                    <option value="x" selected>X</option>
+                                                </select>
+                                            </form>`;
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+        });
+
+        describe('textarea', () => {
+
+            it('should return invalid for a required textarea with no value', () => {
+
+                // Arrange
+                document.body.innerHTML = `<form>
+                                                <textarea required></textarea>
+                                            </form>`;
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+
+            it('should return invalid for a required textarea with no value (data-attribute)', () => {
+
+                // Arrange
+                document.body.innerHTML = `<form>
+                                                <textarea data-val-required></textarea>
+                                            </form>`;
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should validate a required textarea with a value', () => {
+
+                // Arrange
+                document.body.innerHTML = `<form>
+                                                <textarea data-val-required>x</textarea>
+                                            </form>`;
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+        });
+
+        describe('radio', () => {
+
+            it('should return invalid for a required radio button which has not been checked', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input name="test" type="radio" required /><input name="test" type="radio" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should return invalid for a required radio button which has not been checked (data-attribute)', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input name="test" type="radio" data-val-required /><input name="test" type="radio" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should validate a required radio button which has been checked', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input name="test" type="radio" required checked /><input name="test" type="radio" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+            it('should validate a radio button group marked as required which another button in the group has been checked', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input name="test" type="radio" required /><input name="test" type="radio" checked /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+        });
+
+
+        describe('checkbox', () => {
+
+            it('should return invalid for a required checkbox which has not been checked', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input name="test" type="checkbox" required /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should return invalid for a required checkbox which has not been checked (data-attribute)', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input name="test" type="checkbox" data-val-required /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should validate a required checkbox which has been checked', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input name="test" type="checkbox" required checked /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+            it('should validate a required checkbox which has been checked when there are multiple checkboxes in the form', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input name="test" type="checkbox" /><input name="test" type="checkbox" required checked /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+        });
+
+    });
+
+    describe('maxlength fields', () => {
+
+        describe('input', () => {
+
+            it('should return invalid for a maxlength input with value more than the specified value', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input maxlength="6" value="testData" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should return invalid for a maxlength input with no value (data-attribute)', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input data-val-maxlength="6" value="testData" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should return valid for input where the values length is less than the specified maxlength', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input maxlength="6" value="test" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+        });
+
+        describe('textarea', () => {
+
+            it('should return invalid for a maxlength textarea with value more than the specified value', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><textarea maxlength="6">testData</textarea></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should return invalid for a maxlength textarea with no value (data-attribute)', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><textarea data-val-maxlength="6">testData</textarea></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should return valid for textarea where the values length is less than the specified maxlength', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><textarea maxlength="6">test</textarea></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+        });
+
+    });
+
+
+    describe('minlength fields', () => {
+
+        describe('input', () => {
+
+            it('should return invalid for a minlength input with value less than the specified value', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input minlength="6" value="test" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should return invalid for a minlength input with value less than the specified value (data-attribute)', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input data-val-minlength="6" value="test" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should return valid for minlength input where the values length is more than the specified minlength', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input minlength="6" value="testData" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+        });
+
+        describe('textarea', () => {
+
+            // it('should return invalid for a minlength textarea with value less than the specified minlength', () => {
+
+            //     // Arrange
+            //     document.body.innerHTML = '<form><textarea minlength="6">testData</textarea></form>';
+            //     const form = document.querySelector('form');
+
+            //     // Act
+            //     const validateForm = new FormValidation(form);
+            //     const isFormValid = validateForm.isValid();
+
+            //     // Assert
+            //     expect(isFormValid).toBe(false);
+
+            // });
+
+            // it('should return invalid for a minlength textarea with no value (data-attribute)', () => {
+
+            //     // Arrange
+            //     document.body.innerHTML = '<form><textarea data-val-minlength="6">testData</textarea></form>';
+            //     const form = document.querySelector('form');
+
+            //     // Act
+            //     const validateForm = new FormValidation(form);
+            //     const isFormValid = validateForm.isValid();
+
+            //     // Assert
+            //     expect(isFormValid).toBe(false);
+
+            // });
+
+            // it('should return valid for textarea where the values length is less than the specified minlength', () => {
+
+            //     // Arrange
+            //     document.body.innerHTML = '<form><textarea minlength="6">test</textarea></form>';
+            //     const form = document.querySelector('form');
+
+            //     // Act
+            //     const validateForm = new FormValidation(form);
+            //     const isFormValid = validateForm.isValid();
+
+            //     // Assert
+            //     expect(isFormValid).toBe(true);
+
+            // });
+
+        });
+
+    });
+
+});
+
+describe('error states', () => {
+
+    it('should apply error class to invalid field', () => {
+
+        // Arrange
+        document.body.innerHTML = `<form>
+                                        <input required />
+                                    </form>`;
+        const form = document.querySelector('form');
+
+        // Act
+        const validateForm = new FormValidation(form);
+        validateForm.isValid();
+
+        // Assert
+        const html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+    });
+
+    it('should not apply multiple error classes to invalid field', () => {
+
+        // Arrange
+        document.body.innerHTML = `<form>
+                                        <input required />
+                                    </form>`;
+        const form = document.querySelector('form');
+
+        // Act
+        const validateForm = new FormValidation(form);
+        validateForm.isValid();
+        validateForm.isValid();
+
+        // Assert
+        const html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+    });
+
+    it('should not apply any class to field with no validation rule', () => {
+
+        // Arrange
+        document.body.innerHTML = `<form>
+                                        <input />
+                                    </form>`;
+        const form = document.querySelector('form');
+
+        // Act
+        const validateForm = new FormValidation(form);
+        validateForm.isValid();
+
+        // Assert
+        const html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+    });
+
+    it('should apply success class to valid field', () => {
+
+        // Arrange
+        document.body.innerHTML = `<form>
+                                        <input required value="x" />
+                                    </form>`;
+        const form = document.querySelector('form');
+
+        // Act
+        const validateForm = new FormValidation(form);
+        validateForm.isValid();
+
+        // Assert
+        const html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+    });
+
+    it('should apply correct classes to multiple types of field', () => {
+
+        // Arrange
+        document.body.innerHTML = `<form>
+                                        <input required value="x" />
+                                        <input required value="" />
+                                        <input />
+                                    </form>`;
+        const form = document.querySelector('form');
+
+        // Act
+        const validateForm = new FormValidation(form);
+        validateForm.isValid();
+
+        // Assert
+        const html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+    });
+
+    it('should apply success after error state to field', () => {
+
+        // Arrange
+        document.body.innerHTML = `<form>
+                                        <input required />
+                                    </form>`;
+        const form = document.querySelector('form');
+        const input = form.querySelector('input');
+
+        // Act & Assert
+        const validateForm = new FormValidation(form);
+        validateForm.isValid();
+
+        let html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+        // Make input valid
+        input.value = 'x';
+
+        validateForm.isValid();
+        html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+    });
+
+    it('should apply error after success state to field', () => {
+
+        // Arrange
+        document.body.innerHTML = `<form>
+                                        <input required value="x" />
+                                    </form>`;
+        const form = document.querySelector('form');
+        const input = form.querySelector('input');
+
+        // Act & Assert
+        const validateForm = new FormValidation(form);
+        validateForm.isValid();
+
+        let html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+        // Make input invalid
+        input.value = '';
+
+        validateForm.isValid();
+        html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
 
     });
 

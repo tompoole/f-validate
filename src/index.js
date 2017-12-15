@@ -1,4 +1,7 @@
-const FIELD_VALUES = 'input';
+import testDefinitions from './rules';
+
+const FIELD_VALUES = 'input, select, textarea',
+    VALIDATION_KEYS = Object.keys(testDefinitions);
 
 export const defaultOptions = {
     errorClass: 'has-error',
@@ -28,7 +31,17 @@ export default class FormValidation {
     constructor (nameOrNode, options = {}) {
         this.options = Object.assign({}, defaultOptions, options);
         this.form = getForm(nameOrNode);
-        this.fields = this.form.querySelectorAll('input');
+        this.fields = this.form.querySelectorAll(FIELD_VALUES);
+    }
+
+    setSuccess (element) {
+        element.classList.remove(this.options.errorClass);
+        element.classList.add(this.options.successClass);
+    }
+
+    setError (element) {
+        element.classList.remove(this.options.successClass);
+        element.classList.add(this.options.errorClass);
     }
 
     isValid () {
@@ -37,11 +50,26 @@ export default class FormValidation {
 
         this.fields.forEach(field => {
 
-            if ((field.hasAttribute('required') || field.hasAttribute('data-required')) && field.value === '') {
-                formValid = false;
-            }
+            VALIDATION_KEYS.forEach((key) => {
+                const definition = testDefinitions[key];
+
+                if (definition.condition(field)) {
+                    if (definition.test(field)) {
+                        this.setSuccess(field);
+                    } else {
+                        formValid = false;
+                        this.setError(field);
+                    }
+                }
+            });
 
         });
+
+        if (!formValid) {
+            this.setError(this.form);
+        } else {
+            this.setSuccess(this.form);
+        }
 
         return formValid;
 
