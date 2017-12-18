@@ -28,23 +28,23 @@ const getForm = descriptor => {
 
 export default class FormValidation {
 
-    constructor (nameOrNode, options = {}) {
+    constructor(nameOrNode, options = {}) {
         this.options = Object.assign({}, defaultOptions, options);
         this.form = getForm(nameOrNode);
         this.fields = this.form.querySelectorAll(FIELD_VALUES);
     }
 
-    setSuccess (element) {
+    setSuccess(element) {
         element.classList.remove(this.options.errorClass);
         element.classList.add(this.options.successClass);
     }
 
-    setError (element) {
+    setError(element) {
         element.classList.remove(this.options.successClass);
         element.classList.add(this.options.errorClass);
     }
 
-    isValid () {
+    isValid() {
 
         let formValid = true;
 

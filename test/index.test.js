@@ -456,7 +456,6 @@ describe('validation rules', () => {
 
         });
 
-
         describe('checkbox', () => {
 
             it('should return invalid for a required checkbox which has not been checked', () => {
@@ -624,7 +623,6 @@ describe('validation rules', () => {
         });
 
     });
-
 
     describe('minlength fields', () => {
 
@@ -821,6 +819,145 @@ describe('validation rules', () => {
                 expect(isFormValid).toBe(false);
 
             });
+
+        });
+
+    });
+
+    describe('email fields', () => {
+
+        it('should return invalid for a field of type email with invalid email address', () => {
+
+            // Arrange
+            document.body.innerHTML = '<form><input type="email" value="invalidEmailFormat" /></form>';
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(false);
+
+        });
+
+        it('should return invalid for a field of type email with invalid email address', () => {
+
+            // Arrange
+            document.body.innerHTML = '<form><input type="email" value=`invalid@test` /></form>';
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(false);
+
+        });
+
+        it('should return invalid for a field of type email with invalid email address', () => {
+
+            // Arrange
+            document.body.innerHTML = '<form><input type="email" value="@test.com" /></form>';
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(false);
+
+        });
+
+        it('should return valid for a field of type email with valid email address', () => {
+
+            // Arrange
+            document.body.innerHTML = '<form><input type="email" value="valid@test.com" /></form>';
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(true);
+
+        });
+
+    });
+
+    describe('matches fields', () => {
+
+        it('should return invalid for a field with "equalto" attribute, that does not match value of specified field ', () => {
+
+            // Arrange
+            document.body.innerHTML = `<form>
+                <input data-val-equalto="matchedField" value="match" />
+                <input name="matchedField" value="doesNotMatch" />
+                </form>`;
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(false);
+
+        });
+
+        it('should return invalid for a field with "equalto" attribute, that matches value, but field is not specified', () => {
+
+            // Arrange
+            document.body.innerHTML = `<form>
+                <input data-val-equalto value="match" />
+                <input name="matchedField" value="match" />
+                </form>`;
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(false);
+
+        });
+
+        it('should return invalid for a field with "equalto" attribute, that does matches value, but field does not exist', () => {
+
+            // Arrange
+            document.body.innerHTML = `<form>
+                <input data-val-equalto="matchedField" value="match" />
+                </form>`;
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(false);
+
+        });
+
+        it('should return valid for a field with "equalto" attribute, that does match value of specified field ', () => {
+
+            // Arrange
+            document.body.innerHTML = `<form>
+                <input data-val-equalto="matchedField" value="match" />
+                <input name="matchedField" value="match" />
+                </form>`;
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(true);
 
         });
 
