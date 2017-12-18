@@ -1,4 +1,3 @@
-import TestUtils from 'js-test-buddy';
 import FormValidation, { defaultOptions } from '../src';
 
 describe('module', () => {
@@ -133,7 +132,7 @@ describe('options', () => {
         const validateForm = new FormValidation(form);
 
         // Assert
-        expect(typeof validateForm.options).toBe('object')
+        expect(typeof validateForm.options).toBe('object');
 
     });
 
@@ -890,7 +889,7 @@ describe('validation rules', () => {
 
     describe('matches fields', () => {
 
-        it('should return invalid for a field with "equalto" attribute, that does not match value of specified field ', () => {
+        it('should return invalid for a field with "equalto" attribute, that does not match value of specified field', () => {
 
             // Arrange
             document.body.innerHTML = `<form>
@@ -943,7 +942,7 @@ describe('validation rules', () => {
 
         });
 
-        it('should return valid for a field with "equalto" attribute, that does match value of specified field ', () => {
+        it('should return valid for a field with "equalto" attribute, that does match value of specified field', () => {
 
             // Arrange
             document.body.innerHTML = `<form>

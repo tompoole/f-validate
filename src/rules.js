@@ -1,4 +1,4 @@
-import REGEX from './constants';
+import CONSTANTS from './constants';
 
 const testDefinitions = {
     required: {
@@ -14,16 +14,10 @@ const testDefinitions = {
             }
             return (field.value.trim()).length > 0;
         }
-        // dataAttr: 'val-required',
-        // errorAttr: 'val-required-error',
-        // errorMessage: 'This field is required.'
     },
     maxlength: {
         condition: field => field.hasAttribute('maxlength') || field.hasAttribute('data-val-maxlength'),
-        test: field => (field.value.trim()).length <= parseInt(field.getAttribute('maxlength') || field.getAttribute('data-val-maxlength'), 10),
-        // dataAttr: 'val-maxlength',
-        // errorAttr: 'val-maxlength-error',
-        // errorMessage: 'This field must not exceed %s characters in length.'
+        test: field => (field.value.trim()).length <= parseInt(field.getAttribute('maxlength') || field.getAttribute('data-val-maxlength'), 10)
     },
     minlength: {
         condition: field => field.hasAttribute('minlength') || field.hasAttribute('data-val-minlength'),
@@ -34,9 +28,6 @@ const testDefinitions = {
             }
             return (field.value.trim()).length >= parseInt(field.getAttribute('minlength') || field.getAttribute('data-val-minlength'), 10);
         }
-        // dataAttr: 'val-minlength',
-        // errorAttr: 'val-minlength-error',
-        // errorMessage: 'This field must be at least %s characters in length.'
     },
     // Allows definition of a rule to validate the input value using Regular Expressions (RegEx)
     pattern: {
@@ -47,16 +38,10 @@ const testDefinitions = {
             const pattern = field.getAttribute('pattern') || field.getAttribute('data-val-regex');
             return new RegExp(`^(?:${pattern})$`, 'gim').test(fieldValue);
         }
-        // dataAttr: 'val-regex',
-        // errorAttr: 'val-regex-error',
-        // errorMessage: 'This field contains a value that isn’t accepted.'
     },
     email: {
         condition: field => field.getAttribute('type') === 'email',
-        test: field => REGEX.EMAIL.test(field.value)
-        // dataAttr: 'val-email',
-        // errorAttr: 'val-email-error',
-        // errorMessage: 'This field must contain a valid email address.'
+        test: field => CONSTANTS.email.test(field.value)
     },
     matches: {
         condition: field => field.hasAttribute('data-val-equalto'),
@@ -65,9 +50,6 @@ const testDefinitions = {
             return matchedFieldName && document.querySelector(`input[name=${matchedFieldName}]`)
                 && field.value === document.querySelector(`input[name=${matchedFieldName}]`).value;
         }
-        // dataAttr: 'val-equalto',
-        // errorAttr: 'val-equalto-error',
-        // errorMessage: 'This field does not match the %s field.'
     },
     custom: {
         condition: field => {
@@ -79,9 +61,6 @@ const testDefinitions = {
             return hasCustom;
         },
         test: null
-        // dataAttr: 'val-custom',
-        // errorAttr: 'val-custom-error',
-        // errorMessage: 'Custom validation failed.'
     }
 };
 

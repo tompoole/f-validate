@@ -73,37 +73,4 @@ describe('rule structure', () => {
 
     });
 
-    xit('Each rule definition should have a "dataAttr" property', () => {
-
-        // Arrange
-        definitionKeys.forEach(key => {
-
-            expect(testDefinitions[key]).toHaveProperty('dataAttr');
-
-        });
-
-    });
-
-    xit('Each rule definition should have a "errorAttr" property', () => {
-
-        // Arrange
-        definitionKeys.forEach(key => {
-
-            expect(testDefinitions[key]).toHaveProperty('errorAttr');
-
-        });
-
-    });
-
-    xit('Each rule definition should have a "errorMessage" property', () => {
-
-        // Arrange
-        definitionKeys.forEach(key => {
-
-            expect(testDefinitions[key]).toHaveProperty('errorMessage');
-
-        });
-
-    });
-
 });

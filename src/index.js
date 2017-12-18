@@ -1,7 +1,7 @@
 import testDefinitions from './rules';
 
-const FIELD_VALUES = 'input, select, textarea',
-    VALIDATION_KEYS = Object.keys(testDefinitions);
+const FIELD_VALUES = 'input, select, textarea';
+const VALIDATION_KEYS = Object.keys(testDefinitions);
 
 export const defaultOptions = {
     errorClass: 'has-error',
@@ -82,7 +82,7 @@ export default class FormValidation {
 
     addCustomValidation (name, handler) {
         if (!name || typeof name !== 'string') {
-            throw new Error('f-validate: please provide the name ');
+            throw new Error('f-validate: please provide the name');
         }
         if (!handler || typeof handler !== 'function') {
             throw new Error('f-validate: please provide a custom method');
@@ -91,4 +91,5 @@ export default class FormValidation {
     }
 
 }
+
 
