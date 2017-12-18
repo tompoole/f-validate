@@ -28,30 +28,35 @@ const getForm = descriptor => {
 
 export default class FormValidation {
 
-    constructor(nameOrNode, options = {}) {
+    constructor (nameOrNode, options = {}) {
         this.options = Object.assign({}, defaultOptions, options);
         this.form = getForm(nameOrNode);
         this.fields = this.form.querySelectorAll(FIELD_VALUES);
+        this.customHandlers = {};
     }
 
-    setSuccess(element) {
+    setSuccess (element) {
         element.classList.remove(this.options.errorClass);
         element.classList.add(this.options.successClass);
     }
 
-    setError(element) {
+    setError (element) {
         element.classList.remove(this.options.successClass);
         element.classList.add(this.options.errorClass);
     }
 
-    isValid() {
+    isValid () {
 
         let formValid = true;
 
         this.fields.forEach(field => {
 
-            VALIDATION_KEYS.forEach((key) => {
+            VALIDATION_KEYS.forEach(key => {
                 const definition = testDefinitions[key];
+
+                if (field.getAttribute('data-val-custom')) {
+                    testDefinitions.custom.test = this.customHandlers[field.getAttribute('data-val-custom')];
+                }
 
                 if (definition.condition(field)) {
                     if (definition.test(field)) {
@@ -73,6 +78,16 @@ export default class FormValidation {
 
         return formValid;
 
+    }
+
+    addCustomValidation (name, handler) {
+        if (!name || typeof name !== 'string') {
+            throw new Error('f-validate: please provide the name ');
+        }
+        if (!handler || typeof handler !== 'function') {
+            throw new Error('f-validate: please provide a custom method');
+        }
+        this.customHandlers[name] = handler;
     }
 
 }

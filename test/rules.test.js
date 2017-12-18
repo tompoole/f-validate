@@ -1,6 +1,6 @@
 import testDefinitions from '../src/rules';
 
-xdescribe('rule definitions', () => {
+describe('rule definitions', () => {
 
     it('required rule should exist', () => {
 

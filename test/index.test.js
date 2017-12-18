@@ -963,7 +963,104 @@ describe('validation rules', () => {
 
     });
 
+    describe('custom', () => {
+
+        it('should return valid for a field custom attribute, where method returns true', () => {
+
+            // Arrange
+            const customMethod = () => true;
+            document.body.innerHTML = `<form>
+                <input data-val-custom="customRule" value="match" />
+                </form>`;
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            validateForm.addCustomValidation('customRule', customMethod);
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(true);
+
+        });
+
+        it('should return invalid for a field custom attribute, where method returns false', () => {
+
+            // Arrange
+            const customMethod = () => false;
+            document.body.innerHTML = `<form>
+                <input data-val-custom="customRule" value="match" />
+                </form>`;
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            validateForm.addCustomValidation('customRule', customMethod);
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(false);
+
+        });
+
+        it('should log error when "data-val-custom" attribute has not been specified', () => {
+
+            // Arrange
+            console.error = jest.fn();
+            document.body.innerHTML = `<form>
+                <input data-val-custom-error="customer error message" value="match" />
+            </form>`;
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            validateForm.isValid();
+
+            // Assert
+            expect(console.error).toHaveBeenCalledWith('f-validate: specify data-val-custom along with data-val-custom-error attribute');
+            console.error.mockClear();
+
+        });
+
+    });
+
 });
+
+describe('addCustomValidation()', () => {
+
+    it('should throw error when addCustomValidation is called, but name argument is not supplied', () => {
+
+        // Arrange
+        document.body.innerHTML = '<form></form>';
+        const form = document.querySelector('form');
+
+        // Act
+        const validateForm = new FormValidation(form);
+
+        // Assert
+        expect(() => {
+            validateForm.addCustomValidation();
+        }).toThrowError('f-validate: please provide the name');
+
+    });
+
+    it('should throw error when addCustomValidation is called, but custom method is not supplied', () => {
+
+        // Arrange
+        document.body.innerHTML = '<form></form>';
+        const form = document.querySelector('form');
+
+        // Act
+        const validateForm = new FormValidation(form);
+
+        // Assert
+        expect(() => {
+            validateForm.addCustomValidation('customRule');
+        }).toThrowError('f-validate: please provide a custom method');
+
+    });
+});
+
 
 describe('error states', () => {
 

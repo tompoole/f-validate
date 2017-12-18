@@ -68,40 +68,21 @@ const testDefinitions = {
         // dataAttr: 'val-equalto',
         // errorAttr: 'val-equalto-error',
         // errorMessage: 'This field does not match the %s field.'
+    },
+    custom: {
+        condition: field => {
+            const hasCustom = field.hasAttribute('data-val-custom'),
+                hasCustomError = field.hasAttribute('data-val-custom-error');
+            if (hasCustomError && !hasCustom) {
+                console.error('f-validate: specify data-val-custom along with data-val-custom-error attribute');
+            }
+            return hasCustom;
+        },
+        test: null
+        // dataAttr: 'val-custom',
+        // errorAttr: 'val-custom-error',
+        // errorMessage: 'Custom validation failed.'
     }
-    // custom: {
-    //     condition: field => {
-    //         const hasCustomFunction = field.hasAttribute('data-val-custom'),
-    //             hasCustomError = field.hasAttribute('data-val-custom-error');
-    //         if (hasCustomError && !hasCustomFunction) {
-    //             console.error('Specify data-val-custom along with data-val-custom-error attribute. Register custom validation function via Validate.addCustomValidationFunction', this);
-    //         }
-    //         return hasCustomFunction;
-    //     },
-    //     test: () => {
-    //         // Function body must be overriden via Validate.addCustomValidationFunction
-    //         console.error('Specify name of custom validation function in data-val-custom attribute. Then register custom validation function via Validate.addCustomValidationFunction', this);
-    //     },
-    //     dataAttr: 'val-custom',
-    //     errorAttr: 'val-custom-error',
-    //     errorMessage: 'Custom validation failed.'
-    // }
 };
 
 export default testDefinitions;
-
-// /**
-// * getTestDefinitions
-// *
-// * Returns the test definitions as an array of objects
-// */
-// function getTestDefinitions () {
-//     const validationRules = [];
-
-//     for (const testDefinition in testDefinitions) {
-//         validationRules.push(testDefinition);
-//     }
-//     return validationRules;
-// }
-
-// export default getTestDefinitions;
