@@ -28,23 +28,29 @@ const testDefinitions = {
     minlength: {
         condition: field => { return field.hasAttribute('minlength') || field.hasAttribute('data-val-minlength'); },
         test: field => {
+            // if the field is empty, should validate as true
+            if (field.value === '') {
+                return true;
+            }
             return (field.value.trim()).length >= parseInt(field.getAttribute('minlength') || field.getAttribute('data-val-minlength'), 10);
         },
         // dataAttr: 'val-minlength',
         // errorAttr: 'val-minlength-error',
         // errorMessage: 'This field must be at least %s characters in length.'
     },
-    // pattern: {
-    //     condition: field => { return field.hasAttribute('pattern') || field.hasAttribute('data-val-regex'); },
-    //     test: field => {
-    //         //escape characters that have special meaning inside a regular expression in field value
-    //         const fieldValue = field.value.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
-    //         return new RegExp(field.getAttribute('pattern') || field.getAttribute('data-val-regex')).test(fieldValue);
-    //     },
-    //     dataAttr: 'val-regex',
-    //     errorAttr: 'val-regex-error',
-    //     errorMessage: 'This field contains a value that isn’t accepted.'
-    // },
+    // Allows definition of a rule to validate the input value using Regular Expressions (RegEx)
+    pattern: {
+        condition: field => { return field.hasAttribute('pattern') || field.hasAttribute('data-val-regex'); },
+        test: field => {
+            //escape characters that have special meaning inside a regular expression in field value
+            const fieldValue = field.value.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
+            const pattern = field.getAttribute('pattern') || field.getAttribute('data-val-regex');
+            return new RegExp(`^(?:${pattern})$`, 'gim').test(fieldValue);
+        },
+        // dataAttr: 'val-regex',
+        // errorAttr: 'val-regex-error',
+        // errorMessage: 'This field contains a value that isn’t accepted.'
+    },
     // email: {
     //     condition: field => { return field.getAttribute('type') === 'email'; },
     //     test: field => {

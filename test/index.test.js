@@ -630,6 +630,21 @@ describe('validation rules', () => {
 
         describe('input', () => {
 
+            it('should return valid for a minlength input with no value', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input minlength="6" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
             it('should return invalid for a minlength input with value less than the specified value', () => {
 
                 // Arrange
@@ -679,50 +694,133 @@ describe('validation rules', () => {
 
         describe('textarea', () => {
 
-            // it('should return invalid for a minlength textarea with value less than the specified minlength', () => {
+            it('should return valid for a minlength textarea with no value entered', () => {
 
-            //     // Arrange
-            //     document.body.innerHTML = '<form><textarea minlength="6">testData</textarea></form>';
-            //     const form = document.querySelector('form');
+                // Arrange
+                document.body.innerHTML = '<form><textarea minlength="6"></textarea></form>';
+                const form = document.querySelector('form');
 
-            //     // Act
-            //     const validateForm = new FormValidation(form);
-            //     const isFormValid = validateForm.isValid();
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
 
-            //     // Assert
-            //     expect(isFormValid).toBe(false);
+                // Assert
+                expect(isFormValid).toBe(true);
 
-            // });
+            });
 
-            // it('should return invalid for a minlength textarea with no value (data-attribute)', () => {
+            it('should return invalid for a minlength textarea with value less than the specified minlength', () => {
 
-            //     // Arrange
-            //     document.body.innerHTML = '<form><textarea data-val-minlength="6">testData</textarea></form>';
-            //     const form = document.querySelector('form');
+                // Arrange
+                document.body.innerHTML = '<form><textarea minlength="6">test</textarea></form>';
+                const form = document.querySelector('form');
 
-            //     // Act
-            //     const validateForm = new FormValidation(form);
-            //     const isFormValid = validateForm.isValid();
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
 
-            //     // Assert
-            //     expect(isFormValid).toBe(false);
+                // Assert
+                expect(isFormValid).toBe(false);
 
-            // });
+            });
 
-            // it('should return valid for textarea where the values length is less than the specified minlength', () => {
+            it('should return invalid for a minlength textarea with no value (data-attribute)', () => {
 
-            //     // Arrange
-            //     document.body.innerHTML = '<form><textarea minlength="6">test</textarea></form>';
-            //     const form = document.querySelector('form');
+                // Arrange
+                document.body.innerHTML = '<form><textarea data-val-minlength="6">test</textarea></form>';
+                const form = document.querySelector('form');
 
-            //     // Act
-            //     const validateForm = new FormValidation(form);
-            //     const isFormValid = validateForm.isValid();
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
 
-            //     // Assert
-            //     expect(isFormValid).toBe(true);
+                // Assert
+                expect(isFormValid).toBe(false);
 
-            // });
+            });
+
+            it('should return valid for textarea where the values length is more than the specified maxlength', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><textarea minlength="6">testData</textarea></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+        });
+
+    });
+
+    describe('pattern fields', () => {
+
+        describe('input', () => {
+
+            it('should return invalid for an input with an empty pattern attribute', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input pattern="" value="test" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should return invalid for an input with an empty pattern attribute (data-attribute)', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input pattern="" value="test" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
+
+            it('should return valid when the value of the input matches the pattern specified', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input pattern="[a-z]{1,6}" value="test" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+            it('should return invalid when the value of the input doesn\'t match the pattern specified', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input pattern="[a-z]{1,6}" value="testData1" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(false);
+
+            });
 
         });
 
