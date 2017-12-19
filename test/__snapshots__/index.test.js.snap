@@ -56,6 +56,20 @@ exports[`error states should not apply multiple error classes to invalid field 1
                                     </form>"
 `;
 
+exports[`on submit should validate invalid form on submit 1`] = `
+"<form class=\\"has-success\\">
+                                        <input required=\\"\\" value=\\"test\\" class=\\"has-success\\">
+                                        <button type=\\"submit\\">submit</button>
+                                    </form>"
+`;
+
+exports[`on submit should validate valid form on submit 1`] = `
+"<form class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\">
+                                        <button type=\\"submit\\">submit</button>
+                                    </form>"
+`;
+
 exports[`validation rules multiple rules should retain error class, when a field has other rules that run afterwards which are valid 1`] = `
 "<form class=\\"has-error\\">
                                         <input maxlength=\\"6\\" pattern=\\"[a-zA-Z]+\\" value=\\"testFail\\" class=\\"has-error\\">

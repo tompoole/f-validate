@@ -239,6 +239,36 @@ describe('validation rules', () => {
 
             });
 
+            it('should not validate a disabled field', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input required disabled /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+            it('should not validate a field with attribute data-novalidate', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input required data-novalidate /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
             it('should return invalid for a required input with no value', () => {
 
                 // Arrange
@@ -1062,6 +1092,50 @@ describe('validation rules', () => {
 
 });
 
+describe('on submit', () => {
+
+    it('should validate valid form on submit', () => {
+
+        // Arrange
+        document.body.innerHTML = `<form>
+                                        <input required />
+                                        <button type="submit">submit</button>
+                                    </form>`;
+        const form = document.querySelector('form');
+        const button = form.querySelector('button');
+
+        // Act
+        const validateForm = new FormValidation(form);
+        button.click();
+
+        // Assert
+        const html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+    });
+
+    it('should validate invalid form on submit', () => {
+
+        // Arrange
+        document.body.innerHTML = `<form>
+                                        <input required value="test" />
+                                        <button type="submit">submit</button>
+                                    </form>`;
+        const form = document.querySelector('form');
+        const button = form.querySelector('button');
+
+        // Act
+        const validateForm = new FormValidation(form);
+        button.click();
+
+        // Assert
+        const html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+    });
+
+});
+
 describe('addCustomValidation()', () => {
 
     it('should throw error when addCustomValidation is called, but name argument is not supplied', () => {
@@ -1096,7 +1170,6 @@ describe('addCustomValidation()', () => {
 
     });
 });
-
 
 describe('error states', () => {
 
