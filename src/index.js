@@ -51,6 +51,8 @@ export default class FormValidation {
 
         this.fields.forEach(field => {
 
+            let fieldValid = true;
+
             VALIDATION_KEYS.forEach(key => {
                 const definition = testDefinitions[key];
 
@@ -59,14 +61,19 @@ export default class FormValidation {
                 }
 
                 if (definition.condition(field)) {
-                    if (definition.test(field)) {
-                        this.setSuccess(field);
-                    } else {
-                        formValid = false;
-                        this.setError(field);
+                    if (!definition.test(field)) {
+                        fieldValid = false;
                     }
                 }
+
             });
+
+            if (fieldValid) {
+                this.setSuccess(field);
+            } else {
+                formValid = false;
+                this.setError(field);
+            }
 
         });
 

@@ -1023,6 +1023,28 @@ describe('validation rules', () => {
 
     });
 
+    describe('multiple rules', () => {
+
+        it('should retain error class, when a field has other rules that run afterwards which are valid', () => {
+
+            // Arrange
+            document.body.innerHTML = `<form>
+                                        <input maxlength="6" pattern="[a-zA-Z]+" value="testFail" />
+                                    </form>`;
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            validateForm.isValid();
+
+            // Assert
+            const html = document.body.innerHTML;
+            expect(html).toMatchSnapshot();
+
+        });
+
+    });
+
 });
 
 describe('addCustomValidation()', () => {

@@ -4,7 +4,7 @@ exports[`error states should apply correct classes to multiple types of field 1`
 "<form class=\\"has-error\\">
                                         <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
                                         <input required=\\"\\" value=\\"\\" class=\\"has-error\\">
-                                        <input>
+                                        <input class=\\"has-success\\">
                                     </form>"
 `;
 
@@ -46,12 +46,18 @@ exports[`error states should apply success class to valid field 1`] = `
 
 exports[`error states should not apply any class to field with no validation rule 1`] = `
 "<form class=\\"has-success\\">
-                                        <input>
+                                        <input class=\\"has-success\\">
                                     </form>"
 `;
 
 exports[`error states should not apply multiple error classes to invalid field 1`] = `
 "<form class=\\"has-error\\">
                                         <input required=\\"\\" class=\\"has-error\\">
+                                    </form>"
+`;
+
+exports[`validation rules multiple rules should retain error class, when a field has other rules that run afterwards which are valid 1`] = `
+"<form class=\\"has-error\\">
+                                        <input maxlength=\\"6\\" pattern=\\"[a-zA-Z]+\\" value=\\"testFail\\" class=\\"has-error\\">
                                     </form>"
 `;
