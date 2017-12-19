@@ -26,12 +26,14 @@ const getForm = descriptor => {
 
 };
 
+const getFields = fields => Array.from(fields).filter(f => !(f.hasAttribute('type') && f.getAttribute('type') === 'hidden'));
+
 export default class FormValidation {
 
     constructor (nameOrNode, options = {}) {
         this.options = Object.assign({}, defaultOptions, options);
         this.form = getForm(nameOrNode);
-        this.fields = this.form.querySelectorAll(FIELD_VALUES);
+        this.fields = getFields(this.form.querySelectorAll(FIELD_VALUES));
         this.customHandlers = {};
     }
 

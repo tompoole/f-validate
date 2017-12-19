@@ -224,6 +224,21 @@ describe('validation rules', () => {
 
         describe('input', () => {
 
+            it('should not validate a hidden field', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input required type="hidden" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
             it('should return invalid for a required input with no value', () => {
 
                 // Arrange
