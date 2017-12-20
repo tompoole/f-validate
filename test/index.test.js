@@ -1104,7 +1104,7 @@ describe('on submit', () => {
         const button = form.querySelector('button');
 
         // Act
-        const validateForm = new FormValidation(form);
+        new FormValidation(form); // eslint-disable-line no-new
         button.click();
 
         // Assert
@@ -1116,7 +1116,7 @@ describe('on submit', () => {
     it('should validate valid form on submit', () => {
 
         // Arrange
-        document.body.innerHTML = `<form> 
+        document.body.innerHTML = `<form>
                                         <input required value="test" />
                                         <button type="submit">submit</button>
                                     </form>`;
@@ -1124,7 +1124,7 @@ describe('on submit', () => {
         const button = form.querySelector('button');
 
         // Act
-        const validateForm = new FormValidation(form);
+        new FormValidation(form); // eslint-disable-line no-new
         button.click();
 
         // Assert
