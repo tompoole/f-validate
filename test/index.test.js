@@ -1094,7 +1094,7 @@ describe('validation rules', () => {
 
 describe('on submit', () => {
 
-    it('should validate valid form on submit', () => {
+    it('should validate invalid form on submit', () => {
 
         // Arrange
         document.body.innerHTML = `<form>
@@ -1114,10 +1114,10 @@ describe('on submit', () => {
 
     });
 
-    it('should validate invalid form on submit', () => {
+    it('should validate valid form on submit', () => {
 
         // Arrange
-        document.body.innerHTML = `<form>
+        document.body.innerHTML = `<form> 
                                         <input required value="test" />
                                         <button type="submit">submit</button>
                                     </form>`;
