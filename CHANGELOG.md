@@ -9,10 +9,10 @@ v0.5.0
 *December 20, 2017*
 
 ### Added
-- Added JS unit test utilitiy module.
+- Added JS unit test utility module.
 
 ### Changed
-- Using JS unit test utilitiy module in unit test files.
+- Using JS unit test utility module in unit test files.
 
 
 v0.4.0
