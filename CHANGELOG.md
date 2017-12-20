@@ -25,12 +25,12 @@ v0.3.0
 ------------------------------
 *December 19, 2017*
 
+### Added
+- Removed inputs with certain attributes from being validated.
+
 ### Changed
 - Prevented the last rule on a field from overwriting previous state.
 - Binding isValid method to submit.
-
-### Removed
-- Removed inputs with certain attributes from being validated.
 
 
 v0.2.0
