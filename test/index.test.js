@@ -15,7 +15,7 @@ describe('initialising', () => {
 
         // Act & Assert
         expect(() => {
-            new FormValidation();
+            new FormValidation(); // eslint-disable-line no-new
         }).toThrow();
 
     });
@@ -42,7 +42,7 @@ describe('initialising', () => {
 
         // Act & Assert
         expect(() => {
-            new FormValidation(p);
+            new FormValidation(p); // eslint-disable-line no-new
         }).toThrow();
 
     });
@@ -142,7 +142,7 @@ describe('options', () => {
         document.body.innerHTML = '<form></form>';
         const form = document.querySelector('form');
         const focus = true;
-        const options = {focus};
+        const options = { focus };
 
         // Act
         const validateForm = new FormValidation(form, options);
@@ -158,7 +158,7 @@ describe('options', () => {
         document.body.innerHTML = '<form></form>';
         const form = document.querySelector('form');
         const focus = true;
-        const options = {focus};
+        const options = { focus };
 
         // Act
         const validateForm = new FormValidation(form, options);
@@ -167,7 +167,7 @@ describe('options', () => {
         expect(validateForm.options).toEqual({
             ...defaultOptions,
             focus
-        })
+        });
 
     });
 
@@ -182,7 +182,7 @@ describe('options', () => {
         const validateForm = new FormValidation(form, options);
 
         // Assert
-        expect(validateForm.options).toEqual(defaultOptions)
+        expect(validateForm.options).toEqual(defaultOptions);
 
     });
 
@@ -197,7 +197,7 @@ describe('options', () => {
         const validateForm = new FormValidation(form, options);
 
         // Assert
-        expect(validateForm.options).toEqual(defaultOptions)
+        expect(validateForm.options).toEqual(defaultOptions);
 
     });
 
@@ -1050,7 +1050,6 @@ describe('validation rules', () => {
         it('should log error when "data-val-custom" attribute has not been specified', () => {
 
             // Arrange
-            console.error = jest.fn();
             document.body.innerHTML = `<form>
                 <input data-val-custom-error="customer error message" value="match" />
             </form>`;
@@ -1058,11 +1057,11 @@ describe('validation rules', () => {
 
             // Act
             const validateForm = new FormValidation(form);
-            validateForm.isValid();
 
             // Assert
-            expect(console.error).toHaveBeenCalledWith('f-validate: specify data-val-custom along with data-val-custom-error attribute');
-            console.error.mockClear();
+            expect(() => {
+                validateForm.isValid();
+            }).toThrowError('f-validate: specify data-val-custom along with data-val-custom-error attribute');
 
         });
 

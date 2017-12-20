@@ -56,7 +56,7 @@ const testDefinitions = {
             const hasCustom = field.hasAttribute('data-val-custom'),
                 hasCustomError = field.hasAttribute('data-val-custom-error');
             if (hasCustomError && !hasCustom) {
-                console.error('f-validate: specify data-val-custom along with data-val-custom-error attribute');
+                throw new Error('f-validate: specify data-val-custom along with data-val-custom-error attribute');
             }
             return hasCustom;
         },
