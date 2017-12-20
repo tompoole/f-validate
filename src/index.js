@@ -31,7 +31,8 @@ export default class FormValidation {
     constructor (nameOrNode, options = {}) {
         this.options = Object.assign({}, defaultOptions, options);
         this.form = getForm(nameOrNode);
-        this.fields = this.form.querySelectorAll(FIELD_VALUES);
+        this.form.addEventListener('submit', this.isValid.bind(this));
+        this.fields = this.getFields();
         this.customHandlers = {};
     }
 
@@ -45,11 +46,17 @@ export default class FormValidation {
         element.classList.add(this.options.errorClass);
     }
 
-    isValid () {
+    isValid (event) {
 
         let formValid = true;
 
         this.fields.forEach(field => {
+
+            // This needs to be set outside of the forEach loop, as otherwise only the final rule will apply the state
+            let fieldValid = true;
+
+            // This prevents us from applying state classes to fields without rules
+            let fieldHasValidation = false;
 
             VALIDATION_KEYS.forEach(key => {
                 const definition = testDefinitions[key];
@@ -59,19 +66,30 @@ export default class FormValidation {
                 }
 
                 if (definition.condition(field)) {
-                    if (definition.test(field)) {
-                        this.setSuccess(field);
-                    } else {
-                        formValid = false;
-                        this.setError(field);
+                    fieldHasValidation = true;
+                    if (!definition.test(field)) {
+                        fieldValid = false;
                     }
                 }
+
             });
+
+            if (fieldHasValidation) {
+                if (fieldValid) {
+                    this.setSuccess(field);
+                } else {
+                    formValid = false;
+                    this.setError(field);
+                }
+            }
 
         });
 
         if (!formValid) {
             this.setError(this.form);
+            if (event) {
+                event.preventDefault();
+            }
         } else {
             this.setSuccess(this.form);
         }
@@ -88,6 +106,14 @@ export default class FormValidation {
             throw new Error('f-validate: please provide a custom method');
         }
         this.customHandlers[name] = handler;
+    }
+
+    getFields () {
+        return Array.from(this.form.querySelectorAll(FIELD_VALUES)).filter(f =>
+            !(f.hasAttribute('type') && f.getAttribute('type') === 'hidden') &&
+            !f.hasAttribute('disabled') &&
+            !f.hasAttribute('data-novalidate')
+        );
     }
 
 }

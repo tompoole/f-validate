@@ -224,6 +224,51 @@ describe('validation rules', () => {
 
         describe('input', () => {
 
+            it('should not validate a hidden field', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input required type="hidden" /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+            it('should not validate a disabled field', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input required disabled /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
+            it('should not validate a field with attribute data-novalidate', () => {
+
+                // Arrange
+                document.body.innerHTML = '<form><input required data-novalidate /></form>';
+                const form = document.querySelector('form');
+
+                // Act
+                const validateForm = new FormValidation(form);
+                const isFormValid = validateForm.isValid();
+
+                // Assert
+                expect(isFormValid).toBe(true);
+
+            });
+
             it('should return invalid for a required input with no value', () => {
 
                 // Arrange
@@ -1023,6 +1068,72 @@ describe('validation rules', () => {
 
     });
 
+    describe('multiple rules', () => {
+
+        it('should retain error class, when a field has other rules that run afterwards which are valid', () => {
+
+            // Arrange
+            document.body.innerHTML = `<form>
+                                        <input maxlength="6" pattern="[a-zA-Z]+" value="testFail" />
+                                    </form>`;
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+            validateForm.isValid();
+
+            // Assert
+            const html = document.body.innerHTML;
+            expect(html).toMatchSnapshot();
+
+        });
+
+    });
+
+});
+
+describe('on submit', () => {
+
+    it('should validate invalid form on submit', () => {
+
+        // Arrange
+        document.body.innerHTML = `<form>
+                                        <input required />
+                                        <button type="submit">submit</button>
+                                    </form>`;
+        const form = document.querySelector('form');
+        const button = form.querySelector('button');
+
+        // Act
+        const validateForm = new FormValidation(form);
+        button.click();
+
+        // Assert
+        const html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+    });
+
+    it('should validate valid form on submit', () => {
+
+        // Arrange
+        document.body.innerHTML = `<form> 
+                                        <input required value="test" />
+                                        <button type="submit">submit</button>
+                                    </form>`;
+        const form = document.querySelector('form');
+        const button = form.querySelector('button');
+
+        // Act
+        const validateForm = new FormValidation(form);
+        button.click();
+
+        // Assert
+        const html = document.body.innerHTML;
+        expect(html).toMatchSnapshot();
+
+    });
+
 });
 
 describe('addCustomValidation()', () => {
@@ -1059,7 +1170,6 @@ describe('addCustomValidation()', () => {
 
     });
 });
-
 
 describe('error states', () => {
 

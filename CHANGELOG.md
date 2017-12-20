@@ -3,6 +3,14 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+v0.3.0
+------------------------------
+*December 19, 2017*
+
+- Removed inputs with certain attributes from being validated
+- Prevented the last rule on a field from overwriting previous state
+- Binding isValid method to submit
+
 v0.2.0
 ------------------------------
 *December 19, 2017*
