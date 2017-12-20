@@ -31,7 +31,7 @@ export default class FormValidation {
     constructor (nameOrNode, options = {}) {
         this.options = Object.assign({}, defaultOptions, options);
         this.form = getForm(nameOrNode);
-        this.form.addEventListener('submit', this.isValid.bind(this), false);
+        this.form.addEventListener('submit', this.isValid.bind(this));
         this.fields = this.getFields();
         this.customHandlers = {};
     }
@@ -47,7 +47,7 @@ export default class FormValidation {
     }
 
     isValid (event) {
-        
+
         let formValid = true;
 
         this.fields.forEach(field => {
