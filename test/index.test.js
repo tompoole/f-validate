@@ -1,3 +1,4 @@
+import TestUtils from 'js-test-buddy';
 import FormValidation, { defaultOptions } from '../src';
 
 describe('module', () => {
@@ -23,7 +24,7 @@ describe('initialising', () => {
     it('validation module should be defined', () => {
 
         // Arrange
-        document.body.innerHTML = '<form></form>';
+        TestUtils.setBodyHtml('<form></form>');
         const form = document.querySelector('form');
 
         // Act
@@ -37,7 +38,7 @@ describe('initialising', () => {
     it('validation module should throw an exception when passing a non form dom node', () => {
 
         // Arrange
-        document.body.innerHTML = '<p></p>';
+        TestUtils.setBodyHtml('<p></p>');
         const p = document.querySelector('p');
 
         // Act & Assert
@@ -50,7 +51,7 @@ describe('initialising', () => {
     it('validation module should return object when passing a form dom node', () => {
 
         // Arrange
-        document.body.innerHTML = '<form></form>';
+        TestUtils.setBodyHtml('<form></form>');
         const form = document.querySelector('form');
 
         // Act
@@ -64,7 +65,7 @@ describe('initialising', () => {
     it('validation module should return object when passing a string', () => {
 
         // Arrange
-        document.body.innerHTML = '<form name="formName"></form>';
+        TestUtils.setBodyHtml('<form name="formName"></form>');
 
         // Act
         const validateForm = new FormValidation('formName');
@@ -77,7 +78,7 @@ describe('initialising', () => {
     it('validation module should register a form field within a form', () => {
 
         // Arrange
-        document.body.innerHTML = '<form name="formName"><input /></form>';
+        TestUtils.setBodyHtml('<form name="formName"><input /></form>');
 
         // Act
         const validateForm = new FormValidation('formName');
@@ -90,7 +91,7 @@ describe('initialising', () => {
     it('validation module should register multiple form fields within a form', () => {
 
         // Arrange
-        document.body.innerHTML = '<form name="formName"><input /><input /></form>';
+        TestUtils.setBodyHtml('<form name="formName"><input /><input /></form>');
 
         // Act
         const validateForm = new FormValidation('formName');
@@ -103,10 +104,10 @@ describe('initialising', () => {
     it('validation module should only register form fields within the form specified', () => {
 
         // Arrange
-        document.body.innerHTML = `<form name="formName">
+        TestUtils.setBodyHtml(`<form name="formName">
                                         <input value="x" />
                                     </form>
-                                    <input value="💩" />`;
+                                    <input value="💩" />`);
 
         // Act
         const validateForm = new FormValidation('formName');
@@ -125,7 +126,7 @@ describe('options', () => {
     it('options default value is of type object', () => {
 
         // Arrange
-        document.body.innerHTML = '<form></form>';
+        TestUtils.setBodyHtml('<form></form>');
         const form = document.querySelector('form');
 
         // Act
@@ -139,7 +140,7 @@ describe('options', () => {
     it('passed options is assigned to validation module options', () => {
 
         // Arrange
-        document.body.innerHTML = '<form></form>';
+        TestUtils.setBodyHtml('<form></form>');
         const form = document.querySelector('form');
         const focus = true;
         const options = { focus };
@@ -155,7 +156,7 @@ describe('options', () => {
     it('passed options should be assigned to default options', () => {
 
         // Arrange
-        document.body.innerHTML = '<form></form>';
+        TestUtils.setBodyHtml('<form></form>');
         const form = document.querySelector('form');
         const focus = true;
         const options = { focus };
@@ -174,7 +175,7 @@ describe('options', () => {
     it('should not fail if null is passed as option argument', () => {
 
         // Arrange
-        document.body.innerHTML = '<form></form>';
+        TestUtils.setBodyHtml('<form></form>');
         const form = document.querySelector('form');
         const options = null;
 
@@ -189,7 +190,7 @@ describe('options', () => {
     it('should not fail if undefined is passed as option argument', () => {
 
         // Arrange
-        document.body.innerHTML = '<form></form>';
+        TestUtils.setBodyHtml('<form></form>');
         const form = document.querySelector('form');
         const options = undefined;
 
@@ -208,7 +209,7 @@ describe('validation rules', () => {
     it('an empty form should return valid', () => {
 
         // Arrange
-        document.body.innerHTML = '<form></form>';
+        TestUtils.setBodyHtml('<form></form>');
         const form = document.querySelector('form');
 
         // Act
@@ -227,7 +228,7 @@ describe('validation rules', () => {
             it('should not validate a hidden field', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input required type="hidden" /></form>';
+                TestUtils.setBodyHtml('<form><input required type="hidden" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -242,7 +243,7 @@ describe('validation rules', () => {
             it('should not validate a disabled field', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input required disabled /></form>';
+                TestUtils.setBodyHtml('<form><input required disabled /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -257,7 +258,7 @@ describe('validation rules', () => {
             it('should not validate a field with attribute data-novalidate', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input required data-novalidate /></form>';
+                TestUtils.setBodyHtml('<form><input required data-novalidate /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -272,7 +273,7 @@ describe('validation rules', () => {
             it('should return invalid for a required input with no value', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input required /></form>';
+                TestUtils.setBodyHtml('<form><input required /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -287,7 +288,7 @@ describe('validation rules', () => {
             it('should return invalid for a required input with no value (data-attribute)', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input data-val-required /></form>';
+                TestUtils.setBodyHtml('<form><input data-val-required /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -302,7 +303,7 @@ describe('validation rules', () => {
             it('should validate a required input with a value', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input value="x" data-val-required /></form>';
+                TestUtils.setBodyHtml('<form><input value="x" data-val-required /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -321,12 +322,12 @@ describe('validation rules', () => {
             it('should return invalid for a required select with no value', () => {
 
                 // Arrange
-                document.body.innerHTML = `<form>
+                TestUtils.setBodyHtml(`<form>
                                                 <select required>
                                                     <option value="">Please select an option</option>
                                                     <option value="x">X</option>
                                                 </select>
-                                            </form>`;
+                                            </form>`);
                 const form = document.querySelector('form');
 
                 // Act
@@ -341,12 +342,12 @@ describe('validation rules', () => {
             it('should return invalid for a required select with no value', () => {
 
                 // Arrange
-                document.body.innerHTML = `<form>
+                TestUtils.setBodyHtml(`<form>
                                                 <select required>
                                                     <option value="">Please select an option</option>
                                                     <option value="x" selected>X</option>
                                                 </select>
-                                            </form>`;
+                                            </form>`);
                 const form = document.querySelector('form');
 
                 // Act
@@ -361,12 +362,12 @@ describe('validation rules', () => {
             it('should return invalid for a required select with no value (data-attribute)', () => {
 
                 // Arrange
-                document.body.innerHTML = `<form>
+                TestUtils.setBodyHtml(`<form>
                                                 <select data-val-required>
                                                     <option value="">Please select an option</option>
                                                     <option value="x" selected>X</option>
                                                 </select>
-                                            </form>`;
+                                            </form>`);
                 const form = document.querySelector('form');
 
                 // Act
@@ -385,9 +386,9 @@ describe('validation rules', () => {
             it('should return invalid for a required textarea with no value', () => {
 
                 // Arrange
-                document.body.innerHTML = `<form>
+                TestUtils.setBodyHtml(`<form>
                                                 <textarea required></textarea>
-                                            </form>`;
+                                            </form>`);
                 const form = document.querySelector('form');
 
                 // Act
@@ -403,9 +404,9 @@ describe('validation rules', () => {
             it('should return invalid for a required textarea with no value (data-attribute)', () => {
 
                 // Arrange
-                document.body.innerHTML = `<form>
+                TestUtils.setBodyHtml(`<form>
                                                 <textarea data-val-required></textarea>
-                                            </form>`;
+                                            </form>`);
                 const form = document.querySelector('form');
 
                 // Act
@@ -420,9 +421,9 @@ describe('validation rules', () => {
             it('should validate a required textarea with a value', () => {
 
                 // Arrange
-                document.body.innerHTML = `<form>
+                TestUtils.setBodyHtml(`<form>
                                                 <textarea data-val-required>x</textarea>
-                                            </form>`;
+                                            </form>`);
                 const form = document.querySelector('form');
 
                 // Act
@@ -441,7 +442,7 @@ describe('validation rules', () => {
             it('should return invalid for a required radio button which has not been checked', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input name="test" type="radio" required /><input name="test" type="radio" /></form>';
+                TestUtils.setBodyHtml('<form><input name="test" type="radio" required /><input name="test" type="radio" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -456,7 +457,7 @@ describe('validation rules', () => {
             it('should return invalid for a required radio button which has not been checked (data-attribute)', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input name="test" type="radio" data-val-required /><input name="test" type="radio" /></form>';
+                TestUtils.setBodyHtml('<form><input name="test" type="radio" data-val-required /><input name="test" type="radio" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -471,7 +472,7 @@ describe('validation rules', () => {
             it('should validate a required radio button which has been checked', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input name="test" type="radio" required checked /><input name="test" type="radio" /></form>';
+                TestUtils.setBodyHtml('<form><input name="test" type="radio" required checked /><input name="test" type="radio" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -486,7 +487,7 @@ describe('validation rules', () => {
             it('should validate a radio button group marked as required which another button in the group has been checked', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input name="test" type="radio" required /><input name="test" type="radio" checked /></form>';
+                TestUtils.setBodyHtml('<form><input name="test" type="radio" required /><input name="test" type="radio" checked /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -505,7 +506,7 @@ describe('validation rules', () => {
             it('should return invalid for a required checkbox which has not been checked', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input name="test" type="checkbox" required /></form>';
+                TestUtils.setBodyHtml('<form><input name="test" type="checkbox" required /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -520,7 +521,7 @@ describe('validation rules', () => {
             it('should return invalid for a required checkbox which has not been checked (data-attribute)', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input name="test" type="checkbox" data-val-required /></form>';
+                TestUtils.setBodyHtml('<form><input name="test" type="checkbox" data-val-required /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -535,7 +536,7 @@ describe('validation rules', () => {
             it('should validate a required checkbox which has been checked', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input name="test" type="checkbox" required checked /></form>';
+                TestUtils.setBodyHtml('<form><input name="test" type="checkbox" required checked /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -550,7 +551,7 @@ describe('validation rules', () => {
             it('should validate a required checkbox which has been checked when there are multiple checkboxes in the form', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input name="test" type="checkbox" /><input name="test" type="checkbox" required checked /></form>';
+                TestUtils.setBodyHtml('<form><input name="test" type="checkbox" /><input name="test" type="checkbox" required checked /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -573,7 +574,7 @@ describe('validation rules', () => {
             it('should return invalid for a maxlength input with value more than the specified value', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input maxlength="6" value="testData" /></form>';
+                TestUtils.setBodyHtml('<form><input maxlength="6" value="testData" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -588,7 +589,7 @@ describe('validation rules', () => {
             it('should return invalid for a maxlength input with no value (data-attribute)', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input data-val-maxlength="6" value="testData" /></form>';
+                TestUtils.setBodyHtml('<form><input data-val-maxlength="6" value="testData" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -603,7 +604,7 @@ describe('validation rules', () => {
             it('should return valid for input where the values length is less than the specified maxlength', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input maxlength="6" value="test" /></form>';
+                TestUtils.setBodyHtml('<form><input maxlength="6" value="test" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -622,7 +623,7 @@ describe('validation rules', () => {
             it('should return invalid for a maxlength textarea with value more than the specified value', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><textarea maxlength="6">testData</textarea></form>';
+                TestUtils.setBodyHtml('<form><textarea maxlength="6">testData</textarea></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -637,7 +638,7 @@ describe('validation rules', () => {
             it('should return invalid for a maxlength textarea with no value (data-attribute)', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><textarea data-val-maxlength="6">testData</textarea></form>';
+                TestUtils.setBodyHtml('<form><textarea data-val-maxlength="6">testData</textarea></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -652,7 +653,7 @@ describe('validation rules', () => {
             it('should return valid for textarea where the values length is less than the specified maxlength', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><textarea maxlength="6">test</textarea></form>';
+                TestUtils.setBodyHtml('<form><textarea maxlength="6">test</textarea></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -675,7 +676,7 @@ describe('validation rules', () => {
             it('should return valid for a minlength input with no value', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input minlength="6" /></form>';
+                TestUtils.setBodyHtml('<form><input minlength="6" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -690,7 +691,7 @@ describe('validation rules', () => {
             it('should return invalid for a minlength input with value less than the specified value', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input minlength="6" value="test" /></form>';
+                TestUtils.setBodyHtml('<form><input minlength="6" value="test" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -705,7 +706,7 @@ describe('validation rules', () => {
             it('should return invalid for a minlength input with value less than the specified value (data-attribute)', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input data-val-minlength="6" value="test" /></form>';
+                TestUtils.setBodyHtml('<form><input data-val-minlength="6" value="test" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -720,7 +721,7 @@ describe('validation rules', () => {
             it('should return valid for minlength input where the values length is more than the specified minlength', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input minlength="6" value="testData" /></form>';
+                TestUtils.setBodyHtml('<form><input minlength="6" value="testData" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -739,7 +740,7 @@ describe('validation rules', () => {
             it('should return valid for a minlength textarea with no value entered', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><textarea minlength="6"></textarea></form>';
+                TestUtils.setBodyHtml('<form><textarea minlength="6"></textarea></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -754,7 +755,7 @@ describe('validation rules', () => {
             it('should return invalid for a minlength textarea with value less than the specified minlength', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><textarea minlength="6">test</textarea></form>';
+                TestUtils.setBodyHtml('<form><textarea minlength="6">test</textarea></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -769,7 +770,7 @@ describe('validation rules', () => {
             it('should return invalid for a minlength textarea with no value (data-attribute)', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><textarea data-val-minlength="6">test</textarea></form>';
+                TestUtils.setBodyHtml('<form><textarea data-val-minlength="6">test</textarea></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -784,7 +785,7 @@ describe('validation rules', () => {
             it('should return valid for textarea where the values length is more than the specified maxlength', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><textarea minlength="6">testData</textarea></form>';
+                TestUtils.setBodyHtml('<form><textarea minlength="6">testData</textarea></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -807,7 +808,7 @@ describe('validation rules', () => {
             it('should return invalid for an input with an empty pattern attribute', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input pattern="" value="test" /></form>';
+                TestUtils.setBodyHtml('<form><input pattern="" value="test" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -822,7 +823,7 @@ describe('validation rules', () => {
             it('should return invalid for an input with an empty pattern attribute (data-attribute)', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input pattern="" value="test" /></form>';
+                TestUtils.setBodyHtml('<form><input pattern="" value="test" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -837,7 +838,7 @@ describe('validation rules', () => {
             it('should return valid when the value of the input matches the pattern specified', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input pattern="[a-z]{1,6}" value="test" /></form>';
+                TestUtils.setBodyHtml('<form><input pattern="[a-z]{1,6}" value="test" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -852,7 +853,7 @@ describe('validation rules', () => {
             it('should return invalid when the value of the input doesn\'t match the pattern specified', () => {
 
                 // Arrange
-                document.body.innerHTML = '<form><input pattern="[a-z]{1,6}" value="testData1" /></form>';
+                TestUtils.setBodyHtml('<form><input pattern="[a-z]{1,6}" value="testData1" /></form>');
                 const form = document.querySelector('form');
 
                 // Act
@@ -873,7 +874,7 @@ describe('validation rules', () => {
         it('should return invalid for a field of type email with invalid email address', () => {
 
             // Arrange
-            document.body.innerHTML = '<form><input type="email" value="invalidEmailFormat" /></form>';
+            TestUtils.setBodyHtml('<form><input type="email" value="invalidEmailFormat" /></form>');
             const form = document.querySelector('form');
 
             // Act
@@ -888,7 +889,7 @@ describe('validation rules', () => {
         it('should return invalid for a field of type email with invalid email address', () => {
 
             // Arrange
-            document.body.innerHTML = '<form><input type="email" value=`invalid@test` /></form>';
+            TestUtils.setBodyHtml('<form><input type="email" value=`invalid@test` /></form>');
             const form = document.querySelector('form');
 
             // Act
@@ -903,7 +904,7 @@ describe('validation rules', () => {
         it('should return invalid for a field of type email with invalid email address', () => {
 
             // Arrange
-            document.body.innerHTML = '<form><input type="email" value="@test.com" /></form>';
+            TestUtils.setBodyHtml('<form><input type="email" value="@test.com" /></form>');
             const form = document.querySelector('form');
 
             // Act
@@ -918,7 +919,7 @@ describe('validation rules', () => {
         it('should return valid for a field of type email with valid email address', () => {
 
             // Arrange
-            document.body.innerHTML = '<form><input type="email" value="valid@test.com" /></form>';
+            TestUtils.setBodyHtml('<form><input type="email" value="valid@test.com" /></form>');
             const form = document.querySelector('form');
 
             // Act
@@ -937,10 +938,10 @@ describe('validation rules', () => {
         it('should return invalid for a field with "equalto" attribute, that does not match value of specified field', () => {
 
             // Arrange
-            document.body.innerHTML = `<form>
+            TestUtils.setBodyHtml(`<form>
                 <input data-val-equalto="matchedField" value="match" />
                 <input name="matchedField" value="doesNotMatch" />
-                </form>`;
+                </form>`);
             const form = document.querySelector('form');
 
             // Act
@@ -955,10 +956,10 @@ describe('validation rules', () => {
         it('should return invalid for a field with "equalto" attribute, that matches value, but field is not specified', () => {
 
             // Arrange
-            document.body.innerHTML = `<form>
+            TestUtils.setBodyHtml(`<form>
                 <input data-val-equalto value="match" />
                 <input name="matchedField" value="match" />
-                </form>`;
+                </form>`);
             const form = document.querySelector('form');
 
             // Act
@@ -973,9 +974,9 @@ describe('validation rules', () => {
         it('should return invalid for a field with "equalto" attribute, that does matches value, but field does not exist', () => {
 
             // Arrange
-            document.body.innerHTML = `<form>
+            TestUtils.setBodyHtml(`<form>
                 <input data-val-equalto="matchedField" value="match" />
-                </form>`;
+                </form>`);
             const form = document.querySelector('form');
 
             // Act
@@ -990,10 +991,10 @@ describe('validation rules', () => {
         it('should return valid for a field with "equalto" attribute, that does match value of specified field', () => {
 
             // Arrange
-            document.body.innerHTML = `<form>
+            TestUtils.setBodyHtml(`<form>
                 <input data-val-equalto="matchedField" value="match" />
                 <input name="matchedField" value="match" />
-                </form>`;
+                </form>`);
             const form = document.querySelector('form');
 
             // Act
@@ -1013,9 +1014,9 @@ describe('validation rules', () => {
 
             // Arrange
             const customMethod = () => true;
-            document.body.innerHTML = `<form>
+            TestUtils.setBodyHtml(`<form>
                 <input data-val-custom="customRule" value="match" />
-                </form>`;
+                </form>`);
             const form = document.querySelector('form');
 
             // Act
@@ -1032,9 +1033,9 @@ describe('validation rules', () => {
 
             // Arrange
             const customMethod = () => false;
-            document.body.innerHTML = `<form>
+            TestUtils.setBodyHtml(`<form>
                 <input data-val-custom="customRule" value="match" />
-                </form>`;
+                </form>`);
             const form = document.querySelector('form');
 
             // Act
@@ -1050,9 +1051,9 @@ describe('validation rules', () => {
         it('should log error when "data-val-custom" attribute has not been specified', () => {
 
             // Arrange
-            document.body.innerHTML = `<form>
+            TestUtils.setBodyHtml(`<form>
                 <input data-val-custom-error="customer error message" value="match" />
-            </form>`;
+            </form>`);
             const form = document.querySelector('form');
 
             // Act
@@ -1072,9 +1073,9 @@ describe('validation rules', () => {
         it('should retain error class, when a field has other rules that run afterwards which are valid', () => {
 
             // Arrange
-            document.body.innerHTML = `<form>
+            TestUtils.setBodyHtml(`<form>
                                         <input maxlength="6" pattern="[a-zA-Z]+" value="testFail" />
-                                    </form>`;
+                                    </form>`);
             const form = document.querySelector('form');
 
             // Act
@@ -1082,7 +1083,7 @@ describe('validation rules', () => {
             validateForm.isValid();
 
             // Assert
-            const html = document.body.innerHTML;
+            const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
 
         });
@@ -1096,19 +1097,19 @@ describe('on submit', () => {
     it('should validate invalid form on submit', () => {
 
         // Arrange
-        document.body.innerHTML = `<form>
+        TestUtils.setBodyHtml(`<form>
                                         <input required />
                                         <button type="submit">submit</button>
-                                    </form>`;
+                                    </form>`);
         const form = document.querySelector('form');
         const button = form.querySelector('button');
 
         // Act
         new FormValidation(form); // eslint-disable-line no-new
-        button.click();
+        TestUtils.click(button);
 
         // Assert
-        const html = document.body.innerHTML;
+        const html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
 
     });
@@ -1116,19 +1117,19 @@ describe('on submit', () => {
     it('should validate valid form on submit', () => {
 
         // Arrange
-        document.body.innerHTML = `<form>
+        TestUtils.setBodyHtml(`<form>
                                         <input required value="test" />
                                         <button type="submit">submit</button>
-                                    </form>`;
+                                    </form>`);
         const form = document.querySelector('form');
         const button = form.querySelector('button');
 
         // Act
         new FormValidation(form); // eslint-disable-line no-new
-        button.click();
+        TestUtils.click(button);
 
         // Assert
-        const html = document.body.innerHTML;
+        const html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
 
     });
@@ -1140,7 +1141,7 @@ describe('addCustomValidation()', () => {
     it('should throw error when addCustomValidation is called, but name argument is not supplied', () => {
 
         // Arrange
-        document.body.innerHTML = '<form></form>';
+        TestUtils.setBodyHtml('<form></form>');
         const form = document.querySelector('form');
 
         // Act
@@ -1156,7 +1157,7 @@ describe('addCustomValidation()', () => {
     it('should throw error when addCustomValidation is called, but custom method is not supplied', () => {
 
         // Arrange
-        document.body.innerHTML = '<form></form>';
+        TestUtils.setBodyHtml('<form></form>');
         const form = document.querySelector('form');
 
         // Act
@@ -1175,9 +1176,9 @@ describe('error states', () => {
     it('should apply error class to invalid field', () => {
 
         // Arrange
-        document.body.innerHTML = `<form>
+        TestUtils.setBodyHtml(`<form>
                                         <input required />
-                                    </form>`;
+                                    </form>`);
         const form = document.querySelector('form');
 
         // Act
@@ -1185,7 +1186,7 @@ describe('error states', () => {
         validateForm.isValid();
 
         // Assert
-        const html = document.body.innerHTML;
+        const html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
 
     });
@@ -1193,9 +1194,9 @@ describe('error states', () => {
     it('should not apply multiple error classes to invalid field', () => {
 
         // Arrange
-        document.body.innerHTML = `<form>
+        TestUtils.setBodyHtml(`<form>
                                         <input required />
-                                    </form>`;
+                                    </form>`);
         const form = document.querySelector('form');
 
         // Act
@@ -1204,7 +1205,7 @@ describe('error states', () => {
         validateForm.isValid();
 
         // Assert
-        const html = document.body.innerHTML;
+        const html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
 
     });
@@ -1212,9 +1213,9 @@ describe('error states', () => {
     it('should not apply any class to field with no validation rule', () => {
 
         // Arrange
-        document.body.innerHTML = `<form>
+        TestUtils.setBodyHtml(`<form>
                                         <input />
-                                    </form>`;
+                                    </form>`);
         const form = document.querySelector('form');
 
         // Act
@@ -1222,7 +1223,7 @@ describe('error states', () => {
         validateForm.isValid();
 
         // Assert
-        const html = document.body.innerHTML;
+        const html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
 
     });
@@ -1230,9 +1231,9 @@ describe('error states', () => {
     it('should apply success class to valid field', () => {
 
         // Arrange
-        document.body.innerHTML = `<form>
+        TestUtils.setBodyHtml(`<form>
                                         <input required value="x" />
-                                    </form>`;
+                                    </form>`);
         const form = document.querySelector('form');
 
         // Act
@@ -1240,7 +1241,7 @@ describe('error states', () => {
         validateForm.isValid();
 
         // Assert
-        const html = document.body.innerHTML;
+        const html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
 
     });
@@ -1248,11 +1249,11 @@ describe('error states', () => {
     it('should apply correct classes to multiple types of field', () => {
 
         // Arrange
-        document.body.innerHTML = `<form>
+        TestUtils.setBodyHtml(`<form>
                                         <input required value="x" />
                                         <input required value="" />
                                         <input />
-                                    </form>`;
+                                    </form>`);
         const form = document.querySelector('form');
 
         // Act
@@ -1260,7 +1261,7 @@ describe('error states', () => {
         validateForm.isValid();
 
         // Assert
-        const html = document.body.innerHTML;
+        const html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
 
     });
@@ -1268,9 +1269,9 @@ describe('error states', () => {
     it('should apply success after error state to field', () => {
 
         // Arrange
-        document.body.innerHTML = `<form>
+        TestUtils.setBodyHtml(`<form>
                                         <input required />
-                                    </form>`;
+                                    </form>`);
         const form = document.querySelector('form');
         const input = form.querySelector('input');
 
@@ -1278,14 +1279,14 @@ describe('error states', () => {
         const validateForm = new FormValidation(form);
         validateForm.isValid();
 
-        let html = document.body.innerHTML;
+        let html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
 
         // Make input valid
         input.value = 'x';
 
         validateForm.isValid();
-        html = document.body.innerHTML;
+        html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
 
     });
@@ -1293,9 +1294,9 @@ describe('error states', () => {
     it('should apply error after success state to field', () => {
 
         // Arrange
-        document.body.innerHTML = `<form>
+        TestUtils.setBodyHtml(`<form>
                                         <input required value="x" />
-                                    </form>`;
+                                    </form>`);
         const form = document.querySelector('form');
         const input = form.querySelector('input');
 
@@ -1303,14 +1304,14 @@ describe('error states', () => {
         const validateForm = new FormValidation(form);
         validateForm.isValid();
 
-        let html = document.body.innerHTML;
+        let html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
 
         // Make input invalid
         input.value = '';
 
         validateForm.isValid();
-        html = document.body.innerHTML;
+        html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
 
     });

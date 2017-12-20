@@ -4,6 +4,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+v0.5.0
+------------------------------
+*December 20, 2017*
+
+### Added
+- Added JS unit test utilitiy module.
+
+### Changed
+- Using JS unit test utilitiy module in unit test files.
+
+
 v0.4.0
 ------------------------------
 *December 20, 2017*
