@@ -1322,7 +1322,7 @@ describe('callbacks', () => {
     
     it('should call success callback on success', () => {
         // Arrange        
-        TestUtils.setBodyHtml('<form></form>');
+        TestUtils.setBodyHtml(`<form></form>`);
         const form = document.querySelector('form');
         const onSuccess = jest.fn();
         const options = { onSuccess };
@@ -1350,6 +1350,38 @@ describe('callbacks', () => {
 
         //Assert
         expect(onSuccess.mock.calls.length).toBe(0);
+    });
+
+    it('should call error callback on error', () => {
+        // Arrange        
+        TestUtils.setBodyHtml(`<form>
+                                        <input required />                        
+                                    </form>`);
+        const form = document.querySelector('form');
+        const onError = jest.fn();
+        const options = { onError };
+
+        // Act
+        const validateForm = new FormValidation(form, options);
+        validateForm.isValid();
+
+        //Assert
+        expect(onError.mock.calls.length).toBe(1);
+    });
+
+    it('should not call error callback on success', () => {
+        // Arrange        
+        TestUtils.setBodyHtml(`<form></form>`);
+        const form = document.querySelector('form');
+        const onError = jest.fn();
+        const options = { onError };
+
+        // Act
+        const validateForm = new FormValidation(form, options);
+        validateForm.isValid();
+
+        //Assert
+        expect(onError.mock.calls.length).toBe(0);
     });
 
 });

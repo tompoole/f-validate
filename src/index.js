@@ -87,6 +87,11 @@ export default class FormValidation {
 
         if (!formValid) {
             this.setError(this.form);
+
+            if(typeof this.options.onError === 'function') {
+                this.options.onError();
+            }
+
             if (event) {
                 event.preventDefault();
             }
