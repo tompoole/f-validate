@@ -33,7 +33,7 @@ export default class FormValidation {
         this.form = getForm(nameOrNode);
         this.form.addEventListener('submit', this.isValid.bind(this));
         this.fields = this.getFields();
-        this.customHandlers = {};        
+        this.customHandlers = {};
     }
 
     setSuccess (element) {
