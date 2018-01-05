@@ -1317,3 +1317,39 @@ describe('error states', () => {
     });
 
 });
+
+describe('callbacks', () => {
+    
+    it('should call success callback on success', () => {
+        // Arrange        
+        TestUtils.setBodyHtml('<form></form>');
+        const form = document.querySelector('form');
+        const onSuccess = jest.fn();
+        const options = { onSuccess };
+
+        // Act
+        const validateForm = new FormValidation(form, options);
+        validateForm.isValid();
+
+        //Assert
+        expect(onSuccess.mock.calls.length).toBe(1);
+    });
+
+    it('should not call success callback on error', () => {
+        // Arrange        
+        TestUtils.setBodyHtml(`<form>
+                                        <input required />
+                                    </form>`);
+        const form = document.querySelector('form');
+        const onSuccess = jest.fn();
+        const options = { onSuccess };
+
+        // Act
+        const validateForm = new FormValidation(form, options);
+        validateForm.isValid();
+
+        //Assert
+        expect(onSuccess.mock.calls.length).toBe(0);
+    });
+
+});
