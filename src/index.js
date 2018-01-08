@@ -34,6 +34,28 @@ export default class FormValidation {
         this.form.addEventListener('submit', this.isValid.bind(this));
         this.fields = this.getFields();
         this.customHandlers = {};
+        this.onSuccessCallBacks = [];
+        if (this.options.onSuccess) {
+            this.onSuccess(this.options.onSuccess);
+        }
+    }
+
+    onSuccess (callBack) {
+
+        if (typeof callBack === 'function') {
+            this.onSuccessCallBacks.push(callBack);
+        } else {
+            throw new Error('f-validate: onSuccess must be a function');
+        }
+
+    }
+
+    runSuccessCallbacks () {
+
+        this.onSuccessCallBacks.forEach(callback => {
+            callback();
+        });
+
     }
 
     setSuccess (element) {
@@ -86,21 +108,22 @@ export default class FormValidation {
         });
 
         if (!formValid) {
+
             this.setError(this.form);
 
-            if(typeof this.options.onError === 'function') {
+            if (typeof this.options.onError === 'function') {
                 this.options.onError();
             }
 
             if (event) {
                 event.preventDefault();
             }
-        } else {
-            this.setSuccess(this.form);
 
-            if(typeof this.options.onSuccess === 'function') {
-                this.options.onSuccess();
-            }
+        } else {
+
+            this.setSuccess(this.form);
+            this.runSuccessCallbacks();
+
         }
 
         return formValid;
