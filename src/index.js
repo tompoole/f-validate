@@ -35,8 +35,12 @@ export default class FormValidation {
         this.fields = this.getFields();
         this.customHandlers = {};
         this.onSuccessCallBacks = [];
+        this.onErrorCallBacks = [];
         if (this.options.onSuccess) {
             this.onSuccess(this.options.onSuccess);
+        }
+        if (this.options.onError) {
+            this.onError(this.options.onError);
         }
     }
 
@@ -50,9 +54,27 @@ export default class FormValidation {
 
     }
 
+    onError (callBack) {
+
+        if (typeof callBack === 'function') {
+            this.onErrorCallBacks.push(callBack);
+        } else {
+            throw new Error('f-validate: onError must be a function');
+        }
+
+    }
+
     runSuccessCallbacks () {
 
         this.onSuccessCallBacks.forEach(callback => {
+            callback();
+        });
+
+    }
+
+    runErrorCallbacks () {
+
+        this.onErrorCallBacks.forEach(callback => {
             callback();
         });
 
@@ -110,10 +132,7 @@ export default class FormValidation {
         if (!formValid) {
 
             this.setError(this.form);
-
-            if (typeof this.options.onError === 'function') {
-                this.options.onError();
-            }
+            this.runErrorCallbacks();
 
             if (event) {
                 event.preventDefault();

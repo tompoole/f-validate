@@ -1416,7 +1416,8 @@ describe('callbacks', () => {
 
     });
 
-    describe('multiple callbacks', () => {
+  
+    describe('success callbacks', () => {
 
         it('should have no success callbacks when initialised', () => {
 
@@ -1538,7 +1539,7 @@ describe('callbacks', () => {
 
         });
 
-        it('should throw exception when ull type success callbacks are added', () => {
+        it('should throw exception when null type success callbacks are added', () => {
 
             // Arrange
             TestUtils.setBodyHtml('<form></form>');
@@ -1553,6 +1554,149 @@ describe('callbacks', () => {
 
         });
 
+    });
+
+    describe('error callbacks', () => {
+
+        it('should have no error callbacks when initialised', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+
+            // Assert
+            expect(validateForm.onErrorCallBacks.length).toBe(0);
+
+        });
+
+        it('should allow error callbacks to be added', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const onError = jest.fn();
+
+            // Act
+            const validateForm = new FormValidation(form);
+            validateForm.onError(onError);
+
+            // Assert
+            expect(validateForm.onErrorCallBacks.length).toBe(1);
+
+        });
+
+        it('should throw exception when string type error callbacks options are specified', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const onError = 'STRING';
+            const options = { onError };
+
+            // Act & Assert
+            expect(() => {
+                new FormValidation(form, options); // eslint-disable-line no-new
+            }).toThrow();
+
+        });
+
+        it('should throw exception when array type error callbacks options are specified', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const onError = [];
+            const options = { onError };
+
+            // Act & Assert
+            expect(() => {
+                new FormValidation(form, options); // eslint-disable-line no-new
+            }).toThrow();
+
+        });
+
+        it('should throw exception when object type error callbacks options are specified', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const onError = {};
+            const options = { onError };
+
+            // Act & Assert
+            expect(() => {
+                new FormValidation(form, options); // eslint-disable-line no-new
+            }).toThrow();
+
+        });
+
+        it('should throw exception when string type error callbacks are added', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const onError = 'STRING';
+            const formValidation = new FormValidation(form);
+
+            // Act & Assert
+            expect(() => {
+                formValidation.onSuccess(onError); // eslint-disable-line no-new
+            }).toThrow();
+
+        });
+
+        it('should throw exception when array type error callbacks are added', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const onError = [];
+            const formValidation = new FormValidation(form);
+
+            // Act & Assert
+            expect(() => {
+                formValidation.onSuccess(onError); // eslint-disable-line no-new
+            }).toThrow();
+
+        });
+
+        it('should throw exception when object type error callbacks are added', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const onError = {};
+            const formValidation = new FormValidation(form);
+
+            // Act & Assert
+            expect(() => {
+                formValidation.onSuccess(onError); // eslint-disable-line no-new
+            }).toThrow();
+
+        });
+
+        it('should throw exception when null type error callbacks are added', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const onError = {};
+            const formValidation = new FormValidation(form);
+
+            // Act & Assert
+            expect(() => {
+                formValidation.onSuccess(onError); // eslint-disable-line no-new
+            }).toThrow();
+
+        });
+
+    });
+
+    describe('multiple callbacks', () => {
+    
         it('should call all multiple success callbacks on success', () => {
 
             // Arrange
@@ -1573,6 +1717,31 @@ describe('callbacks', () => {
             expect(onSuccess.mock.calls.length).toBe(1);
             expect(onSuccessAdded1.mock.calls.length).toBe(1);
             expect(onSuccessAdded2.mock.calls.length).toBe(1);
+
+        });
+
+        it('should call all multiple error callbacks on error', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml(`<form>
+                                            <input required />                        
+                                        </form>`);
+            const form = document.querySelector('form');
+            const onError = jest.fn();
+            const onErrorAdded1 = jest.fn();
+            const onErrorAdded2 = jest.fn();
+            const options = { onError };
+
+            // Act
+            const validateForm = new FormValidation(form, options);
+            validateForm.onError(onErrorAdded1);
+            validateForm.onError(onErrorAdded2);
+            validateForm.isValid();
+
+            // Assert
+            //expect(onError.mock.calls.length).toBe(1);
+            expect(onErrorAdded1.mock.calls.length).toBe(1);
+            expect(onErrorAdded2.mock.calls.length).toBe(1);
 
         });
 
