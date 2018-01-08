@@ -1416,7 +1416,6 @@ describe('callbacks', () => {
 
     });
 
-  
     describe('success callbacks', () => {
 
         it('should have no success callbacks when initialised', () => {
@@ -1696,7 +1695,7 @@ describe('callbacks', () => {
     });
 
     describe('multiple callbacks', () => {
-    
+
         it('should call all multiple success callbacks on success', () => {
 
             // Arrange
@@ -1739,7 +1738,7 @@ describe('callbacks', () => {
             validateForm.isValid();
 
             // Assert
-            //expect(onError.mock.calls.length).toBe(1);
+            expect(onError.mock.calls.length).toBe(1);
             expect(onErrorAdded1.mock.calls.length).toBe(1);
             expect(onErrorAdded2.mock.calls.length).toBe(1);
 

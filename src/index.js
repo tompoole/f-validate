@@ -26,6 +26,24 @@ const getForm = descriptor => {
 
 };
 
+const addCallBack = (callBacks, callBack, callBackType) => {
+
+    if (typeof callBack === 'function') {
+        callBacks.push(callBack);
+    } else {
+        throw new Error(`f-validate: ${callBackType} must be a function`);
+    }
+
+};
+
+const runCallbacks = callBacks => {
+
+    callBacks.forEach(callback => {
+        callback();
+    });
+
+};
+
 export default class FormValidation {
 
     constructor (nameOrNode, options = {}) {
@@ -46,37 +64,13 @@ export default class FormValidation {
 
     onSuccess (callBack) {
 
-        if (typeof callBack === 'function') {
-            this.onSuccessCallBacks.push(callBack);
-        } else {
-            throw new Error('f-validate: onSuccess must be a function');
-        }
+        addCallBack(this.onSuccessCallBacks, callBack, 'onSuccess');
 
     }
 
     onError (callBack) {
 
-        if (typeof callBack === 'function') {
-            this.onErrorCallBacks.push(callBack);
-        } else {
-            throw new Error('f-validate: onError must be a function');
-        }
-
-    }
-
-    runSuccessCallbacks () {
-
-        this.onSuccessCallBacks.forEach(callback => {
-            callback();
-        });
-
-    }
-
-    runErrorCallbacks () {
-
-        this.onErrorCallBacks.forEach(callback => {
-            callback();
-        });
+        addCallBack(this.onErrorCallBacks, callBack, 'onError');
 
     }
 
@@ -130,19 +124,14 @@ export default class FormValidation {
         });
 
         if (!formValid) {
-
             this.setError(this.form);
-            this.runErrorCallbacks();
-
+            runCallbacks(this.onErrorCallBacks);
             if (event) {
                 event.preventDefault();
             }
-
         } else {
-
             this.setSuccess(this.form);
-            this.runSuccessCallbacks();
-
+            runCallbacks(this.onSuccessCallBacks);
         }
 
         return formValid;
