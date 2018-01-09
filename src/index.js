@@ -29,7 +29,7 @@ const getForm = descriptor => {
 const addCallBack = (callBacks, callBack, callBackType) => {
 
     if (typeof callBack !== 'function') {
-        throw new Error(`f-validate: ${callBackType} must be a function`);
+        throw new Error(`f-validate: ${callBackType} call back must be a function`);
     }
 
     if (!callBacks[callBackType]) {
