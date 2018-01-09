@@ -26,27 +26,27 @@ const getForm = descriptor => {
 
 };
 
-const addCallBack = (callBacks, callBack, callBackType) => {
+const addCallBack = (callBacks, callBack, callBackEvent) => {
 
     if (typeof callBack !== 'function') {
-        throw new Error(`f-validate: ${callBackType} call back must be a function`);
+        throw new Error(`f-validate: ${callBackEvent} call back must be a function`);
     }
 
-    if (!callBacks[callBackType]) {
-        callBacks[callBackType] = [];
+    if (!callBacks[callBackEvent]) {
+        callBacks[callBackEvent] = [];
     }
 
-    callBacks[callBackType].push(callBack);
+    callBacks[callBackEvent].push(callBack);
 
 };
 
-const runCallbacks = (callBacks, callBackType) => {
+const runCallbacks = (callBacks, callBackEvent) => {
 
-    if (!callBacks[callBackType]) {
+    if (!callBacks[callBackEvent]) {
         return;
     }
 
-    callBacks[callBackType].forEach(callback => {
+    callBacks[callBackEvent].forEach(callback => {
         callback();
     });
 
