@@ -1543,7 +1543,7 @@ describe('callbacks', () => {
             // Arrange
             TestUtils.setBodyHtml('<form></form>');
             const form = document.querySelector('form');
-            const onSuccess = {};
+            const onSuccess = null;
             const formValidation = new FormValidation(form);
 
             // Act & Assert
@@ -1682,7 +1682,7 @@ describe('callbacks', () => {
             // Arrange
             TestUtils.setBodyHtml('<form></form>');
             const form = document.querySelector('form');
-            const onError = {};
+            const onError = null;
             const formValidation = new FormValidation(form);
 
             // Act & Assert
