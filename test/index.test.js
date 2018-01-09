@@ -1428,7 +1428,7 @@ describe('callbacks', () => {
             const validateForm = new FormValidation(form);
 
             // Assert
-            expect(validateForm.onSuccessCallBacks.length).toBe(0);
+            expect(validateForm.callBacks.success).toBeUndefined();
 
         });
 
@@ -1441,10 +1441,10 @@ describe('callbacks', () => {
 
             // Act
             const validateForm = new FormValidation(form);
-            validateForm.onSuccess(onSuccess);
+            validateForm.on('success', onSuccess);
 
             // Assert
-            expect(validateForm.onSuccessCallBacks.length).toBe(1);
+            expect(validateForm.callBacks.success.length).toBe(1);
 
         });
 
@@ -1503,7 +1503,7 @@ describe('callbacks', () => {
 
             // Act & Assert
             expect(() => {
-                formValidation.onSuccess(onSuccess); // eslint-disable-line no-new
+                formValidation.on('success', onSuccess); // eslint-disable-line no-new
             }).toThrow();
 
         });
@@ -1518,7 +1518,7 @@ describe('callbacks', () => {
 
             // Act & Assert
             expect(() => {
-                formValidation.onSuccess(onSuccess); // eslint-disable-line no-new
+                formValidation.on('success', onSuccess); // eslint-disable-line no-new
             }).toThrow();
 
         });
@@ -1533,7 +1533,7 @@ describe('callbacks', () => {
 
             // Act & Assert
             expect(() => {
-                formValidation.onSuccess(onSuccess); // eslint-disable-line no-new
+                formValidation.on('success', onSuccess); // eslint-disable-line no-new
             }).toThrow();
 
         });
@@ -1548,7 +1548,7 @@ describe('callbacks', () => {
 
             // Act & Assert
             expect(() => {
-                formValidation.onSuccess(onSuccess); // eslint-disable-line no-new
+                formValidation.on('success', onSuccess); // eslint-disable-line no-new
             }).toThrow();
 
         });
@@ -1567,7 +1567,7 @@ describe('callbacks', () => {
             const validateForm = new FormValidation(form);
 
             // Assert
-            expect(validateForm.onErrorCallBacks.length).toBe(0);
+            expect(validateForm.callBacks.error).toBeUndefined();
 
         });
 
@@ -1580,10 +1580,10 @@ describe('callbacks', () => {
 
             // Act
             const validateForm = new FormValidation(form);
-            validateForm.onError(onError);
+            validateForm.on('error', onError);
 
             // Assert
-            expect(validateForm.onErrorCallBacks.length).toBe(1);
+            expect(validateForm.callBacks.error.length).toBe(1);
 
         });
 
@@ -1642,7 +1642,7 @@ describe('callbacks', () => {
 
             // Act & Assert
             expect(() => {
-                formValidation.onSuccess(onError); // eslint-disable-line no-new
+                formValidation.on('success', onError); // eslint-disable-line no-new
             }).toThrow();
 
         });
@@ -1657,7 +1657,7 @@ describe('callbacks', () => {
 
             // Act & Assert
             expect(() => {
-                formValidation.onSuccess(onError); // eslint-disable-line no-new
+                formValidation.on('success', onError); // eslint-disable-line no-new
             }).toThrow();
 
         });
@@ -1672,7 +1672,7 @@ describe('callbacks', () => {
 
             // Act & Assert
             expect(() => {
-                formValidation.onSuccess(onError); // eslint-disable-line no-new
+                formValidation.on('success', onError); // eslint-disable-line no-new
             }).toThrow();
 
         });
@@ -1687,7 +1687,7 @@ describe('callbacks', () => {
 
             // Act & Assert
             expect(() => {
-                formValidation.onSuccess(onError); // eslint-disable-line no-new
+                formValidation.on('success', onError); // eslint-disable-line no-new
             }).toThrow();
 
         });
@@ -1708,8 +1708,8 @@ describe('callbacks', () => {
 
             // Act
             const validateForm = new FormValidation(form, options);
-            validateForm.onSuccess(onSuccessAdded1);
-            validateForm.onSuccess(onSuccessAdded2);
+            validateForm.on('success', onSuccessAdded1);
+            validateForm.on('success', onSuccessAdded2);
             validateForm.isValid();
 
             // Assert
@@ -1733,8 +1733,8 @@ describe('callbacks', () => {
 
             // Act
             const validateForm = new FormValidation(form, options);
-            validateForm.onError(onErrorAdded1);
-            validateForm.onError(onErrorAdded2);
+            validateForm.on('error', onErrorAdded1);
+            validateForm.on('error', onErrorAdded2);
             validateForm.isValid();
 
             // Assert

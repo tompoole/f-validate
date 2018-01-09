@@ -28,17 +28,25 @@ const getForm = descriptor => {
 
 const addCallBack = (callBacks, callBack, callBackType) => {
 
-    if (typeof callBack === 'function') {
-        callBacks.push(callBack);
-    } else {
+    if (typeof callBack !== 'function') {
         throw new Error(`f-validate: ${callBackType} must be a function`);
     }
 
+    if (!callBacks[callBackType]) {
+        callBacks[callBackType] = [];
+    }
+
+    callBacks[callBackType].push(callBack);
+
 };
 
-const runCallbacks = callBacks => {
+const runCallbacks = (callBacks, callBackType) => {
 
-    callBacks.forEach(callback => {
+    if (!callBacks[callBackType]) {
+        return;
+    }
+
+    callBacks[callBackType].forEach(callback => {
         callback();
     });
 
@@ -52,26 +60,17 @@ export default class FormValidation {
         this.form.addEventListener('submit', this.isValid.bind(this));
         this.fields = this.getFields();
         this.customHandlers = {};
-        this.onSuccessCallBacks = [];
-        this.onErrorCallBacks = [];
+        this.callBacks = {};
         if (this.options.onSuccess) {
-            this.onSuccess(this.options.onSuccess);
+            this.on('success', this.options.onSuccess);
         }
         if (this.options.onError) {
-            this.onError(this.options.onError);
+            this.on('error', this.options.onError);
         }
     }
 
-    onSuccess (callBack) {
-
-        addCallBack(this.onSuccessCallBacks, callBack, 'onSuccess');
-
-    }
-
-    onError (callBack) {
-
-        addCallBack(this.onErrorCallBacks, callBack, 'onError');
-
+    on (callBackType, callBack) {
+        addCallBack(this.callBacks, callBack, callBackType);
     }
 
     setSuccess (element) {
@@ -125,13 +124,13 @@ export default class FormValidation {
 
         if (!formValid) {
             this.setError(this.form);
-            runCallbacks(this.onErrorCallBacks);
+            runCallbacks(this.callBacks, 'error');
             if (event) {
                 event.preventDefault();
             }
         } else {
             this.setSuccess(this.form);
-            runCallbacks(this.onSuccessCallBacks);
+            runCallbacks(this.callBacks, 'success');
         }
 
         return formValid;
