@@ -1,20 +1,20 @@
-export const addCallBack = (callBacks, callBack, callBackEvent) => {
+export const addCallBack = (callBacks, callBack) => {
 
-    if (!callBacks[callBackEvent]) {
-        callBacks[callBackEvent] = [];
+    if (typeof callBack !== 'function') {
+        throw new TypeError('call back is not a function');
     }
 
-    callBacks[callBackEvent].push(callBack);
+    callBacks.push(callBack);
 
 };
 
-export const runCallbacks = (callBacks, callBackEvent) => {
+export const runCallbacks = callBacks => {
 
-    if (!callBacks[callBackEvent]) {
+    if (!callBacks) {
         return;
     }
 
-    callBacks[callBackEvent].forEach(callback => {
+    callBacks.forEach(callback => {
         callback();
     });
 

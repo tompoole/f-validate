@@ -46,11 +46,16 @@ export default class FormValidation {
 
     on (callBackEvent, callBack) {
 
-        if (typeof callBack !== 'function') {
-            throw new Error(`f-validate: ${callBackEvent} call back must be a function`);
+        if (!this.callBacks[callBackEvent]) {
+            this.callBacks[callBackEvent] = [];
         }
 
-        addCallBack(this.callBacks, callBack, callBackEvent);
+        try {
+            addCallBack(this.callBacks[callBackEvent], callBack, callBackEvent);
+        } catch (exception) {
+            throw new TypeError(`f-validate: ${callBackEvent} callback must be a function`);
+        }
+
     }
 
     setSuccess (element) {
@@ -104,13 +109,13 @@ export default class FormValidation {
 
         if (!formValid) {
             this.setError(this.form);
-            runCallbacks(this.callBacks, 'error');
+            runCallbacks(this.callBacks.error);
             if (event) {
                 event.preventDefault();
             }
         } else {
             this.setSuccess(this.form);
-            runCallbacks(this.callBacks, 'success');
+            runCallbacks(this.callBacks.success);
         }
 
         return formValid;
