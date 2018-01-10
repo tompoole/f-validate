@@ -1,4 +1,5 @@
 import testDefinitions from './rules';
+import { addCallBack, runCallbacks } from './callbacks';
 
 const FIELD_VALUES = 'input, select, textarea';
 const VALIDATION_KEYS = Object.keys(testDefinitions);
@@ -26,32 +27,6 @@ const getForm = descriptor => {
 
 };
 
-const addCallBack = (callBacks, callBack, callBackEvent) => {
-
-    if (typeof callBack !== 'function') {
-        throw new Error(`f-validate: ${callBackEvent} call back must be a function`);
-    }
-
-    if (!callBacks[callBackEvent]) {
-        callBacks[callBackEvent] = [];
-    }
-
-    callBacks[callBackEvent].push(callBack);
-
-};
-
-const runCallbacks = (callBacks, callBackEvent) => {
-
-    if (!callBacks[callBackEvent]) {
-        return;
-    }
-
-    callBacks[callBackEvent].forEach(callback => {
-        callback();
-    });
-
-};
-
 export default class FormValidation {
 
     constructor (nameOrNode, options = {}) {
@@ -69,8 +44,13 @@ export default class FormValidation {
         }
     }
 
-    on (callBackType, callBack) {
-        addCallBack(this.callBacks, callBack, callBackType);
+    on (callBackEvent, callBack) {
+
+        if (typeof callBack !== 'function') {
+            throw new Error(`f-validate: ${callBackEvent} call back must be a function`);
+        }
+
+        addCallBack(this.callBacks, callBack, callBackEvent);
     }
 
     setSuccess (element) {
