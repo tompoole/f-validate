@@ -1500,7 +1500,11 @@ describe('callbacks', () => {
             // Act & Assert
             expect(() => {
                 formValidation.on('test', callback); // eslint-disable-line no-new
-            }).toThrow(TypeError);
+            }).toThrowError(TypeError);
+
+            expect(() => {
+                formValidation.on('test', callback); // eslint-disable-line no-new
+            }).toThrowError('f-validate: test callback must be a function');
 
         });
 

@@ -25,7 +25,11 @@ describe('add callbacks', () => {
         // Act & Assert
         expect(() => {
             addCallBack(callBacks, callBack); // eslint-disable-line no-new
-        }).toThrow(TypeError);
+        }).toThrowError(TypeError);
+
+        expect(() => {
+            addCallBack(callBacks, callBack); // eslint-disable-line no-new
+        }).toThrowError('call back is not a function');
 
     });
 
@@ -38,7 +42,11 @@ describe('add callbacks', () => {
         // Act & Assert
         expect(() => {
             addCallBack(callBacks, callBack); // eslint-disable-line no-new
-        }).toThrow(TypeError);
+        }).toThrowError(TypeError);
+
+        expect(() => {
+            addCallBack(callBacks, callBack); // eslint-disable-line no-new
+        }).toThrowError('call back is not a function');
 
     });
 
@@ -53,6 +61,10 @@ describe('add callbacks', () => {
             addCallBack(callBacks, callBack); // eslint-disable-line no-new
         }).toThrow(TypeError);
 
+        expect(() => {
+            addCallBack(callBacks, callBack); // eslint-disable-line no-new
+        }).toThrowError('call back is not a function');
+
     });
 
     it('should throw exception when null type success callbacks are added', () => {
@@ -64,7 +76,11 @@ describe('add callbacks', () => {
         // Act & Assert
         expect(() => {
             addCallBack(callBacks, callBack); // eslint-disable-line no-new
-        }).toThrow(TypeError);
+        }).toThrowError(TypeError);
+
+        expect(() => {
+            addCallBack(callBacks, callBack); // eslint-disable-line no-new
+        }).toThrowError('call back is not a function');
 
     });
 
