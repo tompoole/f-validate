@@ -44,6 +44,17 @@ export default class FormValidation {
         }
     }
 
+    /** 
+     * on - Associates a callback with an event. 
+     * Callbacks associated with an event will be called when the event fires.
+     * example:
+     *      formValidator.on('success', () => {
+     *          Do something when the form is found to be valid.
+     *      });
+     *      formValidator.on('error', () => {
+     *          Do something when the form is found to be invalid.
+     *      });
+     */
     on (callBackEvent, callBack) {
 
         if (!this.callBacks[callBackEvent]) {
