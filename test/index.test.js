@@ -1317,3 +1317,197 @@ describe('error states', () => {
     });
 
 });
+
+describe('callbacks', () => {
+
+    it('should be able to add multiple callbacks to an event', () => {
+
+        // Arrange
+        TestUtils.setBodyHtml('<form></form>');
+        const form = document.querySelector('form');
+        const eventType = 'test';
+        const callback1 = jest.fn();
+        const callback2 = jest.fn();
+
+        // Act
+        const validateForm = new FormValidation(form);
+        validateForm.on(eventType, callback1);
+        validateForm.on(eventType, callback2);
+
+        // Assert
+        expect(validateForm.callBacks.test.length).toBe(2);
+
+    });
+
+    describe('success callbacks', () => {
+
+        it('should have no success callbacks when initialised', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+
+            // Assert
+            expect(validateForm.callBacks.success).toBeUndefined();
+
+        });
+
+        it('should call success callback on success', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const onSuccess = jest.fn();
+            const options = { onSuccess };
+
+            // Act
+            const validateForm = new FormValidation(form, options);
+            validateForm.isValid();
+
+            // Assert
+            expect(onSuccess.mock.calls.length).toBe(1);
+        });
+
+        it('should not call success callback on error', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml(`<form>
+                                        <input required />
+                                    </form>`);
+            const form = document.querySelector('form');
+            const onSuccess = jest.fn();
+            const options = { onSuccess };
+
+            // Act
+            const validateForm = new FormValidation(form, options);
+            validateForm.isValid();
+
+            // Assert
+            expect(onSuccess.mock.calls.length).toBe(0);
+        });
+
+        it('should call success callback when state changes to valid', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml(`<form>
+                                        <input required />                        
+                                    </form>`);
+            const form = document.querySelector('form');
+            const input = form.querySelector('input');
+            const onSuccess = jest.fn();
+            const options = { onSuccess };
+
+            // Act
+            const validateForm = new FormValidation(form, options);
+            validateForm.isValid();
+            input.value = 'x';
+            validateForm.isValid();
+
+            // Assert
+            expect(onSuccess.mock.calls.length).toBe(1);
+
+        });
+
+    });
+
+    describe('error callbacks', () => {
+
+        it('should have no error callbacks when initialised', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+
+            // Assert
+            expect(validateForm.callBacks.error).toBeUndefined();
+
+        });
+
+        it('should call error callback on error', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml(`<form>
+                                        <input required />                        
+                                    </form>`);
+            const form = document.querySelector('form');
+            const onError = jest.fn();
+            const options = { onError };
+
+            // Act
+            const validateForm = new FormValidation(form, options);
+            validateForm.isValid();
+
+            // Assert
+            expect(onError.mock.calls.length).toBe(1);
+        });
+
+        it('should not call error callback on success', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const onError = jest.fn();
+            const options = { onError };
+
+            // Act
+            const validateForm = new FormValidation(form, options);
+            validateForm.isValid();
+
+            // Assert
+            expect(onError.mock.calls.length).toBe(0);
+        });
+
+        it('should call error callback when state changes to invalid', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml(`<form>
+                                        <input required value="x" />                        
+                                    </form>`);
+            const form = document.querySelector('form');
+            const input = form.querySelector('input');
+            const onError = jest.fn();
+            const options = { onError };
+
+            // Act
+            const validateForm = new FormValidation(form, options);
+            validateForm.isValid();
+            input.value = '';
+            validateForm.isValid();
+
+            // Assert
+            expect(onError.mock.calls.length).toBe(1);
+
+        });
+
+    });
+
+    describe('invalid callbacks', () => {
+
+        it('should throw exception when non-function type error callbacks are added', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const callback = null;
+            const formValidation = new FormValidation(form);
+
+            // Act & Assert
+            expect(() => {
+                formValidation.on('test', callback); // eslint-disable-line no-new
+            }).toThrowError(TypeError);
+
+            expect(() => {
+                formValidation.on('test', callback); // eslint-disable-line no-new
+            }).toThrowError('f-validate: test callback must be a function');
+
+        });
+
+    });
+
+});

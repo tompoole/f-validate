@@ -3,6 +3,14 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+v0.6.0
+------------------------------
+*January 11, 2018*
+
+### Added
+- Callback handlers for success and error events.
+- Separate callback.js file added to manage callback addition and running.
+
 
 v0.5.0
 ------------------------------

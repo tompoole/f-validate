@@ -1,4 +1,5 @@
 import testDefinitions from './rules';
+import { addCallBack, runCallbacks } from './callbacks';
 
 const FIELD_VALUES = 'input, select, textarea';
 const VALIDATION_KEYS = Object.keys(testDefinitions);
@@ -34,6 +35,38 @@ export default class FormValidation {
         this.form.addEventListener('submit', this.isValid.bind(this));
         this.fields = this.getFields();
         this.customHandlers = {};
+        this.callBacks = {};
+        if (this.options.onSuccess) {
+            this.on('success', this.options.onSuccess);
+        }
+        if (this.options.onError) {
+            this.on('error', this.options.onError);
+        }
+    }
+
+    /** 
+     * on - Associates a callback with an event. 
+     * Callbacks associated with an event will be called when the event fires.
+     * example:
+     *      formValidator.on('success', () => {
+     *          Do something when the form is found to be valid.
+     *      });
+     *      formValidator.on('error', () => {
+     *          Do something when the form is found to be invalid.
+     *      });
+     */
+    on (callBackEvent, callBack) {
+
+        if (!this.callBacks[callBackEvent]) {
+            this.callBacks[callBackEvent] = [];
+        }
+
+        try {
+            addCallBack(this.callBacks[callBackEvent], callBack, callBackEvent);
+        } catch (exception) {
+            throw new TypeError(`f-validate: ${callBackEvent} callback must be a function`);
+        }
+
     }
 
     setSuccess (element) {
@@ -87,11 +120,13 @@ export default class FormValidation {
 
         if (!formValid) {
             this.setError(this.form);
+            runCallbacks(this.callBacks.error);
             if (event) {
                 event.preventDefault();
             }
         } else {
             this.setSuccess(this.form);
+            runCallbacks(this.callBacks.success);
         }
 
         return formValid;
