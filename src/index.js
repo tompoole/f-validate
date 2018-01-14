@@ -44,8 +44,8 @@ export default class FormValidation {
         }
     }
 
-    /** 
-     * on - Associates a callback with an event. 
+    /**
+     * on - Associates a callback with an event.
      * Callbacks associated with an event will be called when the event fires.
      * example:
      *      formValidator.on('success', () => {
@@ -121,6 +121,7 @@ export default class FormValidation {
         if (!formValid) {
             this.setError(this.form);
             runCallbacks(this.callBacks.error);
+
             if (event) {
                 event.preventDefault();
             }
@@ -140,15 +141,17 @@ export default class FormValidation {
         if (!handler || typeof handler !== 'function') {
             throw new Error('f-validate: please provide a custom method');
         }
+
         this.customHandlers[name] = handler;
     }
 
     getFields () {
-        return Array.from(this.form.querySelectorAll(FIELD_VALUES)).filter(f =>
-            !(f.hasAttribute('type') && f.getAttribute('type') === 'hidden') &&
-            !f.hasAttribute('disabled') &&
-            !f.hasAttribute('data-novalidate')
-        );
+        return Array
+            .from(this.form.querySelectorAll(FIELD_VALUES))
+            .filter(f => !(f.hasAttribute('type')
+                && f.getAttribute('type') === 'hidden')
+                && !f.hasAttribute('disabled')
+                && !f.hasAttribute('data-novalidate'));
     }
 
 }

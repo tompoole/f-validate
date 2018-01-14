@@ -3,6 +3,19 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+
+v0.6.1
+------------------------------
+*January 14, 2018*
+
+### Changed
+- Split rule definitions and associated unit tests into separate files.
+- Updated some of the unit test descriptions.
+
+### Removed
+- Unnecessary eslint disable line comments.
+
+
 v0.6.0
 ------------------------------
 *January 11, 2018*
