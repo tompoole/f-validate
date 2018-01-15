@@ -9,7 +9,6 @@ describe('module', () => {
 
 });
 
-
 describe('initialising', () => {
 
     it('validation module should throw if form name or node not passed', () => {
@@ -204,894 +203,6 @@ describe('options', () => {
 
 });
 
-describe('validation rules', () => {
-
-    it('an empty form should return valid', () => {
-
-        // Arrange
-        TestUtils.setBodyHtml('<form></form>');
-        const form = document.querySelector('form');
-
-        // Act
-        const validateForm = new FormValidation(form);
-        const isFormValid = validateForm.isValid();
-
-        // Assert
-        expect(isFormValid).toBe(true);
-
-    });
-
-    describe('required fields', () => {
-
-        describe('input', () => {
-
-            it('should not validate a hidden field', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input required type="hidden" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-            it('should not validate a disabled field', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input required disabled /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-            it('should not validate a field with attribute data-novalidate', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input required data-novalidate /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-            it('should return invalid for a required input with no value', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input required /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return invalid for a required input with no value (data-attribute)', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input data-val-required /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should validate a required input with a value', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input value="x" data-val-required /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-        });
-
-        describe('select', () => {
-
-            it('should return invalid for a required select with no value', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml(`<form>
-                                                <select required>
-                                                    <option value="">Please select an option</option>
-                                                    <option value="x">X</option>
-                                                </select>
-                                            </form>`);
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return invalid for a required select with no value', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml(`<form>
-                                                <select required>
-                                                    <option value="">Please select an option</option>
-                                                    <option value="x" selected>X</option>
-                                                </select>
-                                            </form>`);
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-            it('should return invalid for a required select with no value (data-attribute)', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml(`<form>
-                                                <select data-val-required>
-                                                    <option value="">Please select an option</option>
-                                                    <option value="x" selected>X</option>
-                                                </select>
-                                            </form>`);
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-        });
-
-        describe('textarea', () => {
-
-            it('should return invalid for a required textarea with no value', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml(`<form>
-                                                <textarea required></textarea>
-                                            </form>`);
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-
-            it('should return invalid for a required textarea with no value (data-attribute)', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml(`<form>
-                                                <textarea data-val-required></textarea>
-                                            </form>`);
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should validate a required textarea with a value', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml(`<form>
-                                                <textarea data-val-required>x</textarea>
-                                            </form>`);
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-        });
-
-        describe('radio', () => {
-
-            it('should return invalid for a required radio button which has not been checked', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input name="test" type="radio" required /><input name="test" type="radio" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return invalid for a required radio button which has not been checked (data-attribute)', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input name="test" type="radio" data-val-required /><input name="test" type="radio" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should validate a required radio button which has been checked', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input name="test" type="radio" required checked /><input name="test" type="radio" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-            it('should validate a radio button group marked as required which another button in the group has been checked', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input name="test" type="radio" required /><input name="test" type="radio" checked /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-        });
-
-        describe('checkbox', () => {
-
-            it('should return invalid for a required checkbox which has not been checked', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input name="test" type="checkbox" required /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return invalid for a required checkbox which has not been checked (data-attribute)', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input name="test" type="checkbox" data-val-required /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should validate a required checkbox which has been checked', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input name="test" type="checkbox" required checked /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-            it('should validate a required checkbox which has been checked when there are multiple checkboxes in the form', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input name="test" type="checkbox" /><input name="test" type="checkbox" required checked /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-        });
-
-    });
-
-    describe('maxlength fields', () => {
-
-        describe('input', () => {
-
-            it('should return invalid for a maxlength input with value more than the specified value', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input maxlength="6" value="testData" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return invalid for a maxlength input with no value (data-attribute)', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input data-val-maxlength="6" value="testData" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return valid for input where the values length is less than the specified maxlength', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input maxlength="6" value="test" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-        });
-
-        describe('textarea', () => {
-
-            it('should return invalid for a maxlength textarea with value more than the specified value', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><textarea maxlength="6">testData</textarea></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return invalid for a maxlength textarea with no value (data-attribute)', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><textarea data-val-maxlength="6">testData</textarea></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return valid for textarea where the values length is less than the specified maxlength', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><textarea maxlength="6">test</textarea></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-        });
-
-    });
-
-    describe('minlength fields', () => {
-
-        describe('input', () => {
-
-            it('should return valid for a minlength input with no value', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input minlength="6" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-            it('should return invalid for a minlength input with value less than the specified value', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input minlength="6" value="test" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return invalid for a minlength input with value less than the specified value (data-attribute)', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input data-val-minlength="6" value="test" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return valid for minlength input where the values length is more than the specified minlength', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input minlength="6" value="testData" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-        });
-
-        describe('textarea', () => {
-
-            it('should return valid for a minlength textarea with no value entered', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><textarea minlength="6"></textarea></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-            it('should return invalid for a minlength textarea with value less than the specified minlength', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><textarea minlength="6">test</textarea></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return invalid for a minlength textarea with no value (data-attribute)', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><textarea data-val-minlength="6">test</textarea></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return valid for textarea where the values length is more than the specified maxlength', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><textarea minlength="6">testData</textarea></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-        });
-
-    });
-
-    describe('pattern fields', () => {
-
-        describe('input', () => {
-
-            it('should return invalid for an input with an empty pattern attribute', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input pattern="" value="test" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return invalid for an input with an empty pattern attribute (data-attribute)', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input pattern="" value="test" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-            it('should return valid when the value of the input matches the pattern specified', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input pattern="[a-z]{1,6}" value="test" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(true);
-
-            });
-
-            it('should return invalid when the value of the input doesn\'t match the pattern specified', () => {
-
-                // Arrange
-                TestUtils.setBodyHtml('<form><input pattern="[a-z]{1,6}" value="testData1" /></form>');
-                const form = document.querySelector('form');
-
-                // Act
-                const validateForm = new FormValidation(form);
-                const isFormValid = validateForm.isValid();
-
-                // Assert
-                expect(isFormValid).toBe(false);
-
-            });
-
-        });
-
-    });
-
-    describe('email fields', () => {
-
-        it('should return invalid for a field of type email with invalid email address', () => {
-
-            // Arrange
-            TestUtils.setBodyHtml('<form><input type="email" value="invalidEmailFormat" /></form>');
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-            const isFormValid = validateForm.isValid();
-
-            // Assert
-            expect(isFormValid).toBe(false);
-
-        });
-
-        it('should return invalid for a field of type email with invalid email address', () => {
-
-            // Arrange
-            TestUtils.setBodyHtml('<form><input type="email" value=`invalid@test` /></form>');
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-            const isFormValid = validateForm.isValid();
-
-            // Assert
-            expect(isFormValid).toBe(false);
-
-        });
-
-        it('should return invalid for a field of type email with invalid email address', () => {
-
-            // Arrange
-            TestUtils.setBodyHtml('<form><input type="email" value="@test.com" /></form>');
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-            const isFormValid = validateForm.isValid();
-
-            // Assert
-            expect(isFormValid).toBe(false);
-
-        });
-
-        it('should return valid for a field of type email with valid email address', () => {
-
-            // Arrange
-            TestUtils.setBodyHtml('<form><input type="email" value="valid@test.com" /></form>');
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-            const isFormValid = validateForm.isValid();
-
-            // Assert
-            expect(isFormValid).toBe(true);
-
-        });
-
-    });
-
-    describe('matches fields', () => {
-
-        it('should return invalid for a field with "equalto" attribute, that does not match value of specified field', () => {
-
-            // Arrange
-            TestUtils.setBodyHtml(`<form>
-                <input data-val-equalto="matchedField" value="match" />
-                <input name="matchedField" value="doesNotMatch" />
-                </form>`);
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-            const isFormValid = validateForm.isValid();
-
-            // Assert
-            expect(isFormValid).toBe(false);
-
-        });
-
-        it('should return invalid for a field with "equalto" attribute, that matches value, but field is not specified', () => {
-
-            // Arrange
-            TestUtils.setBodyHtml(`<form>
-                <input data-val-equalto value="match" />
-                <input name="matchedField" value="match" />
-                </form>`);
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-            const isFormValid = validateForm.isValid();
-
-            // Assert
-            expect(isFormValid).toBe(false);
-
-        });
-
-        it('should return invalid for a field with "equalto" attribute, that does matches value, but field does not exist', () => {
-
-            // Arrange
-            TestUtils.setBodyHtml(`<form>
-                <input data-val-equalto="matchedField" value="match" />
-                </form>`);
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-            const isFormValid = validateForm.isValid();
-
-            // Assert
-            expect(isFormValid).toBe(false);
-
-        });
-
-        it('should return valid for a field with "equalto" attribute, that does match value of specified field', () => {
-
-            // Arrange
-            TestUtils.setBodyHtml(`<form>
-                <input data-val-equalto="matchedField" value="match" />
-                <input name="matchedField" value="match" />
-                </form>`);
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-            const isFormValid = validateForm.isValid();
-
-            // Assert
-            expect(isFormValid).toBe(true);
-
-        });
-
-    });
-
-    describe('custom', () => {
-
-        it('should return valid for a field custom attribute, where method returns true', () => {
-
-            // Arrange
-            const customMethod = () => true;
-            TestUtils.setBodyHtml(`<form>
-                <input data-val-custom="customRule" value="match" />
-                </form>`);
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-            validateForm.addCustomValidation('customRule', customMethod);
-            const isFormValid = validateForm.isValid();
-
-            // Assert
-            expect(isFormValid).toBe(true);
-
-        });
-
-        it('should return invalid for a field custom attribute, where method returns false', () => {
-
-            // Arrange
-            const customMethod = () => false;
-            TestUtils.setBodyHtml(`<form>
-                <input data-val-custom="customRule" value="match" />
-                </form>`);
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-            validateForm.addCustomValidation('customRule', customMethod);
-            const isFormValid = validateForm.isValid();
-
-            // Assert
-            expect(isFormValid).toBe(false);
-
-        });
-
-        it('should log error when "data-val-custom" attribute has not been specified', () => {
-
-            // Arrange
-            TestUtils.setBodyHtml(`<form>
-                <input data-val-custom-error="customer error message" value="match" />
-            </form>`);
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-
-            // Assert
-            expect(() => {
-                validateForm.isValid();
-            }).toThrowError('f-validate: specify data-val-custom along with data-val-custom-error attribute');
-
-        });
-
-    });
-
-    describe('multiple rules', () => {
-
-        it('should retain error class, when a field has other rules that run afterwards which are valid', () => {
-
-            // Arrange
-            TestUtils.setBodyHtml(`<form>
-                                        <input maxlength="6" pattern="[a-zA-Z]+" value="testFail" />
-                                    </form>`);
-            const form = document.querySelector('form');
-
-            // Act
-            const validateForm = new FormValidation(form);
-            validateForm.isValid();
-
-            // Assert
-            const html = TestUtils.getBodyHtml();
-            expect(html).toMatchSnapshot();
-
-        });
-
-    });
-
-});
-
 describe('on submit', () => {
 
     it('should validate invalid form on submit', () => {
@@ -1103,9 +214,9 @@ describe('on submit', () => {
                                     </form>`);
         const form = document.querySelector('form');
         const button = form.querySelector('button');
+        new FormValidation(form); // eslint-disable-line no-new
 
         // Act
-        new FormValidation(form); // eslint-disable-line no-new
         TestUtils.click(button);
 
         // Assert
@@ -1123,9 +234,9 @@ describe('on submit', () => {
                                     </form>`);
         const form = document.querySelector('form');
         const button = form.querySelector('button');
+        new FormValidation(form); // eslint-disable-line no-new
 
         // Act
-        new FormValidation(form); // eslint-disable-line no-new
         TestUtils.click(button);
 
         // Assert
@@ -1136,7 +247,7 @@ describe('on submit', () => {
 
 });
 
-describe('addCustomValidation()', () => {
+describe('adding custom validation', () => {
 
     it('should throw error when addCustomValidation is called, but name argument is not supplied', () => {
 
@@ -1180,9 +291,9 @@ describe('error states', () => {
                                         <input required />
                                     </form>`);
         const form = document.querySelector('form');
+        const validateForm = new FormValidation(form);
 
         // Act
-        const validateForm = new FormValidation(form);
         validateForm.isValid();
 
         // Assert
@@ -1198,9 +309,9 @@ describe('error states', () => {
                                         <input required />
                                     </form>`);
         const form = document.querySelector('form');
+        const validateForm = new FormValidation(form);
 
         // Act
-        const validateForm = new FormValidation(form);
         validateForm.isValid();
         validateForm.isValid();
 
@@ -1217,9 +328,9 @@ describe('error states', () => {
                                         <input />
                                     </form>`);
         const form = document.querySelector('form');
+        const validateForm = new FormValidation(form);
 
         // Act
-        const validateForm = new FormValidation(form);
         validateForm.isValid();
 
         // Assert
@@ -1235,9 +346,9 @@ describe('error states', () => {
                                         <input required value="x" />
                                     </form>`);
         const form = document.querySelector('form');
+        const validateForm = new FormValidation(form);
 
         // Act
-        const validateForm = new FormValidation(form);
         validateForm.isValid();
 
         // Assert
@@ -1255,9 +366,9 @@ describe('error states', () => {
                                         <input />
                                     </form>`);
         const form = document.querySelector('form');
+        const validateForm = new FormValidation(form);
 
         // Act
-        const validateForm = new FormValidation(form);
         validateForm.isValid();
 
         // Assert
@@ -1274,20 +385,17 @@ describe('error states', () => {
                                     </form>`);
         const form = document.querySelector('form');
         const input = form.querySelector('input');
+        const validateForm = new FormValidation(form);
 
         // Act & Assert
-        const validateForm = new FormValidation(form);
         validateForm.isValid();
-
-        let html = TestUtils.getBodyHtml();
-        expect(html).toMatchSnapshot();
+        expect(TestUtils.getBodyHtml()).toMatchSnapshot();
 
         // Make input valid
         input.value = 'x';
 
         validateForm.isValid();
-        html = TestUtils.getBodyHtml();
-        expect(html).toMatchSnapshot();
+        expect(TestUtils.getBodyHtml()).toMatchSnapshot();
 
     });
 
@@ -1299,20 +407,17 @@ describe('error states', () => {
                                     </form>`);
         const form = document.querySelector('form');
         const input = form.querySelector('input');
+        const validateForm = new FormValidation(form);
 
         // Act & Assert
-        const validateForm = new FormValidation(form);
         validateForm.isValid();
-
-        let html = TestUtils.getBodyHtml();
-        expect(html).toMatchSnapshot();
+        expect(TestUtils.getBodyHtml()).toMatchSnapshot();
 
         // Make input invalid
         input.value = '';
 
         validateForm.isValid();
-        html = TestUtils.getBodyHtml();
-        expect(html).toMatchSnapshot();
+        expect(TestUtils.getBodyHtml()).toMatchSnapshot();
 
     });
 
@@ -1328,9 +433,9 @@ describe('callbacks', () => {
         const eventType = 'test';
         const callback1 = jest.fn();
         const callback2 = jest.fn();
+        const validateForm = new FormValidation(form);
 
         // Act
-        const validateForm = new FormValidation(form);
         validateForm.on(eventType, callback1);
         validateForm.on(eventType, callback2);
 
@@ -1362,13 +467,14 @@ describe('callbacks', () => {
             const form = document.querySelector('form');
             const onSuccess = jest.fn();
             const options = { onSuccess };
+            const validateForm = new FormValidation(form, options);
 
             // Act
-            const validateForm = new FormValidation(form, options);
             validateForm.isValid();
 
             // Assert
             expect(onSuccess.mock.calls.length).toBe(1);
+
         });
 
         it('should not call success callback on error', () => {
@@ -1380,28 +486,29 @@ describe('callbacks', () => {
             const form = document.querySelector('form');
             const onSuccess = jest.fn();
             const options = { onSuccess };
+            const validateForm = new FormValidation(form, options);
 
             // Act
-            const validateForm = new FormValidation(form, options);
             validateForm.isValid();
 
             // Assert
             expect(onSuccess.mock.calls.length).toBe(0);
+
         });
 
         it('should call success callback when state changes to valid', () => {
 
             // Arrange
             TestUtils.setBodyHtml(`<form>
-                                        <input required />                        
+                                        <input required />
                                     </form>`);
             const form = document.querySelector('form');
             const input = form.querySelector('input');
             const onSuccess = jest.fn();
             const options = { onSuccess };
+            const validateForm = new FormValidation(form, options);
 
             // Act
-            const validateForm = new FormValidation(form, options);
             validateForm.isValid();
             input.value = 'x';
             validateForm.isValid();
@@ -1433,18 +540,19 @@ describe('callbacks', () => {
 
             // Arrange
             TestUtils.setBodyHtml(`<form>
-                                        <input required />                        
+                                        <input required />
                                     </form>`);
             const form = document.querySelector('form');
             const onError = jest.fn();
             const options = { onError };
+            const validateForm = new FormValidation(form, options);
 
             // Act
-            const validateForm = new FormValidation(form, options);
             validateForm.isValid();
 
             // Assert
             expect(onError.mock.calls.length).toBe(1);
+
         });
 
         it('should not call error callback on success', () => {
@@ -1454,28 +562,29 @@ describe('callbacks', () => {
             const form = document.querySelector('form');
             const onError = jest.fn();
             const options = { onError };
+            const validateForm = new FormValidation(form, options);
 
             // Act
-            const validateForm = new FormValidation(form, options);
             validateForm.isValid();
 
             // Assert
             expect(onError.mock.calls.length).toBe(0);
+
         });
 
         it('should call error callback when state changes to invalid', () => {
 
             // Arrange
             TestUtils.setBodyHtml(`<form>
-                                        <input required value="x" />                        
+                                        <input required value="x" />
                                     </form>`);
             const form = document.querySelector('form');
             const input = form.querySelector('input');
             const onError = jest.fn();
             const options = { onError };
+            const validateForm = new FormValidation(form, options);
 
             // Act
-            const validateForm = new FormValidation(form, options);
             validateForm.isValid();
             input.value = '';
             validateForm.isValid();
@@ -1499,12 +608,23 @@ describe('callbacks', () => {
 
             // Act & Assert
             expect(() => {
-                formValidation.on('test', callback); // eslint-disable-line no-new
-            }).toThrowError(TypeError);
-
-            expect(() => {
-                formValidation.on('test', callback); // eslint-disable-line no-new
+                formValidation.on('test', callback);
             }).toThrowError('f-validate: test callback must be a function');
+
+        });
+
+        it('should throw correct exception type when non-function type error callbacks are added', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+            const callback = null;
+            const formValidation = new FormValidation(form);
+
+            // Act & Assert
+            expect(() => {
+                formValidation.on('test', callback);
+            }).toThrowError(TypeError);
 
         });
 

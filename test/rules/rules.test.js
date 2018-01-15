@@ -1,4 +1,44 @@
-import testDefinitions from '../src/rules';
+import TestUtils from 'js-test-buddy';
+import FormValidation from '../../src';
+import testDefinitions from '../../src/rules';
+
+
+it('an empty form should return valid', () => {
+
+    // Arrange
+    TestUtils.setBodyHtml('<form></form>');
+    const form = document.querySelector('form');
+    const validateForm = new FormValidation(form);
+
+    // Act
+    const isFormValid = validateForm.isValid();
+
+    // Assert
+    expect(isFormValid).toBe(true);
+
+});
+
+describe('multiple rules', () => {
+
+    it('should retain error class when a field has other rules that run afterwards which are valid', () => {
+
+        // Arrange
+        TestUtils.setBodyHtml(`<form>
+                                    <input maxlength="6" pattern="[a-zA-Z]+" value="testFail" />
+                                </form>`);
+        const form = document.querySelector('form');
+        const validateForm = new FormValidation(form);
+
+        // Act
+        validateForm.isValid();
+
+        // Assert
+        const html = TestUtils.getBodyHtml();
+        expect(html).toMatchSnapshot();
+
+    });
+
+});
 
 describe('rule definitions', () => {
 
@@ -46,14 +86,12 @@ describe('rule definitions', () => {
 
 });
 
-
 describe('rule structure', () => {
 
     const definitionKeys = Object.keys(testDefinitions);
 
     it('Each rule definition should have a "condition" property', () => {
 
-        // Arrange
         definitionKeys.forEach(key => {
 
             expect(testDefinitions[key]).toHaveProperty('condition');
@@ -64,7 +102,6 @@ describe('rule structure', () => {
 
     it('Each rule definition should have a "test" property', () => {
 
-        // Arrange
         definitionKeys.forEach(key => {
 
             expect(testDefinitions[key]).toHaveProperty('test');
