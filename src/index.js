@@ -1,13 +1,15 @@
 import testDefinitions from './rules';
 import { addCallBack, runCallbacks } from './callbacks';
+import { getInlineErrorElement, displayInlineMessage, hideMessage, getMessage } from './messages';
+import CONSTANTS from './constants';
 
-const FIELD_VALUES = 'input, select, textarea';
 const VALIDATION_KEYS = Object.keys(testDefinitions);
 
 export const defaultOptions = {
-    errorClass: 'has-error',
-    successClass: 'has-success',
-    focus: false
+    errorClass: CONSTANTS.cssClasses.hasError,
+    successClass: CONSTANTS.cssClasses.hasSuccess,
+    focus: false,
+    groupErrorPlacement: false
 };
 
 const getForm = descriptor => {
@@ -42,6 +44,7 @@ export default class FormValidation {
         if (this.options.onError) {
             this.on('error', this.options.onError);
         }
+        this.errorMessages = [];
     }
 
     /**
@@ -82,8 +85,11 @@ export default class FormValidation {
     isValid (event) {
 
         let formValid = true;
+        this.errorMessages = [];
 
         this.fields.forEach(field => {
+
+            let errorMessage = '';
 
             // This needs to be set outside of the forEach loop, as otherwise only the final rule will apply the state
             let fieldValid = true;
@@ -91,8 +97,8 @@ export default class FormValidation {
             // This prevents us from applying state classes to fields without rules
             let fieldHasValidation = false;
 
-            VALIDATION_KEYS.forEach(key => {
-                const definition = testDefinitions[key];
+            VALIDATION_KEYS.forEach(ruleName => {
+                const definition = testDefinitions[ruleName];
 
                 if (field.getAttribute('data-val-custom')) {
                     testDefinitions.custom.test = this.customHandlers[field.getAttribute('data-val-custom')];
@@ -102,18 +108,31 @@ export default class FormValidation {
                     fieldHasValidation = true;
                     if (!definition.test(field)) {
                         fieldValid = false;
+                        errorMessage = getMessage(field, ruleName);
+                        this.errorMessages.push(errorMessage);
                     }
                 }
 
             });
 
             if (fieldHasValidation) {
+
                 if (fieldValid) {
                     this.setSuccess(field);
                 } else {
                     formValid = false;
                     this.setError(field);
                 }
+
+                if (!this.options.groupErrorPlacement) {
+                    const errorElement = getInlineErrorElement(field);
+                    if (fieldValid) {
+                        hideMessage(errorElement);
+                    } else {
+                        displayInlineMessage(errorElement, errorMessage, field);
+                    }
+                }
+
             }
 
         });
@@ -128,6 +147,15 @@ export default class FormValidation {
         } else {
             this.setSuccess(this.form);
             runCallbacks(this.callBacks.success);
+        }
+
+        if (this.options.groupErrorPlacement) {
+            const groupedErrorElement = this.findGroupedErrorElement();
+            if (formValid) {
+                hideMessage(groupedErrorElement);
+            } else {
+                this.displayGroupedMessages(groupedErrorElement);
+            }
         }
 
         return formValid;
@@ -147,13 +175,55 @@ export default class FormValidation {
 
     getFields () {
         return Array
-            .from(this.form.querySelectorAll(FIELD_VALUES))
+            .from(this.form.querySelectorAll(CONSTANTS.fieldValues))
             .filter(f => !(f.hasAttribute('type')
                 && f.getAttribute('type') === 'hidden')
                 && !f.hasAttribute('disabled')
                 && !f.hasAttribute('data-novalidate'));
     }
 
+    findGroupedErrorElement () {
+        const groupedErrorElement = this.form.querySelector(`.${CONSTANTS.cssClasses.formErrors}`);
+
+        return groupedErrorElement !== null
+            ? groupedErrorElement
+            : false;
+    }
+
+    displayGroupedMessages (groupedErrorElement) {
+
+        let updateElement = groupedErrorElement;
+
+        if (!groupedErrorElement) {
+            updateElement = document.createElement('ul');
+            updateElement.classList.add(CONSTANTS.cssClasses.formErrors);
+
+            this.form.insertBefore(updateElement, this.getGroupedErrorPosition());
+
+        } else {
+            groupedErrorElement.innerHTML = '';
+        }
+
+        this.errorMessages.forEach(error => {
+            const li = document.createElement('li');
+            li.textContent = error;
+            updateElement.appendChild(li);
+        });
+    }
+
+    getGroupedErrorPosition () {
+
+        const groupElement = this.form.querySelector(this.options.groupErrorPlacement);
+
+        if (groupElement) {
+            return groupElement;
+        }
+
+        if (this.options.groupErrorPlacement === 'bottom') {
+            return this.form.lastChild;
+        }
+
+        return this.form.firstChild;
+
+    }
 }
-
-

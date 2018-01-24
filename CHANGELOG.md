@@ -4,6 +4,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+v0.7.0
+------------------------------
+*January 19, 2018*
+
+### Added
+- Default error message to each rule
+- Logic to display and hide default error messages
+- Logic to display and hide custom error messages
+- Ability to group messages together either at the top/bottom of form
+
+### Changed
+- Moved classes into constants file
+
 v0.6.1
 ------------------------------
 *January 14, 2018*

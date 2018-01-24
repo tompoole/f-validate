@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`error messages custom should apply error class to invalid field 1`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" data-required-error=\\"custom required error message\\" class=\\"has-error\\"><p class=\\"form-error\\">custom required error message</p>
+                                </form>"
+`;
+
+exports[`error messages custom should hide error message if field is now valid 1`] = `
+"<form class=\\"has-error\\">
+                                        <input required=\\"\\" data-required-error=\\"custom required error message\\" class=\\"has-error\\"><p class=\\"form-error\\">custom required error message</p>
+                                    </form>"
+`;
+
+exports[`error messages custom should hide error message if field is now valid 2`] = `
+"<form class=\\"has-success\\">
+                                        <input required=\\"\\" data-required-error=\\"custom required error message\\" class=\\"has-success\\"><p class=\\"form-error is-hidden\\"></p>
+                                    </form>"
+`;
+
+exports[`error messages custom should not apply error class to valid field 1`] = `
+"<form class=\\"has-success\\">
+                                    <input required=\\"\\" value=\\"x\\" data-required-error=\\"custom required error message\\" class=\\"has-success\\">
+                                </form>"
+`;
+
+exports[`error messages custom should replace existing error message 1`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" maxlength=\\"3\\" data-required-error=\\"custom required error message\\" data-maxlength-error=\\"custom maxlength error message\\" class=\\"has-error\\"><p class=\\"form-error\\">custom required error message</p>
+                                </form>"
+`;
+
+exports[`error messages custom should replace existing error message 2`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" maxlength=\\"3\\" data-required-error=\\"custom required error message\\" data-maxlength-error=\\"custom maxlength error message\\" class=\\"has-error\\"><p class=\\"form-error\\">custom maxlength error message</p>
+                                </form>"
+`;
+
+exports[`error messages default should apply error class to invalid field 1`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                </form>"
+`;
+
+exports[`error messages default should hide error message if field is now valid 1`] = `
+"<form class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                    </form>"
+`;
+
+exports[`error messages default should hide error message if field is now valid 2`] = `
+"<form class=\\"has-success\\">
+                                        <input required=\\"\\" class=\\"has-success\\"><p class=\\"form-error is-hidden\\"></p>
+                                    </form>"
+`;
+
+exports[`error messages default should not apply error class to valid field 1`] = `
+"<form class=\\"has-success\\">
+                                    <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
+                                </form>"
+`;
+
+exports[`error messages default should replace existing error message 1`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" maxlength=\\"3\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                </form>"
+`;
+
+exports[`error messages default should replace existing error message 2`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" maxlength=\\"3\\" class=\\"has-error\\"><p class=\\"form-error\\">This field must not exceed 3 characters in length.</p>
+                                </form>"
+`;
+
+exports[`error messages grouped should display error messages grouped at the bottom 1`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"x\\" class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field is required.</li><li>This field must be at least 2 characters in length.</li></ul>
+                                </form>"
+`;
+
+exports[`error messages grouped should display error messages grouped at the bottom above specified element 1`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"x\\" class=\\"has-error\\">
+                                    <ul class=\\"form-errors\\"><li>This field is required.</li><li>This field must be at least 2 characters in length.</li></ul><p data-errors-placement=\\"\\">arbitrary text</p>
+                                    <button type=\\"submit\\"></button>
+                                </form>"
+`;
+
+exports[`error messages grouped should display error messages grouped at the bottom above submit button 1`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"x\\" class=\\"has-error\\">
+                                    <ul class=\\"form-errors\\"><li>This field is required.</li><li>This field must be at least 2 characters in length.</li></ul><button type=\\"submit\\"></button>
+                                </form>"
+`;
+
+exports[`error messages grouped should display error messages grouped at the top 1`] = `
+"<form class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field is required.</li><li>This field must be at least 2 characters in length.</li></ul>
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"x\\" class=\\"has-error\\">
+                                </form>"
+`;
+
+exports[`error messages grouped should display error messages grouped at the top if element not found 1`] = `
+"<form class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field is required.</li><li>This field must be at least 2 characters in length.</li></ul>
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"x\\" class=\\"has-error\\">
+                                </form>"
+`;
+
+exports[`error messages grouped should hide existing group error message if group is now valid 1`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field is required.</li><li>This field is required.</li></ul>
+                                </form>"
+`;
+
+exports[`error messages grouped should hide existing group error message if group is now valid 2`] = `
+"<form class=\\"has-success\\">
+                                    <input required=\\"\\" class=\\"has-success\\">
+                                    <input required=\\"\\" minlength=\\"2\\" class=\\"has-success\\"><ul class=\\"form-errors is-hidden\\"></ul>
+                                </form>"
+`;
+
+exports[`error messages grouped should not display error messages on valid form 1`] = `
+"<form class=\\"has-success\\">
+                                    <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
+                                    <input required=\\"\\" minlength=\\"2\\" value=\\"xx\\" class=\\"has-success\\">
+                                </form>"
+`;
+
+exports[`error messages grouped should replace existing group error messages 1`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-error\\">
+                                    <input required=\\"\\" minlength=\\"2\\" class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field is required.</li><li>This field is required.</li></ul>
+                                </form>"
+`;
+
+exports[`error messages grouped should replace existing group error messages 2`] = `
+"<form class=\\"has-error\\">
+                                    <input required=\\"\\" class=\\"has-success\\">
+                                    <input required=\\"\\" minlength=\\"2\\" class=\\"has-error\\"><ul class=\\"form-errors\\"><li>This field must be at least 2 characters in length.</li></ul>
+                                </form>"
+`;

@@ -14,5 +14,7 @@ export default {
         }
 
         return field.value.trim().length > 0;
-    }
+    },
+
+    defaultMessage: 'This field is required.'
 };

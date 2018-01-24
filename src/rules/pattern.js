@@ -13,5 +13,7 @@ export default {
         const pattern = field.getAttribute('pattern') || field.getAttribute('data-val-regex');
 
         return RegExp(`^(?:${pattern})$`, 'gim').test(fieldValue);
-    }
+    },
+
+    defaultMessage: 'This field contains a value that isn’t accepted.'
 };

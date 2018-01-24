@@ -1,4 +1,3 @@
-
 export default {
     condition: field => {
         const hasCustom = field.hasAttribute('data-val-custom');
@@ -11,5 +10,7 @@ export default {
         return hasCustom;
     },
 
-    test: null
+    test: null,
+
+    defaultMessage: 'Custom validation failed.'
 };

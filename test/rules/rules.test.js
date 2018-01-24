@@ -110,4 +110,14 @@ describe('rule structure', () => {
 
     });
 
+    it('Each rule definition should have a "defaultMessage" property', () => {
+
+        definitionKeys.forEach(key => {
+
+            expect(testDefinitions[key]).toHaveProperty('defaultMessage');
+
+        });
+
+    });
+
 });

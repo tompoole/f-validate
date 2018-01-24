@@ -3,7 +3,7 @@
 exports[`error states should apply correct classes to multiple types of field 1`] = `
 "<form class=\\"has-error\\">
                                         <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
-                                        <input required=\\"\\" value=\\"\\" class=\\"has-error\\">
+                                        <input required=\\"\\" value=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
                                         <input>
                                     </form>"
 `;
@@ -16,25 +16,25 @@ exports[`error states should apply error after success state to field 1`] = `
 
 exports[`error states should apply error after success state to field 2`] = `
 "<form class=\\"has-error\\">
-                                        <input required=\\"\\" value=\\"x\\" class=\\"has-error\\">
+                                        <input required=\\"\\" value=\\"x\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
                                     </form>"
 `;
 
 exports[`error states should apply error class to invalid field 1`] = `
 "<form class=\\"has-error\\">
-                                        <input required=\\"\\" class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
                                     </form>"
 `;
 
 exports[`error states should apply success after error state to field 1`] = `
 "<form class=\\"has-error\\">
-                                        <input required=\\"\\" class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
                                     </form>"
 `;
 
 exports[`error states should apply success after error state to field 2`] = `
 "<form class=\\"has-success\\">
-                                        <input required=\\"\\" class=\\"has-success\\">
+                                        <input required=\\"\\" class=\\"has-success\\"><p class=\\"form-error is-hidden\\"></p>
                                     </form>"
 `;
 
@@ -52,13 +52,13 @@ exports[`error states should not apply any class to field with no validation rul
 
 exports[`error states should not apply multiple error classes to invalid field 1`] = `
 "<form class=\\"has-error\\">
-                                        <input required=\\"\\" class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
                                     </form>"
 `;
 
 exports[`on submit should validate invalid form on submit 1`] = `
 "<form class=\\"has-error\\">
-                                        <input required=\\"\\" class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
                                         <button type=\\"submit\\">submit</button>
                                     </form>"
 `;
