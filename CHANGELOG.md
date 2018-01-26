@@ -4,6 +4,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+v0.8.2
+------------------------------
+*January 26, 2018*
+
+### Added
+- Added "files" property to `package.json` so that only the `dist` directory is published to npm.
+
+
 v0.8.1
 ------------------------------
 *January 26, 2018*

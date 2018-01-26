@@ -1,8 +1,11 @@
 {
   "name": "@justeat/f-validate",
   "description": "Fozzie vanilla JS Validation Component",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "homepage": "https://github.com/justeat/f-validate",
   "contributors": [
     "Github contributors <https://github.com/justeat/f-validate/graphs/contributors>"
