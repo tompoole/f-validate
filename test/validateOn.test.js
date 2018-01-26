@@ -1,5 +1,5 @@
 import TestUtils from 'js-test-buddy';
-import FormValidation  from '../src';
+import FormValidation from '../src';
 import stubDate from './helpers/stubDate';
 
 describe('validateOn', () => {
