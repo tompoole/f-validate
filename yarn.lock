@@ -32,6 +32,12 @@
     glob "^7.1.2"
     mkdirp "^0.5.1"
 
+"@justeat/f-dom@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@justeat/f-dom/-/f-dom-0.1.2.tgz#cea4c60a2e1ac016a08c6637ad93a0acec9803da"
+  dependencies:
+    qwery "^4.0.0"
+
 "@justeat/gulp-build-fozzie@^6.5.0":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@justeat/gulp-build-fozzie/-/gulp-build-fozzie-6.5.0.tgz#fe5fb03c3345338103f8cdec0f381c62585b69d9"
@@ -9214,6 +9220,10 @@ question-store@^0.13.0:
 quick-lru@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-1.1.0.tgz#4360b17c61136ad38078397ff11416e186dcfbb8"
+
+qwery@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/qwery/-/qwery-4.0.0.tgz#7d21e3b4f7e9eed7e68728f4dab4de8b7303febe"
 
 randomatic@^1.1.3:
   version "1.1.7"

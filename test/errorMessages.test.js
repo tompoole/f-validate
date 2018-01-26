@@ -364,5 +364,24 @@ describe('error messages', () => {
 
         });
 
+        it('should not allow user to group errors if validating on \'blur\' or \'keyup\'', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml(`<form>
+                                    <input required />
+                                </form>`);
+            const form = document.querySelector('form');
+
+            // Act & Assert
+            expect(() => {
+                // eslint-disable-next-line no-new
+                new FormValidation(form, {
+                    groupErrorPlacement: 'bottom',
+                    validateOn: 'blur'
+                });
+            }).toThrowError('f-validate: validation on \'blur\' or \'keyup\' cannot be performed if errors are grouped');
+
+        });
+
     });
 });

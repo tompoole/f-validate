@@ -1,7 +1,7 @@
 {
   "name": "@justeat/f-validate",
   "description": "Fozzie vanilla JS Validation Component",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "main": "dist/index.js",
   "homepage": "https://github.com/justeat/f-validate",
   "contributors": [
@@ -17,6 +17,9 @@
   "license": "Apache-2.0",
   "engines": {
     "node": ">=4.0.0"
+  },
+  "dependencies": {
+    "@justeat/f-dom": "^0.1.2"
   },
   "devDependencies": {
     "@justeat/gulp-build-fozzie": "^6.5.0",

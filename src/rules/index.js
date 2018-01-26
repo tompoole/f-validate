@@ -4,6 +4,7 @@ import minlength from './minlength';
 import pattern from './pattern';
 import email from './email';
 import matches from './matches';
+import dateInFuture from './dateInFuture';
 import custom from './custom';
 
 export default {
@@ -13,5 +14,6 @@ export default {
     pattern,
     email,
     matches,
-    custom
+    custom,
+    dateInFuture
 };

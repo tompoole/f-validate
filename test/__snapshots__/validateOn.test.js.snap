@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`validateOn blur should bind to fields within a .validation-group 1`] = `
+"<form class=\\"has-success\\">
+                                <div class=\\"validation-group has-success\\" data-val-dateinfuture=\\"\\">
+                                     <select data-val-dateinfuture-type=\\"year\\">
+                                        <option value=\\"\\"></option>
+                                        <option value=\\"2021\\" selected=\\"\\"></option>
+                                    </select>
+                                    <select data-val-dateinfuture-type=\\"month\\">
+                                        <option value=\\"\\"></option>
+                                        <option value=\\"01\\" selected=\\"\\"></option>
+                                    </select>
+                                </div>
+                            </form>"
+`;
+
+exports[`validateOn blur should not run validation on other fields 1`] = `
+"<form class=\\"has-success\\">
+                                        <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
+                                        <input required=\\"\\">
+                                    </form>"
+`;
+
+exports[`validateOn blur should validate invalid form 1`] = `
+"<form class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                    </form>"
+`;
+
+exports[`validateOn blur should validate valid form 1`] = `
+"<form class=\\"has-success\\">
+                                        <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
+                                    </form>"
+`;
+
+exports[`validateOn keyup should validate invalid form 1`] = `
+"<form class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                    </form>"
+`;
+
+exports[`validateOn keyup should validate valid form 1`] = `
+"<form class=\\"has-success\\">
+                                        <input required=\\"\\" value=\\"x\\" class=\\"has-success\\">
+                                    </form>"
+`;

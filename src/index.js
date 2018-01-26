@@ -44,6 +44,9 @@ export default class FormValidation {
         if (this.options.onError) {
             this.on('error', this.options.onError);
         }
+        if (this.options.validateOn) {
+            this.validateOn();
+        }
         this.errorMessages = [];
     }
 
@@ -82,12 +85,17 @@ export default class FormValidation {
         element.classList.add(this.options.errorClass);
     }
 
-    isValid (event) {
+    isValid (event, currentField) {
 
         let formValid = true;
         this.errorMessages = [];
 
         this.fields.forEach(field => {
+
+            // currentField refers to a field that is being validated on blur/keyup
+            if (currentField && currentField !== field) {
+                return;
+            }
 
             let errorMessage = '';
 
@@ -226,4 +234,38 @@ export default class FormValidation {
         return this.form.firstChild;
 
     }
+
+    /**
+     * validateOn - Validates form fields based on event passed into options.validateOn
+     * example:
+     *       this.validation = new FormValidation(this.form, {
+     *           validateOn: 'blur'
+     *       });
+     */
+    validateOn () {
+
+        if (this.options.groupErrorPlacement) {
+            throw new Error('f-validate: validation on \'blur\' or \'keyup\' cannot be performed if errors are grouped');
+        }
+
+        if (CONSTANTS.validateOnOptions.indexOf(this.options.validateOn) === -1) {
+            throw new Error('f-validate: valid options for the \'validateOn\' property are \'blur\' or \'keyup\'');
+        }
+
+        this.fields.forEach(field => {
+            if (field.classList.contains(CONSTANTS.cssClasses.validationGroup)) {
+                field.querySelectorAll(CONSTANTS.fieldValues).forEach(formElement =>
+
+                    // Binds each form element within a validation-group to the specified event.
+                    // When this event is triggered the validation-group will be passed as the element to test.
+                    // Null is being passed as the isValid method expects 'field' as its second argument
+                    formElement.addEventListener(this.options.validateOn, this.isValid.bind(this, null, field)));
+
+            } else {
+                // Null is being passed as the isValid method expects 'field' as its second argument
+                field.addEventListener(this.options.validateOn, this.isValid.bind(this, null, field));
+            }
+        });
+    }
+
 }
