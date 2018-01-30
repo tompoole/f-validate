@@ -4,6 +4,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+v0.9.0
+------------------------------
+*January 30, 2018*
+
+### Added
+- Browserslist added
+
+### Changed
+- Package update for `gulp-build-fozzie`
+- Updating the babel config
+
+### Fixed
+- Fixed test warning for js-dom on `submit` (as it doesn't handle submit events)
+
+
 v0.8.2
 ------------------------------
 *January 26, 2018*

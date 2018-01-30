@@ -236,12 +236,16 @@ describe('on submit', () => {
         const button = form.querySelector('button');
         new FormValidation(form); // eslint-disable-line no-new
 
+        const mockHandler = jest.fn(e => { e.preventDefault(); });
+        form.addEventListener('submit', mockHandler);
+
         // Act
         TestUtils.click(button);
 
         // Assert
         const html = TestUtils.getBodyHtml();
         expect(html).toMatchSnapshot();
+        expect(mockHandler).toHaveBeenCalled();
 
     });
 

@@ -1,7 +1,7 @@
 {
   "name": "@justeat/f-validate",
   "description": "Fozzie vanilla JS Validation Component",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -22,12 +22,12 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "@justeat/f-dom": "^0.1.2"
+    "@justeat/f-dom": "^0.2.0"
   },
   "devDependencies": {
-    "@justeat/gulp-build-fozzie": "^6.5.0",
+    "@justeat/gulp-build-fozzie": "^7.6.0",
     "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
     "concurrently": "^3.5.1",
     "coveralls": "^3.0.0",
     "gulp": "^3.9.1",
@@ -43,5 +43,11 @@
     "test": "gulp scripts:test:coverage",
     "test:watch": "jest --coverage --watch",
     "test:coveralls": "cat coverage/lcov.info | coveralls"
-  }
+  },
+  "browserslist": [
+    "> 5%",
+    "last 2 versions",
+    "Safari >= 8",
+    "not ie 10"
+  ]
 }
