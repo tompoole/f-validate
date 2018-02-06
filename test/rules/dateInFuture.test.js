@@ -34,7 +34,7 @@ describe('dateInFuture validation rules', () => {
 
     });
 
-    it('should return false if year selected is current year, and month is current month', () => {
+    it('should return true if year selected is current year, and month is current month', () => {
 
         // Arrange
         TestUtils.setBodyHtml(`<form>
@@ -58,7 +58,7 @@ describe('dateInFuture validation rules', () => {
         const isFormValid = validateForm.isValid();
 
         // Assert
-        expect(isFormValid).toBe(false);
+        expect(isFormValid).toBe(true);
 
     });
 
@@ -118,7 +118,7 @@ describe('dateInFuture validation rules', () => {
 
     });
 
-    it('should return false if year selected is next year, and month is not selected', () => {
+    it('should return false if year selected is next year, and month is untouched', () => {
 
         // Arrange
         TestUtils.setBodyHtml(`<form>
@@ -130,7 +130,6 @@ describe('dateInFuture validation rules', () => {
                                     </select>
                                     <select data-val-dateinfuture-type="month">
                                         <option value="" ></option>
-                                        <option value="0" selected></option>
                                     </select>
                                 </div>
                             </form>`);

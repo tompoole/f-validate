@@ -1,4 +1,3 @@
-
 export default {
     condition: field => field.hasAttribute('required') || field.hasAttribute('data-val-required'),
 

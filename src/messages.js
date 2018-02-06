@@ -1,8 +1,26 @@
+import $ from '@justeat/f-dom';
 import testDefinitions from './rules';
 import CONSTANTS from './constants';
 
-export const getInlineErrorElement = field => {
+const getCustomErrorElement = (field, form) => {
+    const errorPlacement = field.getAttribute('data-val-error-placement');
+    const errorElement = $.first(errorPlacement, form);
+
+    if (errorElement) {
+        return errorElement;
+    }
+
+    return false;
+};
+
+export const getInlineErrorElement = (field, form) => {
     const nextSibling = field.nextElementSibling;
+    const customErrorEl = getCustomErrorElement(field, form);
+
+    if (customErrorEl && customErrorEl.nextElementSibling
+        && customErrorEl.nextElementSibling.classList.contains(CONSTANTS.cssClasses.formError)) {
+        return customErrorEl.nextElementSibling;
+    }
 
     if (nextSibling && nextSibling.classList.contains(CONSTANTS.cssClasses.formError)) {
 
@@ -12,14 +30,15 @@ export const getInlineErrorElement = field => {
     return false;
 };
 
-export const displayInlineMessage = (errorElement, customMessage, field) => {
+export const displayInlineMessage = (errorElement, customMessage, field, form) => {
 
     let updateElement = errorElement;
+    const customErrorEl = getCustomErrorElement(field, form) || field;
 
     if (!errorElement) {
         updateElement = document.createElement('p');
         updateElement.classList.add(CONSTANTS.cssClasses.formError);
-        field.parentNode.insertBefore(updateElement, field.nextSibling);
+        field.parentNode.insertBefore(updateElement, customErrorEl.nextSibling);
     }
 
     updateElement.textContent = customMessage;

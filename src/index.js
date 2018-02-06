@@ -1,3 +1,4 @@
+import $ from '@justeat/f-dom';
 import testDefinitions from './rules';
 import { addCallBack, runCallbacks } from './callbacks';
 import { getInlineErrorElement, displayInlineMessage, hideMessage, getMessage } from './messages';
@@ -26,6 +27,18 @@ const getForm = descriptor => {
     }
 
     return form;
+
+};
+
+const elementsUntouched = (element, current, touchedSelectors) => {
+
+    const notInErrorState = !current.field.classList.contains(CONSTANTS.cssClasses.hasError);
+    const elementsNotTouched = touchedSelectors
+        .map(childSelector => $.first(childSelector, element))
+        .filter(el => el && !el.hasAttribute('data-touched'));
+
+    // If one select has not been interacted with do not run test method
+    return notInErrorState && elementsNotTouched.length > 0;
 
 };
 
@@ -85,15 +98,23 @@ export default class FormValidation {
         element.classList.add(this.options.errorClass);
     }
 
-    isValid (event, currentField) {
+    /**
+     * Validates the form
+     *
+     * @param event
+     * @param {object} currentElement
+     * @returns {boolean}
+     */
+    isValid (event, currentElement) {
 
         let formValid = true;
         this.errorMessages = [];
 
         this.fields.forEach(field => {
 
-            // currentField refers to a field that is being validated on blur/keyup
-            if (currentField && currentField !== field) {
+            // currentElement refers to an element that is being validated on blur/keyup
+            // only validate on blur/keyup if the field is not empty
+            if (currentElement && (currentElement.field !== field || field.value === '')) {
                 return;
             }
 
@@ -114,7 +135,15 @@ export default class FormValidation {
 
                 if (definition.condition(field)) {
                     fieldHasValidation = true;
-                    if (!definition.test(field)) {
+                    let skipTest = false;
+
+                    // If rule has elements that need to be checked for touch, and validation is happening on blur/keyup
+                    if (definition.touchedSelectors && currentElement) {
+                        currentElement.childField.setAttribute('data-touched', true);
+                        skipTest = elementsUntouched(field, currentElement, definition.touchedSelectors);
+                    }
+
+                    if (!skipTest && !definition.test(field, currentElement)) {
                         fieldValid = false;
                         errorMessage = getMessage(field, ruleName);
                         this.errorMessages.push(errorMessage);
@@ -133,11 +162,11 @@ export default class FormValidation {
                 }
 
                 if (!this.options.groupErrorPlacement) {
-                    const errorElement = getInlineErrorElement(field);
+                    const errorElement = getInlineErrorElement(field, this.form);
                     if (fieldValid) {
                         hideMessage(errorElement);
                     } else {
-                        displayInlineMessage(errorElement, errorMessage, field);
+                        displayInlineMessage(errorElement, errorMessage, field, this.form);
                     }
                 }
 
@@ -254,16 +283,21 @@ export default class FormValidation {
 
         this.fields.forEach(field => {
             if (field.classList.contains(CONSTANTS.cssClasses.validationGroup)) {
-                field.querySelectorAll(CONSTANTS.fieldValues).forEach(formElement =>
+                field.querySelectorAll(CONSTANTS.fieldValues).forEach(childField =>
 
                     // Binds each form element within a validation-group to the specified event.
-                    // When this event is triggered the validation-group will be passed as the element to test.
+                    // When this event is triggered the validation-group element will be passed as the element to test.
+                    // The child field is also passed for use within a rule test method
                     // Null is being passed as the isValid method expects 'field' as its second argument
-                    formElement.addEventListener(this.options.validateOn, this.isValid.bind(this, null, field)));
+                    childField.addEventListener(this.options.validateOn,
+                        this.isValid.bind(this, null, {
+                            field,
+                            childField
+                        })));
 
             } else {
                 // Null is being passed as the isValid method expects 'field' as its second argument
-                field.addEventListener(this.options.validateOn, this.isValid.bind(this, null, field));
+                field.addEventListener(this.options.validateOn, this.isValid.bind(this, null, { field }));
             }
         });
     }

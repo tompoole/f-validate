@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`error messages custom positioning on field should create a new error message after specified element 1`] = `
+"<form class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                        <input required=\\"\\" data-val-error-placement=\\".arbitrary-element\\" class=\\"has-error\\">
+                                        <span class=\\"arbitrary-element\\">arbitrary info text</span><p class=\\"form-error\\">This field is required.</p>
+                                    </form>"
+`;
+
+exports[`error messages custom positioning on field should replace existing error message 1`] = `
+"<form class=\\"has-error\\">
+                                        <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                        <input required=\\"\\" data-val-error-placement=\\".arbitrary-element\\" class=\\"has-error\\">
+                                        <span class=\\"arbitrary-element\\">arbitrary info text</span>
+                                        <p class=\\"form-error\\">This field is required.</p>
+                                    </form>"
+`;
+
 exports[`error messages custom should apply error class to invalid field 1`] = `
 "<form class=\\"has-error\\">
                                     <input required=\\"\\" data-required-error=\\"custom required error message\\" class=\\"has-error\\"><p class=\\"form-error\\">custom required error message</p>

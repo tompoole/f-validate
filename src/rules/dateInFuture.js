@@ -9,16 +9,20 @@ export default {
         const currentMonth = dateToday.getMonth() + 1;
         const currentYear = dateToday.getFullYear();
 
-        const selectedMonth = Number($.first('[data-val-dateInFuture-type="month"]', element).value);
-        const selectedYear = Number($.first('[data-val-dateInFuture-type="year"]', element).value);
+        const selectedMonthEl = $.first('[data-val-dateInFuture-type="month"]', element);
+        const selectedYearEl = $.first('[data-val-dateInFuture-type="year"]', element);
+        const selectedMonthVal = Number(selectedMonthEl.value);
+        const selectedYearVal = Number(selectedYearEl.value);
 
-        if (selectedYear > currentYear && selectedMonth > 0) {
+        if (selectedYearVal > currentYear && selectedMonthVal > 0) {
             return true;
         }
 
-        return selectedYear === currentYear && selectedMonth > currentMonth;
+        return selectedYearVal === currentYear && selectedMonthVal >= currentMonth;
 
     },
+
+    touchedSelectors: ['[data-val-dateInFuture-type="month"]', '[data-val-dateInFuture-type="year"]'],
 
     defaultMessage: 'This date must be in the future.'
 };

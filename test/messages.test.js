@@ -72,6 +72,27 @@ describe('messages', () => {
 
         });
 
+
+        it('should create a new element and position after requested element', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml(`<form>
+                    <input data-val-error-placement="arbitrary-element" />
+                    <p class="arbitrary-element">error message</p>
+                </form>`);
+            const form = document.querySelector('form');
+            const input = form.querySelector('input');
+            const error = form.querySelector('p');
+            const customMessage = 'custom message';
+
+            // Act
+            displayInlineMessage(error, customMessage, input, form);
+
+            // Assert
+            const html = TestUtils.getBodyHtml();
+            expect(html).toMatchSnapshot();
+
+        });
     });
 
     describe('hideMessage', () => {

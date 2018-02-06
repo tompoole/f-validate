@@ -8,12 +8,12 @@ import dateInFuture from './dateInFuture';
 import custom from './custom';
 
 export default {
-    required,
+    custom,
+    dateInFuture,
     maxlength,
     minlength,
     pattern,
     email,
     matches,
-    custom,
-    dateInFuture
+    required
 };

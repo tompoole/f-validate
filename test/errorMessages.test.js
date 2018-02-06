@@ -384,4 +384,50 @@ describe('error messages', () => {
         });
 
     });
+
+    describe('custom positioning on field', () => {
+
+        it('should create a new error message after specified element', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml(`<form>
+                                        <input required />
+                                        <input required data-val-error-placement=".arbitrary-element" />
+                                        <span class="arbitrary-element">arbitrary info text</span>
+                                    </form>`);
+            const form = document.querySelector('form');
+            const validateForm = new FormValidation(form);
+
+            // Act
+            validateForm.isValid();
+
+            // Assert
+            const html = TestUtils.getBodyHtml();
+            expect(html).toMatchSnapshot();
+
+        });
+
+        it('should replace existing error message', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml(`<form>
+                                        <input required />
+                                        <input required data-val-error-placement=".arbitrary-element" />
+                                        <span class="arbitrary-element">arbitrary info text</span>
+                                        <p class="form-error">error here</p>
+                                    </form>`);
+            const form = document.querySelector('form');
+            const validateForm = new FormValidation(form);
+
+            // Act
+            validateForm.isValid();
+
+            // Assert
+            const html = TestUtils.getBodyHtml();
+            expect(html).toMatchSnapshot();
+
+        });
+
+    });
+
 });

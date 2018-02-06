@@ -2,6 +2,13 @@
 
 exports[`messages displayInlineMessage should assign error to existing element 1`] = `"<input><p class=\\"form-error\\">custom message</p>"`;
 
+exports[`messages displayInlineMessage should create a new element and position after requested element 1`] = `
+"<form>
+                    <input data-val-error-placement=\\"arbitrary-element\\">
+                    <p class=\\"arbitrary-element\\">custom message</p>
+                </form>"
+`;
+
 exports[`messages displayInlineMessage should create a new element if it does not exist, and assign error 1`] = `"<input><p class=\\"form-error\\">custom message</p>"`;
 
 exports[`messages hideMessage should add hidden class and remove content if element exists 1`] = `"<p class=\\"form-error is-hidden\\"></p>"`;
