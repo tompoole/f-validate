@@ -5,11 +5,13 @@ import pattern from './pattern';
 import email from './email';
 import matches from './matches';
 import dateInFuture from './dateInFuture';
+import conditionalRequired from './conditionalRequired';
 import custom from './custom';
 
 export default {
     custom,
     dateInFuture,
+    conditionalRequired,
     maxlength,
     minlength,
     pattern,

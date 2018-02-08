@@ -83,6 +83,13 @@ describe('rule definitions', () => {
         expect(testDefinitions).toHaveProperty('dateInFuture');
 
     });
+
+    it('conditionalRequired rule should exist', () => {
+
+        expect(testDefinitions).toHaveProperty('conditionalRequired');
+
+    });
+
     it('custom rule should exist', () => {
 
         expect(testDefinitions).toHaveProperty('custom');
