@@ -3,9 +3,7 @@
   "description": "Fozzie vanilla JS Validation Component",
   "version": "0.11.0",
   "main": "dist/index.js",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "homepage": "https://github.com/justeat/f-validate",
   "contributors": [
     "Github contributors <https://github.com/justeat/f-validate/graphs/contributors>"
@@ -30,24 +28,27 @@
     "babel-preset-env": "^1.6.1",
     "concurrently": "^3.5.1",
     "coveralls": "^3.0.0",
+    "eslint-config-prettier": "^2.9.0",
     "gulp": "^3.9.1",
-    "js-test-buddy": "^0.0.7"
+    "husky": "^0.14.3",
+    "js-test-buddy": "^0.0.7",
+    "lint-staged": "^6.1.0",
+    "prettier": "1.10.2"
   },
-  "keywords": [
-    "fozzie"
-  ],
+  "keywords": ["fozzie"],
   "scripts": {
-    "prepare": "concurrently -n \"lint,compile,test\" -c \"blue,yellow,green\" --kill-others-on-fail \"yarn lint\" \"yarn compile\" \"yarn run test\"",
+    "prepare":
+      "concurrently -n \"lint,compile,test\" -c \"blue,yellow,green\" --kill-others-on-fail \"yarn lint\" \"yarn compile\" \"yarn run test\"",
     "lint": "gulp scripts:lint",
     "compile": "babel -d dist src",
     "test": "gulp scripts:test:coverage",
     "test:watch": "jest --coverage --watch",
-    "test:coveralls": "cat coverage/lcov.info | coveralls"
+    "test:coveralls": "cat coverage/lcov.info | coveralls",
+    "precommit": "lint-staged",
+    "prettier": "prettier --single-quote --print-width 90 --write {src,test}/*.js"
   },
-  "browserslist": [
-    "> 5%",
-    "last 2 versions",
-    "Safari >= 8",
-    "not ie 10"
-  ]
+  "browserslist": ["> 5%", "last 2 versions", "Safari >= 8", "not ie 10"],
+  "lint-staged": {
+    "*.{js,json,css,md}": ["yarn prettier", "git add"]
+  }
 }
