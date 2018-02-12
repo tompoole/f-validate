@@ -2,11 +2,8 @@ import TestUtils from 'js-test-buddy';
 import FormValidation from '../src/index';
 
 describe('error messages', () => {
-
     describe('custom', () => {
-
         it('should apply error class to invalid field', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required data-required-error="custom required error message" />
@@ -20,11 +17,9 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should not apply error class to valid field', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required value="x" data-required-error="custom required error message" />
@@ -38,11 +33,9 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should replace existing error message', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input
@@ -66,11 +59,9 @@ describe('error messages', () => {
             validateForm.isValid();
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should hide error message if field is now valid', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                         <input required data-required-error="custom required error message" />
@@ -88,15 +79,11 @@ describe('error messages', () => {
 
             validateForm.isValid();
             expect(TestUtils.getBodyHtml()).toMatchSnapshot();
-
         });
-
     });
 
     describe('default', () => {
-
         it('should apply error class to invalid field', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required />
@@ -110,11 +97,9 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should not apply error class to valid field', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required value="x" />
@@ -128,11 +113,9 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should replace existing error message', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required maxlength="3" />
@@ -151,11 +134,9 @@ describe('error messages', () => {
             validateForm.isValid();
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should hide error message if field is now valid', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                         <input required />
@@ -174,15 +155,11 @@ describe('error messages', () => {
             validateForm.isValid();
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
-
     });
 
     describe('grouped', () => {
-
         it('should display error messages grouped at the bottom', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required />
@@ -199,11 +176,9 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should display error messages grouped at the bottom above submit button', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required />
@@ -221,11 +196,9 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should display error messages grouped at the bottom above specified element', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required />
@@ -244,11 +217,9 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should display error messages grouped at the top', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required />
@@ -265,11 +236,9 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should display error messages grouped at the top if element not found', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required />
@@ -286,11 +255,9 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should not display error messages on valid form', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required value="x" />
@@ -307,11 +274,9 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should replace existing group error messages', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required />
@@ -334,11 +299,9 @@ describe('error messages', () => {
             validateForm.isValid();
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should hide existing group error message if group is now valid', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required />
@@ -361,11 +324,9 @@ describe('error messages', () => {
             validateForm.isValid();
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
-        it('should not allow user to group errors if validating on \'blur\' or \'keyup\'', () => {
-
+        it("should not allow user to group errors if validating on 'blur' or 'keyup'", () => {
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                     <input required />
@@ -379,16 +340,14 @@ describe('error messages', () => {
                     groupErrorPlacement: 'bottom',
                     validateOn: 'blur'
                 });
-            }).toThrowError('f-validate: validation on \'blur\' or \'keyup\' cannot be performed if errors are grouped');
-
+            }).toThrowError(
+                "f-validate: validation on 'blur' or 'keyup' cannot be performed if errors are grouped"
+            );
         });
-
     });
 
     describe('custom positioning on field', () => {
-
         it('should create a new error message after specified element', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                         <input required />
@@ -404,11 +363,9 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should replace existing error message', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                         <input required />
@@ -425,9 +382,6 @@ describe('error messages', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
-
     });
-
 });

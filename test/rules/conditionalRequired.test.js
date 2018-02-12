@@ -2,9 +2,7 @@ import TestUtils from 'js-test-buddy';
 import FormValidation from '../../src';
 
 describe('conditionalRequired', () => {
-
     it('should return valid if dependent input is not checked, and current field is not empty', () => {
-
         // Arrange
         TestUtils.setBodyHtml(`<form>
                 <input data-val-conditionalRequired="nameOfcheckedInput" value="test" />
@@ -18,11 +16,9 @@ describe('conditionalRequired', () => {
 
         // Assert
         expect(isFormValid).toBe(true);
-
     });
 
     it('should return invalid if dependent input is not checked, and current field is empty', () => {
-
         // Arrange
         TestUtils.setBodyHtml(`<form>
                 <input data-val-conditionalRequired="nameOfcheckedInput" value="" />
@@ -36,11 +32,9 @@ describe('conditionalRequired', () => {
 
         // Assert
         expect(isFormValid).toBe(false);
-
     });
 
     it('should return valid if dependent input is checked, and current field is not empty', () => {
-
         // Arrange
         TestUtils.setBodyHtml(`<form>
                 <input data-val-conditionalRequired="nameOfcheckedInput" value="test" />
@@ -54,11 +48,9 @@ describe('conditionalRequired', () => {
 
         // Assert
         expect(isFormValid).toBe(true);
-
     });
 
     it('should return valid if dependent input is checked, and current field is empty', () => {
-
         // Arrange
         TestUtils.setBodyHtml(`<form>
                 <input data-val-conditionalRequired="nameOfcheckedInput" value="" />
@@ -72,11 +64,9 @@ describe('conditionalRequired', () => {
 
         // Assert
         expect(isFormValid).toBe(true);
-
     });
 
     it('should return valid if dependent input is not found', () => {
-
         // Arrange
         TestUtils.setBodyHtml(`<form>
                 <input data-val-conditionalRequired="nameOfcheckedInput" value="" />
@@ -89,7 +79,5 @@ describe('conditionalRequired', () => {
 
         // Assert
         expect(isFormValid).toBe(true);
-
     });
-
 });

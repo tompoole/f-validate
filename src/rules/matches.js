@@ -7,9 +7,7 @@ export default {
         if (matchedFieldName) {
             const input = document.querySelector(`input[name=${matchedFieldName}]`);
 
-            return matchedFieldName
-                && input
-                && field.value === input.value;
+            return matchedFieldName && input && field.value === input.value;
         }
 
         return false;

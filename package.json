@@ -45,10 +45,11 @@
     "test:watch": "jest --coverage --watch",
     "test:coveralls": "cat coverage/lcov.info | coveralls",
     "precommit": "lint-staged",
-    "prettier": "prettier --single-quote --print-width 90 --write {src,test}/*.js"
+    "prettier": "prettier --single-quote --print-width 90 --write \"{src,test}/**/*.js\"",
+    "prettier:single": "prettier --single-quote --print-width 90 --write"
   },
   "browserslist": ["> 5%", "last 2 versions", "Safari >= 8", "not ie 10"],
   "lint-staged": {
-    "*.{js,json,css,md}": ["yarn prettier", "git add"]
+    "*.js": ["yarn prettier", "git add"]
   }
 }

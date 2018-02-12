@@ -3,9 +3,7 @@ import FormValidation from '../src';
 import stubDate from './helpers/stubDate';
 
 describe('validateOn', () => {
-
-    it('should throw error if value other than \'blur\' or \'keyup\' are passed to \'validateOn\' option', () => {
-
+    it("should throw error if value other than 'blur' or 'keyup' are passed to 'validateOn' option", () => {
         // Arrange
         TestUtils.setBodyHtml(`<form>
                                         <input required value="x" />
@@ -19,14 +17,13 @@ describe('validateOn', () => {
             new FormValidation(form, {
                 validateOn: 'other'
             });
-        }).toThrowError('f-validate: valid options for the \'validateOn\' property are \'blur\' or \'keyup\'');
-
+        }).toThrowError(
+            "f-validate: valid options for the 'validateOn' property are 'blur' or 'keyup'"
+        );
     });
 
     describe('blur', () => {
-
         it('should not validate if field is empty', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                         <input required />
@@ -45,11 +42,9 @@ describe('validateOn', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should validate valid form', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                         <input required value="x" />
@@ -68,11 +63,9 @@ describe('validateOn', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should not run validation on other fields', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                         <input required value="x" />
@@ -92,11 +85,9 @@ describe('validateOn', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should set form state to valid, as second select has not been touched', () => {
-
             stubDate('Oct 16, 2020');
 
             // Arrange
@@ -126,11 +117,9 @@ describe('validateOn', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should set form state to invalid, as second select has been touched', () => {
-
             stubDate('Oct 16, 2020');
 
             // Arrange
@@ -160,11 +149,9 @@ describe('validateOn', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should set form state to valid, as first select has not been touched', () => {
-
             stubDate('Oct 16, 2020');
 
             // Arrange
@@ -194,11 +181,9 @@ describe('validateOn', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should set form state to invalid, as first select has been touched', () => {
-
             stubDate('Oct 16, 2020');
 
             // Arrange
@@ -228,15 +213,11 @@ describe('validateOn', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
-
     });
 
     describe('keyup', () => {
-
         it('should not validate if field is empty', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                         <input required />
@@ -255,11 +236,9 @@ describe('validateOn', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
 
         it('should validate valid form', () => {
-
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                         <input required value="x" />
@@ -278,8 +257,6 @@ describe('validateOn', () => {
             // Assert
             const html = TestUtils.getBodyHtml();
             expect(html).toMatchSnapshot();
-
         });
-
     });
 });

@@ -1,5 +1,4 @@
 const stubDate = date => {
-
     const stubbedDate = new Date(date);
 
     beforeEach(() => {
@@ -9,7 +8,6 @@ const stubDate = date => {
     afterEach(() => {
         global.Date = Date;
     });
-
 };
 
 export default stubDate;

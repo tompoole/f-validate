@@ -3,11 +3,9 @@ import FormValidation from '../../src';
 import stubDate from '../helpers/stubDate';
 
 describe('dateInFuture validation rules', () => {
-
     stubDate('Oct 16, 2020');
 
     it('should return true if year selected is beyond current year', () => {
-
         // Arrange
         TestUtils.setBodyHtml(`<form>
                                 <div class="validation-group"
@@ -31,11 +29,9 @@ describe('dateInFuture validation rules', () => {
 
         // Assert
         expect(isFormValid).toBe(true);
-
     });
 
     it('should return true if year selected is current year, and month is current month', () => {
-
         // Arrange
         TestUtils.setBodyHtml(`<form>
                                     <div class="validation-group"
@@ -59,11 +55,9 @@ describe('dateInFuture validation rules', () => {
 
         // Assert
         expect(isFormValid).toBe(true);
-
     });
 
     it('should return true if year selected is current year, and month selected is future month', () => {
-
         // Arrange
         TestUtils.setBodyHtml(`<form>
                                     <div class="validation-group"
@@ -87,11 +81,9 @@ describe('dateInFuture validation rules', () => {
 
         // Assert
         expect(isFormValid).toBe(true);
-
     });
 
     it('should return false if year selected is current year, and month selected is previous month', () => {
-
         // Arrange
         TestUtils.setBodyHtml(`<form>
                                 <div class="validation-group"
@@ -115,11 +107,9 @@ describe('dateInFuture validation rules', () => {
 
         // Assert
         expect(isFormValid).toBe(false);
-
     });
 
     it('should return false if year selected is next year, and month is untouched', () => {
-
         // Arrange
         TestUtils.setBodyHtml(`<form>
                                 <div class="validation-group"
@@ -142,7 +132,5 @@ describe('dateInFuture validation rules', () => {
 
         // Assert
         expect(isFormValid).toBe(false);
-
     });
-
 });

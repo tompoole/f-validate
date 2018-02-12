@@ -1,9 +1,7 @@
 import { addCallBack, runCallbacks } from '../src/callbacks';
 
 describe('add callbacks', () => {
-
     it('should allow callbacks to be added to a callback array', () => {
-
         // Arrange
         const callBacks = [];
         const callBack = jest.fn();
@@ -13,11 +11,9 @@ describe('add callbacks', () => {
 
         // Assert
         expect(callBacks.length).toBe(1);
-
     });
 
     it('should throw exception when string type callbacks are specified', () => {
-
         // Arrange
         const callBacks = [];
         const callBack = '';
@@ -30,11 +26,9 @@ describe('add callbacks', () => {
         expect(() => {
             addCallBack(callBacks, callBack);
         }).toThrowError('call back is not a function');
-
     });
 
     it('should throw exception when array type success callbacks options are specified', () => {
-
         // Arrange
         const callBacks = [];
         const callBack = [];
@@ -47,11 +41,9 @@ describe('add callbacks', () => {
         expect(() => {
             addCallBack(callBacks, callBack);
         }).toThrowError('call back is not a function');
-
     });
 
     it('should throw exception when object type success callbacks options are specified', () => {
-
         // Arrange
         const callBacks = [];
         const callBack = {};
@@ -64,11 +56,9 @@ describe('add callbacks', () => {
         expect(() => {
             addCallBack(callBacks, callBack);
         }).toThrowError('call back is not a function');
-
     });
 
     it('should throw exception when null type success callbacks are added', () => {
-
         // Arrange
         const callBacks = [];
         const callBack = null;
@@ -81,15 +71,11 @@ describe('add callbacks', () => {
         expect(() => {
             addCallBack(callBacks, callBack);
         }).toThrowError('call back is not a function');
-
     });
-
 });
 
 describe('run callbacks', () => {
-
     it('should call all callbacks', () => {
-
         // Arrange
         const cb1 = jest.fn();
         const cb2 = jest.fn();
@@ -103,6 +89,5 @@ describe('run callbacks', () => {
         expect(cb1.mock.calls.length).toBe(1);
         expect(cb2.mock.calls.length).toBe(1);
         expect(cb3.mock.calls.length).toBe(1);
-
     });
 });
