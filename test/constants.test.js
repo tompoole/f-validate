@@ -9,7 +9,6 @@ describe('CONSTANTS', () => {
         expect(CONSTANTS.cssClasses).toHaveProperty('formErrors', 'form-errors');
         expect(CONSTANTS.cssClasses).toHaveProperty('hasError', 'has-error');
         expect(CONSTANTS.cssClasses).toHaveProperty('hasSuccess', 'has-success');
-        expect(CONSTANTS.cssClasses).toHaveProperty('validationGroup', 'validation-group');
 
     });
 
@@ -27,7 +26,11 @@ describe('CONSTANTS', () => {
         expect(values).toContain('input');
         expect(values).toContain('select');
         expect(values).toContain('textarea');
-        expect(values).toContain('.validation-group');
+        expect(values).toContain('[data-val-group]');
+    });
+
+    it('should contain validationGroup', () => {
+        expect(CONSTANTS.validationGroup).toEqual('data-val-group');
     });
 
     it('should contain blur and keyup within validateOnOptions', () => {

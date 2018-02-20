@@ -13,9 +13,9 @@ exports[`validateOn blur should not validate if field is empty 1`] = `
                                     </form>"
 `;
 
-exports[`validateOn blur should set form state to invalid, as first select has been touched 1`] = `
-"<form class=\\"has-success\\">
-                                <div class=\\"validation-group has-error\\" data-val-dateinfuture=\\"\\">
+exports[`validateOn blur should set form state to invalid, as first select has been touched and no option selected 1`] = `
+"<form class=\\"has-error\\">
+                                <div data-val-group=\\"\\" data-val-dateinfuture=\\"\\" class=\\"has-error\\">
                                      <select data-val-dateinfuture-type=\\"year\\" data-touched=\\"true\\">
                                         <option value=\\"\\"></option>
                                     </select>
@@ -27,12 +27,14 @@ exports[`validateOn blur should set form state to invalid, as first select has b
                             </form>"
 `;
 
-exports[`validateOn blur should set form state to invalid, as second select has been touched 1`] = `
-"<form class=\\"has-success\\">
-                                <div class=\\"validation-group has-error\\" data-val-dateinfuture=\\"\\">
+exports[`validateOn blur should set form state to invalid, as second select has been touched and no value selected 1`] = `
+"<form class=\\"has-error\\">
+                                <div data-val-group=\\"\\" data-val-dateinfuture=\\"\\" class=\\"has-error\\">
                                      <select data-val-dateinfuture-type=\\"year\\" data-touched=\\"true\\">
                                         <option value=\\"\\"></option>
-                                        <option value=\\"2021\\" selected=\\"\\"></option>
+                                        <option value=\\"2018\\"></option>
+                                        <option value=\\"2019\\"></option>
+                                        <option value=\\"2020\\" selected=\\"\\"></option>
                                     </select>
                                     <select data-val-dateinfuture-type=\\"month\\" data-touched=\\"true\\">
                                         <option value=\\"\\"></option>
@@ -41,9 +43,9 @@ exports[`validateOn blur should set form state to invalid, as second select has 
                             </form>"
 `;
 
-exports[`validateOn blur should set form state to valid, as first select has not been touched 1`] = `
+exports[`validateOn blur should set form state to valid, as first select has not been touched yet 1`] = `
 "<form class=\\"has-success\\">
-                                <div class=\\"validation-group has-success\\" data-val-dateinfuture=\\"\\">
+                                <div data-val-group=\\"\\" data-val-dateinfuture=\\"\\" class=\\"has-success\\">
                                      <select data-val-dateinfuture-type=\\"year\\">
                                         <option value=\\"\\"></option>
                                     </select>
@@ -57,10 +59,12 @@ exports[`validateOn blur should set form state to valid, as first select has not
 
 exports[`validateOn blur should set form state to valid, as second select has not been touched 1`] = `
 "<form class=\\"has-success\\">
-                                <div class=\\"validation-group has-success\\" data-val-dateinfuture=\\"\\">
+                                <div data-val-group=\\"\\" data-val-dateinfuture=\\"\\" class=\\"has-success\\">
                                      <select data-val-dateinfuture-type=\\"year\\" data-touched=\\"true\\">
                                         <option value=\\"\\"></option>
-                                        <option value=\\"2021\\" selected=\\"\\"></option>
+                                        <option value=\\"2018\\"></option>
+                                        <option value=\\"2019\\"></option>
+                                        <option value=\\"2020\\" selected=\\"\\"></option>
                                     </select>
                                     <select data-val-dateinfuture-type=\\"month\\">
                                         <option value=\\"\\"></option>

@@ -8,7 +8,7 @@ _A short description of your PR goes here._
 
 ## UI Review Checks
 
-![image](https://media.github.je-labs.com/user/326/files/c1e6632c-e23e-11e6-91e2-4625e4f89d6d)
+![image](https://user-images.githubusercontent.com/805184/35801356-f756b018-0a63-11e8-8ca4-ec045d43c16c.png)
 
 - [ ] UI Documentation has been [created|updated]
 - [ ] JavaScript Tests have been [created|updated]

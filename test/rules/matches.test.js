@@ -4,7 +4,7 @@ import FormValidation from '../../src';
 
 describe('matches fields', () => {
 
-    it('should return invalid for a field with "equalto" attribute, that does not match value of specified field', () => {
+    it('should return invalid for a field with "equalto" attribute, that does not match the value of specified field', () => {
 
         // Arrange
         TestUtils.setBodyHtml(`<form>
@@ -22,7 +22,7 @@ describe('matches fields', () => {
 
     });
 
-    it('should return invalid for a field with "equalto" attribute, that matches value, but field is not specified', () => {
+    it('should return invalid for a field with "equalto" attribute, but a field is not specified in that attribute', () => {
 
         // Arrange
         TestUtils.setBodyHtml(`<form>
@@ -40,7 +40,7 @@ describe('matches fields', () => {
 
     });
 
-    it('should return invalid for a field with "equalto" attribute, that does matches value, but field does not exist', () => {
+    it('should return invalid for a field with "equalto" attribute, but the field specified does not exist', () => {
 
         // Arrange
         TestUtils.setBodyHtml(`<form>
@@ -57,7 +57,7 @@ describe('matches fields', () => {
 
     });
 
-    it('should return valid for a field with "equalto" attribute, that does match value of specified field', () => {
+    it('should return valid for an input field with "equalto" attribute, that does match the value of specified field', () => {
 
         // Arrange
         TestUtils.setBodyHtml(`<form>

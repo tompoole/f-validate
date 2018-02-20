@@ -97,15 +97,17 @@ describe('validateOn', () => {
 
         it('should set form state to valid, as second select has not been touched', () => {
 
-            stubDate('Oct 16, 2020');
+            stubDate('Oct 16, 2018');
 
             // Arrange
             TestUtils.setBodyHtml(`<form>
-                                <div class="validation-group"
+                                <div data-val-group
                                     data-val-dateinfuture>
                                      <select data-val-dateinfuture-type="year">
                                         <option value="" ></option>
-                                        <option value="2021" selected></option>
+                                        <option value="2018"></option>
+                                        <option value="2019"></option>
+                                        <option value="2020" selected></option>
                                     </select>
                                     <select data-val-dateinfuture-type="month">
                                         <option value="" ></option>
@@ -129,17 +131,19 @@ describe('validateOn', () => {
 
         });
 
-        it('should set form state to invalid, as second select has been touched', () => {
+        it('should set form state to invalid, as second select has been touched and no value selected', () => {
 
-            stubDate('Oct 16, 2020');
+            stubDate('Oct 16, 2018');
 
             // Arrange
             TestUtils.setBodyHtml(`<form>
-                                <div class="validation-group"
+                                <div data-val-group
                                     data-val-dateinfuture>
                                      <select data-val-dateinfuture-type="year">
                                         <option value="" ></option>
-                                        <option value="2021" selected></option>
+                                        <option value="2018"></option>
+                                        <option value="2019"></option>
+                                        <option value="2020" selected></option>
                                     </select>
                                     <select data-val-dateinfuture-type="month" data-touched="true">
                                         <option value="" ></option>
@@ -163,13 +167,13 @@ describe('validateOn', () => {
 
         });
 
-        it('should set form state to valid, as first select has not been touched', () => {
+        it('should set form state to valid, as first select has not been touched yet', () => {
 
-            stubDate('Oct 16, 2020');
+            stubDate('Oct 16, 2018');
 
             // Arrange
             TestUtils.setBodyHtml(`<form>
-                                <div class="validation-group"
+                                <div data-val-group
                                     data-val-dateinfuture>
                                      <select data-val-dateinfuture-type="year">
                                         <option value="" ></option>
@@ -197,13 +201,13 @@ describe('validateOn', () => {
 
         });
 
-        it('should set form state to invalid, as first select has been touched', () => {
+        it('should set form state to invalid, as first select has been touched and no option selected', () => {
 
-            stubDate('Oct 16, 2020');
+            stubDate('Oct 16, 2018');
 
             // Arrange
             TestUtils.setBodyHtml(`<form>
-                                <div class="validation-group"
+                                <div data-val-group
                                     data-val-dateinfuture>
                                      <select data-val-dateinfuture-type="year" data-touched="true">
                                         <option value="" ></option>

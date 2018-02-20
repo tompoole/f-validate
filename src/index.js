@@ -1,9 +1,27 @@
+/**
+ * @module Validate
+ *
+ * ## Goals
+ *
+ * To validate a form based on the HTML5 attributes each form has, or the data attributes specified on them
+ *
+ * Should accept either:
+ *
+ * 1. A form DOM Element
+ * 2. A string relating to the name of the form
+ *
+ * Should also be able to label a form field with `data-novalidate`
+ * to remove it from those being validated
+ *
+ */
+
 import $ from '@justeat/f-dom';
 import testDefinitions from './rules';
 import { addCallBack, runCallbacks } from './callbacks';
 import { getInlineErrorElement, displayInlineMessage, hideMessage, getMessage } from './messages';
 import CONSTANTS from './constants';
 
+// Load in the set of test definitions to validate against
 const VALIDATION_KEYS = Object.keys(testDefinitions);
 
 export const defaultOptions = {
@@ -216,7 +234,8 @@ export default class FormValidation {
             .filter(f => !(f.hasAttribute('type')
                 && f.getAttribute('type') === 'hidden')
                 && !f.hasAttribute('disabled')
-                && !f.hasAttribute('data-novalidate'));
+                && !f.hasAttribute('data-novalidate')
+                && !f.parentElement.hasAttribute(CONSTANTS.validationGroup));
     }
 
     findGroupedErrorElement () {
@@ -265,7 +284,8 @@ export default class FormValidation {
     }
 
     /**
-     * validateOn - Validates form fields based on event passed into options.validateOn
+     * Validates form field(s) based on the event passed into options.validateOn
+     *
      * example:
      *       this.validation = new FormValidation(this.form, {
      *           validateOn: 'blur'
@@ -282,7 +302,7 @@ export default class FormValidation {
         }
 
         this.fields.forEach(field => {
-            if (field.classList.contains(CONSTANTS.cssClasses.validationGroup)) {
+            if (field.hasAttribute(CONSTANTS.validationGroup)) {
                 field.querySelectorAll(CONSTANTS.fieldValues).forEach(childField =>
 
                     // Binds each form element within a validation-group to the specified event.
@@ -293,7 +313,9 @@ export default class FormValidation {
                         this.isValid.bind(this, null, {
                             field,
                             childField
-                        })));
+                        })
+                    )
+                );
 
             } else {
                 // Null is being passed as the isValid method expects 'field' as its second argument

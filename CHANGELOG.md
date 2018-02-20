@@ -4,6 +4,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+v0.12.0
+------------------------------
+*February 19, 2018*
+
+### Fixed
+- Fixed issue with `validateOn` marking form as valid when `blur` event fired due to validating child elements inside groups
+- Readme typo
+
+### Added
+- Constant `validationGroup` added that defines the data-attribute for group validation elements
+
+### Changed
+- Pull request image updated
+- Updated how validation groups get assigned.  Now uses the data-attribute `data-val-group` rather than the class `validation-group` as modules should use attributes for hook definitions.
+- Some of the tests updated so that they are a bit clearer in their definition.  Stubbed date has changed to 2018 in the tests (as it was a bit confusing testing against a future date)
+
+
 v0.11.0
 ------------------------------
 *February 7, 2018*

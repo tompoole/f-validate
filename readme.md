@@ -17,7 +17,7 @@ yarn add @justeat/f-validate
 Then, inside your script import and run `f-validate`.
 
 ```js
-import toggle from '@justeat/f-validate';
+import validate from '@justeat/f-validate';
 
 //to be confirmed
 ```
