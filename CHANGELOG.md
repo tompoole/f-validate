@@ -4,6 +4,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+v0.13.0
+------------------------------
+*February 23, 2018*
+
+### Changed
+- Have made it the default behaviour to set the `novalidate` attribute on a form when `f-validate` is initialised on it.  This can be overidden if the developer wants to allow the default HTML5 validation to kick in by setting the `enableHTML5Validation` option to true.
+- Custom error attributes changed so that they are in the format `data-val-` as they weren't consistent.
+- Updated some of the test descriptions on error messages to be a little clearer as to the expected functionality.  Re-jigged the ordering as well, so that the default rules come first.
+- Snapshots updated with the above changes.
+
+
 v0.12.0
 ------------------------------
 *February 19, 2018*

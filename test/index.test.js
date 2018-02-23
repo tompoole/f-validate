@@ -117,6 +117,35 @@ describe('initialising', () => {
 
     });
 
+    it('validation module should set the `novalidate` attribute on the form once initialised', () => {
+
+        // Arrange
+        TestUtils.setBodyHtml('<form name="formName"><input /></form>');
+
+        // Act
+        const validateForm = new FormValidation('formName');
+
+        // Assert
+        expect(validateForm.form.hasAttribute('novalidate')).toBe(true);
+        expect(validateForm.form.getAttribute('novalidate')).toBe('');
+
+    });
+
+    it('validation module shouldn‘t set the set the `novalidate` attribute on the form if the `enableHTML5Validation` option has been set', () => {
+
+        // Arrange
+        TestUtils.setBodyHtml('<form name="formName"><input /></form>');
+
+        // Act
+        const validateForm = new FormValidation('formName', {
+            enableHTML5Validation: true
+        });
+
+        // Assert
+        expect(validateForm.form.hasAttribute('novalidate')).toBe(false);
+
+    });
+
 
 });
 

@@ -66,6 +66,6 @@ const getDefaultMessage = (field, ruleName) => {
         .defaultMessageValue(field));
 };
 
-export const getMessage = (field, ruleName) => field.getAttribute(`data-${ruleName}-error`)
+export const getMessage = (field, ruleName) => field.getAttribute(`data-val-${ruleName}-error`)
     || getDefaultMessage(field, ruleName);
 

@@ -4,7 +4,7 @@ import FormValidation from '../../src';
 
 describe('custom validation rules', () => {
 
-    it('should return valid for a field custom attribute, where method returns true', () => {
+    it('should return valid for a field when the specified method returns true', () => {
 
         // Arrange
         const customMethod = () => true;
@@ -23,7 +23,7 @@ describe('custom validation rules', () => {
 
     });
 
-    it('should return invalid for a field custom attribute, where method returns false', () => {
+    it('should return invalid for a field when the specified method returns false', () => {
 
         // Arrange
         const customMethod = () => false;

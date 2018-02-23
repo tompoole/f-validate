@@ -28,7 +28,8 @@ export const defaultOptions = {
     errorClass: CONSTANTS.cssClasses.hasError,
     successClass: CONSTANTS.cssClasses.hasSuccess,
     focus: false,
-    groupErrorPlacement: false
+    groupErrorPlacement: false,
+    enableHTML5Validation: false
 };
 
 const getForm = descriptor => {
@@ -65,10 +66,11 @@ export default class FormValidation {
     constructor (nameOrNode, options = {}) {
         this.options = Object.assign({}, defaultOptions, options);
         this.form = getForm(nameOrNode);
-        this.form.addEventListener('submit', this.isValid.bind(this));
         this.fields = this.getFields();
         this.customHandlers = {};
         this.callBacks = {};
+        this.errorMessages = [];
+
         if (this.options.onSuccess) {
             this.on('success', this.options.onSuccess);
         }
@@ -78,7 +80,9 @@ export default class FormValidation {
         if (this.options.validateOn) {
             this.validateOn();
         }
-        this.errorMessages = [];
+
+        this.setFormNoValidate();
+        this.form.addEventListener('submit', this.isValid.bind(this));
     }
 
     /**
@@ -114,6 +118,14 @@ export default class FormValidation {
     setError (element) {
         element.classList.remove(this.options.successClass);
         element.classList.add(this.options.errorClass);
+    }
+
+    setFormNoValidate () {
+
+        if (!this.options.enableHTML5Validation) {
+            this.form.setAttribute('novalidate', '');
+        }
+
     }
 
     /**
@@ -179,6 +191,7 @@ export default class FormValidation {
                     this.setError(field);
                 }
 
+                // if we aren't handling a group field validation
                 if (!this.options.groupErrorPlacement) {
                     const errorElement = getInlineErrorElement(field, this.form);
                     if (fieldValid) {

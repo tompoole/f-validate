@@ -119,7 +119,7 @@ describe('messages', () => {
         it('should return custom error message if data attr exists', () => {
 
             // Arrange
-            TestUtils.setBodyHtml('<input data-maxlength-error="maxlength error message" />');
+            TestUtils.setBodyHtml('<input data-val-maxlength-error="maxlength error message" />');
             const input = document.querySelector('input');
             const ruleName = 'maxlength';
 
