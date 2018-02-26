@@ -1,3 +1,10 @@
+/**
+ * Date In Future Rule
+ * -------------------
+ * This rule is for validating dates entered by a collection of `select` fields.
+ * When applied to a validation group, it returns true if the date entered in these fields is in the future.
+ *
+ */
 import $ from '@justeat/f-dom';
 
 export default {

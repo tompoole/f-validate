@@ -4,6 +4,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+v0.14.0
+------------------------------
+*February 23, 2018*
+
+### Added
+- Comments added to each rule definition
+
+### Fixed
+- Fixed instances where the `email`, `minlength` and `maxlength` fields would validate as true when they shouldn't do
+- Tests added for the above cases
+
+
 v0.13.0
 ------------------------------
 *February 23, 2018*

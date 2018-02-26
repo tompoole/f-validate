@@ -1,3 +1,9 @@
+/**
+ * Required Rule
+ * -------------
+ * Checks that a value is present for the field being validated
+ *
+ */
 export default {
     condition: field => field.hasAttribute('required') || field.hasAttribute('data-val-required'),
 

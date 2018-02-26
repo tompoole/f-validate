@@ -130,6 +130,22 @@ describe('minlength fields', () => {
 
         });
 
+        it('should return valid if minlength attribute is set with no value', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form><input type="text" data-val-minlength /></form>');
+
+            const form = document.querySelector('form');
+            const validateForm = new FormValidation(form);
+
+            // Act
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(true);
+
+        });
+
     });
 
 });

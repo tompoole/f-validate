@@ -1,3 +1,9 @@
+/**
+ * Custom Rule
+ * --------------
+ * This validation rule allows the addition of a custom validation check to be added to the field.
+ *
+ */
 export default {
     condition: field => {
         const hasCustom = field.hasAttribute('data-val-custom');

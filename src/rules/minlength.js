@@ -1,9 +1,15 @@
+/**
+ * Minlength Rule
+ * --------------
+ * Checks that the value of the field is of a specified minimum length.
+ *
+ */
 export default {
     condition: field => field.hasAttribute('minlength') || field.hasAttribute('data-val-minlength'),
 
     test: field => {
-        // if the field is empty, should validate as true
-        if (field.value === '') {
+        // if the field is empty, or attribute is set with no value, should validate as true
+        if (field.value === '' || field.getAttribute('minlength') === '' || field.getAttribute('data-val-minlength') === '') {
             return true;
         }
 

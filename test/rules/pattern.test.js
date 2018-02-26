@@ -66,6 +66,21 @@ describe('pattern fields', () => {
 
         });
 
+        it('should return valid when a pattern is specified but no value has been entered', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form><input pattern="[a-z]{1,6}" value="" /></form>');
+            const form = document.querySelector('form');
+            const validateForm = new FormValidation(form);
+
+            // Act
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(true);
+
+        });
+
     });
 
 });

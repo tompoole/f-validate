@@ -64,4 +64,19 @@ describe('email validation rules', () => {
 
     });
 
+    it('should return valid for a field of type email with no value specified', () => {
+
+        // Arrange
+        TestUtils.setBodyHtml('<form><input type="email" value="" /></form>');
+        const form = document.querySelector('form');
+        const validateForm = new FormValidation(form);
+
+        // Act
+        const isFormValid = validateForm.isValid();
+
+        // Assert
+        expect(isFormValid).toBe(true);
+
+    });
+
 });

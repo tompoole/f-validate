@@ -3,25 +3,7 @@ import FormValidation from '../../src';
 
 describe('conditionalRequired', () => {
 
-    it('should return valid if dependent input is not checked, and current field is not empty', () => {
-
-        // Arrange
-        TestUtils.setBodyHtml(`<form>
-                <input data-val-conditionalRequired="nameOfcheckedInput" value="test" />
-                <input type="checkbox" name="nameOfcheckedInput" />
-                </form>`);
-        const form = document.querySelector('form');
-
-        // Act
-        const validateForm = new FormValidation(form);
-        const isFormValid = validateForm.isValid();
-
-        // Assert
-        expect(isFormValid).toBe(true);
-
-    });
-
-    it('should return invalid if dependent input is not checked, and current field is empty', () => {
+    it('should return invalid if `data-val-conditionalRequired` field is not checked, and current field is empty', () => {
 
         // Arrange
         TestUtils.setBodyHtml(`<form>
@@ -39,7 +21,25 @@ describe('conditionalRequired', () => {
 
     });
 
-    it('should return valid if dependent input is checked, and current field is not empty', () => {
+    it('should return valid if `data-val-conditionalRequired` field is not checked, and current field is not empty', () => {
+
+        // Arrange
+        TestUtils.setBodyHtml(`<form>
+                <input data-val-conditionalRequired="nameOfcheckedInput" value="test" />
+                <input type="checkbox" name="nameOfcheckedInput" />
+                </form>`);
+        const form = document.querySelector('form');
+
+        // Act
+        const validateForm = new FormValidation(form);
+        const isFormValid = validateForm.isValid();
+
+        // Assert
+        expect(isFormValid).toBe(true);
+
+    });
+
+    it('should return valid if `data-val-conditionalRequired` field is checked, and current field is not empty', () => {
 
         // Arrange
         TestUtils.setBodyHtml(`<form>
@@ -57,7 +57,7 @@ describe('conditionalRequired', () => {
 
     });
 
-    it('should return valid if dependent input is checked, and current field is empty', () => {
+    it('should return valid if `data-val-conditionalRequired` field is checked, and current field is empty', () => {
 
         // Arrange
         TestUtils.setBodyHtml(`<form>

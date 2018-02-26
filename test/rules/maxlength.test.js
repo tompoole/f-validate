@@ -100,6 +100,22 @@ describe('maxlength fields', () => {
 
         });
 
+        it('should return valid if maxlength attribute is set with no value', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form><input type="text" data-val-maxlength="" /></form>');
+
+            const form = document.querySelector('form');
+            const validateForm = new FormValidation(form);
+
+            // Act
+            const isFormValid = validateForm.isValid();
+
+            // Assert
+            expect(isFormValid).toBe(true);
+
+        });
+
     });
 
 });
