@@ -56,6 +56,21 @@ exports[`error states should not apply multiple error classes to invalid field 1
                                     </form>"
 `;
 
+exports[`on keydown should not validate form on 'tab' 1`] = `
+"<form novalidate=\\"\\">
+                                    <input required=\\"\\" value=\\"test\\">
+                                    <button type=\\"submit\\">submit</button>
+                                </form>"
+`;
+
+exports[`on keydown should validate entire form on 'enter' 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                            <input required=\\"\\" value=\\"test\\" class=\\"has-success\\">
+                                            <input required=\\"\\" value=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                            <button type=\\"submit\\">submit</button>
+                                        </form>"
+`;
+
 exports[`on submit should validate invalid form on submit 1`] = `
 "<form novalidate=\\"\\" class=\\"has-error\\">
                                         <input required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>

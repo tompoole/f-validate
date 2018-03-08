@@ -67,6 +67,16 @@ export default class FormValidation {
         this.options = Object.assign({}, defaultOptions, options);
         this.form = getForm(nameOrNode);
         this.fields = this.getFields();
+
+        // Allow fields to be validated on 'enter'
+        this.fields.forEach(field => {
+            field.addEventListener('keydown', event => {
+                if (event.key === 'Enter') {
+                    this.isValid(event);
+                }
+            });
+        });
+
         this.customHandlers = {};
         this.callBacks = {};
         this.errorMessages = [];
