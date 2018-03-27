@@ -92,4 +92,23 @@ describe('conditionalRequired', () => {
 
     });
 
+    it('should return invalid if the value property only contains spaces', () => {
+
+        // Arrange
+        TestUtils.setBodyHtml(`<form>
+                <input data-val-conditionalRequired="nameOfcheckedInput" value=" " />
+                <input type="checkbox" name="nameOfcheckedInput" />
+                </form>`);
+        const form = document.querySelector('form');
+
+        // Act
+        const validateForm = new FormValidation(form);
+        const isFormValid = validateForm.isValid();
+
+        // Assert
+        expect(isFormValid).toBe(false);
+
+    });
+
+
 });
