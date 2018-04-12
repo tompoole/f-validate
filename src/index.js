@@ -18,7 +18,12 @@
 import $ from '@justeat/f-dom';
 import testDefinitions from './rules';
 import { addCallBack, runCallbacks } from './callbacks';
-import { getInlineErrorElement, displayInlineMessage, hideMessage, getMessage } from './messages';
+import {
+    getInlineErrorElement,
+    displayInlineMessage,
+    hideMessage,
+    getMessage
+} from './messages';
 import CONSTANTS from './constants';
 
 // Load in the set of test definitions to validate against
@@ -252,8 +257,9 @@ export default class FormValidation {
     }
 
     getFields () {
-        return Array
-            .from(this.form.querySelectorAll(CONSTANTS.fieldValues))
+        const fields = $(CONSTANTS.fieldValues, this.form);
+
+        return fields
             .filter(f => !(f.hasAttribute('type')
                 && f.getAttribute('type') === 'hidden')
                 && !f.hasAttribute('disabled')
@@ -262,11 +268,9 @@ export default class FormValidation {
     }
 
     findGroupedErrorElement () {
-        const groupedErrorElement = this.form.querySelector(`.${CONSTANTS.cssClasses.formErrors}`);
+        const groupedErrorElement = $.first(`.${CONSTANTS.cssClasses.formErrors}`, this.form);
 
-        return groupedErrorElement !== null
-            ? groupedErrorElement
-            : false;
+        return groupedErrorElement;
     }
 
     displayGroupedMessages (groupedErrorElement) {
@@ -292,7 +296,7 @@ export default class FormValidation {
 
     getGroupedErrorPosition () {
 
-        const groupElement = this.form.querySelector(this.options.groupErrorPlacement);
+        const groupElement = $.first(this.options.groupErrorPlacement, this.form);
 
         if (groupElement) {
             return groupElement;
@@ -326,7 +330,7 @@ export default class FormValidation {
 
         this.fields.forEach(field => {
             if (field.hasAttribute(CONSTANTS.validationGroup)) {
-                field.querySelectorAll(CONSTANTS.fieldValues).forEach(childField =>
+                $(CONSTANTS.fieldValues, field).forEach(childField =>
 
                     // Binds each form element within a validation-group to the specified event.
                     // When this event is triggered the validation-group element will be passed as the element to test.

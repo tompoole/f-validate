@@ -6,11 +6,13 @@
  * This also means that if the specified checkbox is checked, then the field is not required and the form will return valid when the field is empty.
  *
  */
+import $ from '@justeat/f-dom';
+
 export default {
     condition: field => field.hasAttribute('data-val-conditionalRequired'),
 
     test: field => {
-        const input = document.querySelector(`[name='${field.getAttribute('data-val-conditionalRequired')}']`);
+        const input = $.first(`[name='${field.getAttribute('data-val-conditionalRequired')}']`);
         const isChecked = input ? input.checked : true;
 
         return isChecked || field.value.trim().length > 0;

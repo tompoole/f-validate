@@ -3,12 +3,25 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+
+v0.17.0
+------------------------------
+*April 12, 2018*
+
+### Changed
+- Use `f-dom` instead of `querySelector` & `querySelectorAll`.
+
+### Fixed
+- Fixed issue where one of the `querySelectorAll` calls had a chained `forEach` function which is not supported in some browsers.
+
+
 v0.16.0
 ------------------------------
 *March 26, 2018*
 
 ### Fixed
 - Trims the value property for conditionalRequired rule to invalidate a field if it only contains spaces
+
 
 v0.15.0
 ------------------------------

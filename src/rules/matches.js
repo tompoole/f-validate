@@ -4,6 +4,8 @@
  * Checks that the value of the field being validated matches the value of a separate specified field
  *
  */
+import $ from '@justeat/f-dom';
+
 export default {
     condition: field => field.hasAttribute('data-val-equalto'),
 
@@ -11,7 +13,7 @@ export default {
         const matchedFieldName = field.getAttribute('data-val-equalto');
 
         if (matchedFieldName) {
-            const input = document.querySelector(`input[name=${matchedFieldName}]`);
+            const input = $.first(`input[name=${matchedFieldName}]`);
 
             return matchedFieldName
                 && input
