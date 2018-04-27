@@ -25,11 +25,34 @@ describe('validateOn', () => {
 
     describe('blur', () => {
 
-        it('should not validate if field is empty', () => {
+        it('should validate if field is empty', () => {
 
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                         <input required />
+                                    </form>`);
+            const form = document.querySelector('form');
+            const input = form.querySelector('input');
+
+            // eslint-disable-next-line no-new
+            new FormValidation(form, {
+                validateOn: 'blur'
+            });
+
+            // Act
+            TestUtils.dispatchEvent(input, 'blur');
+
+            // Assert
+            const html = TestUtils.getBodyHtml();
+            expect(html).toMatchSnapshot();
+
+        });
+
+        it('should not validate if field is empty and not required', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml(`<form>
+                                        <input minlength="6" />
                                     </form>`);
             const form = document.querySelector('form');
             const input = form.querySelector('input');
@@ -239,11 +262,35 @@ describe('validateOn', () => {
 
     describe('keyup', () => {
 
-        it('should not validate if field is empty', () => {
+        it('should validate if field is empty', () => {
 
             // Arrange
             TestUtils.setBodyHtml(`<form>
                                         <input required />
+                                    </form>`);
+            const form = document.querySelector('form');
+            const input = form.querySelector('input');
+
+            // eslint-disable-next-line no-new
+            new FormValidation(form, {
+                validateOn: 'keyup'
+            });
+
+            // Act
+            TestUtils.dispatchEvent(input, 'keyup');
+
+            // Assert
+            const html = TestUtils.getBodyHtml();
+            expect(html).toMatchSnapshot();
+
+        });
+
+
+        it('should not validate if field is empty and not required', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml(`<form>
+                                        <input minlength="6" />
                                     </form>`);
             const form = document.querySelector('form');
             const input = form.querySelector('input');
