@@ -23,4 +23,4 @@ _A short description of your PR goes here._
 
 ### List any other browsers that this PR has been tested in:
 
-- [View the Browser Support Checklist](https://docs.google.com/spreadsheets/d/1GqlRuEgtqqmMiIiPBCE39nLq8hWdzayRoYFzvTt17YQ/edit#gid=0)
+- [View our supported browser list](https://fozzie.just-eat.com/documentation/general/browser-support)
