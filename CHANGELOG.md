@@ -4,6 +4,26 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+v1.1.0
+------------------------------
+*June 15, 2018*
+
+### Added
+- DangerJS dependency.
+- DangerJS travis config.
+- snyk badge.
+
+### Changed
+- Updated travis config.
+- Renamed unit test CI task.
+- Replaced object spread with `Object.assign` to fix node 6 CI build.
+- Updated npm package versions to latest.
+
+### Removed
+- Gemnasium badge.
+
+
+
 v1.0.0
 ------------------------------
 *May 25, 2018*

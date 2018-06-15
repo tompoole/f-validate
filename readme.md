@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/%40justeat%2Ff-validate.svg)](https://badge.fury.io/js/%40justeat%2Ff-validate)
 [![Build Status](https://travis-ci.org/justeat/f-validate.svg)](https://travis-ci.org/justeat/f-validate)
 [![Coverage Status](https://coveralls.io/repos/github/justeat/f-validate/badge.svg)](https://coveralls.io/github/justeat/f-validate)
-[![Dependency Status](https://gemnasium.com/badges/github.com/justeat/f-validate.svg)](https://gemnasium.com/github.com/justeat/f-validate)
+[![Known Vulnerabilities](https://snyk.io/test/github/justeat/f-validate/badge.svg?targetFile=package.json)](https://snyk.io/test/github/justeat/f-validate?targetFile=package.json)
 
 Fozzie vanilla JS Validation Component.
 

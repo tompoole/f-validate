@@ -193,10 +193,11 @@ describe('options', () => {
         const validateForm = new FormValidation(form, options);
 
         // Assert
-        expect(validateForm.options).toEqual({
-            ...defaultOptions,
-            focus
-        });
+        expect(validateForm.options).toEqual(
+            Object.assign({}, defaultOptions, {
+                focus
+            })
+        );
 
     });
 
