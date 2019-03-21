@@ -46,7 +46,7 @@ describe('hybridMode', () => {
     it('should bind events if configuration is valid', () => {
 
         // Arrange
-        TestUtils.setBodyHtml(`<form><input required value="x"></form>`);
+        TestUtils.setBodyHtml('<form><input required value="x"></form>');
         const form = document.querySelector('form');
         const input = form.querySelector('input');
 

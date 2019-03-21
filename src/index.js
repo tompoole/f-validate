@@ -93,6 +93,9 @@ export default class FormValidation {
         if (this.options.onError) {
             this.on('error', this.options.onError);
         }
+        if (this.options.onElementError) {
+            this.on('elementError', this.options.onElementError);
+        }
         if (this.options.validateOn) {
             this.validateOn();
         }
@@ -201,6 +204,8 @@ export default class FormValidation {
                         fieldValid = false;
                         errorMessage = getMessage(field, ruleName);
                         this.errorMessages.push(errorMessage);
+
+                        runCallbacks(this.callBacks.elementError, field, ruleName);
                     }
                 }
 
