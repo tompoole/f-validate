@@ -14,5 +14,6 @@ export default {
     escapeChars: /[|\\{}()[\]^$+*?.]/g,
     fieldValues: `input, select, textarea, [${validationGroup}]`,
     validationGroup,
+    blurredAttr: 'data-blurred',
     validateOnOptions: ['blur', 'keyup']
 };

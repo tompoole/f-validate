@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hybridMode should not validate on keydown before initial blur 1`] = `
+"<form novalidate=\\"\\">
+                                    <input type=\\"email\\" name=\\"email\\">
+                                </form>"
+`;
+
+exports[`hybridMode should validate on form submit 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input type=\\"text\\" required=\\"\\" class=\\"has-error\\"><p class=\\"form-error\\">This field is required.</p>
+                                    <input type=\\"email\\" name=\\"email\\" class=\\"has-error\\" data-blurred=\\"\\"><p class=\\"form-error\\">This field must contain a valid email address.</p>
+                                </form>"
+`;
+
+exports[`hybridMode should validate on keydown after initial blur 1`] = `
+"<form novalidate=\\"\\" class=\\"has-error\\">
+                                    <input type=\\"email\\" name=\\"email\\" class=\\"has-error\\" data-blurred=\\"\\"><p class=\\"form-error\\">This field must contain a valid email address.</p>
+                                </form>"
+`;
