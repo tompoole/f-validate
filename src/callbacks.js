@@ -15,7 +15,7 @@ export const runCallbacks = (callBacks, ...args) => {
     }
 
     callBacks.forEach(callback => {
-        callback.apply(null, args);
+        callback(...args);
     });
 
 };
