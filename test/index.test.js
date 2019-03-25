@@ -682,6 +682,77 @@ describe('callbacks', () => {
 
     });
 
+    describe('elementError callbacks', () => {
+
+        it('should have no elementError callbacks when initialised', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form></form>');
+            const form = document.querySelector('form');
+
+            // Act
+            const validateForm = new FormValidation(form);
+
+            // Assert
+            expect(validateForm.callBacks.elementError).toBeUndefined();
+
+        });
+
+        it('should call elementError callback on error', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form><input required /></form>');
+            const form = document.querySelector('form');
+            const input = form.querySelector('input');
+
+            const onElementError = jest.fn();
+            const validateForm = new FormValidation(form, { onElementError });
+
+            // Act
+            validateForm.isValid();
+
+            // Assert
+            expect(onElementError).toHaveBeenCalledTimes(1);
+            expect(onElementError).toHaveBeenLastCalledWith(input, 'required');
+        });
+
+        it('should not call elementError callbacks on success', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form><input required value="hi" /></form>');
+            const form = document.querySelector('form');
+
+            const onElementError = jest.fn();
+            const validateForm = new FormValidation(form, { onElementError });
+
+            // Act
+            validateForm.isValid();
+
+            // Assert
+            expect(onElementError).not.toHaveBeenCalled();
+        });
+
+        it('should call errorElement callback when state changes to invalid', () => {
+
+            // Arrange
+            TestUtils.setBodyHtml('<form><input required value="hi" /></form>');
+            const form = document.querySelector('form');
+            const input = form.querySelector('input');
+
+            const onElementError = jest.fn();
+            const validateForm = new FormValidation(form, { onElementError });
+
+            // Act
+            validateForm.isValid();
+            input.value = '';
+            validateForm.isValid();
+
+            // Assert
+            expect(onElementError).toHaveBeenCalledTimes(1);
+        });
+
+    });
+
     describe('invalid callbacks', () => {
 
         it('should throw exception when non-function type error callbacks are added', () => {
