@@ -200,7 +200,7 @@ export default class FormValidation {
                         skipTest = elementsUntouched(field, currentElement, definition.touchedSelectors);
                     }
 
-                    if (!skipTest && !definition.test(field, currentElement)) {
+                    if (!skipTest && !definition.test(field, currentElement, this.options)) {
                         fieldValid = false;
                         errorMessage = getMessage(field, ruleName);
                         this.errorMessages.push(errorMessage);
