@@ -105,4 +105,26 @@ describe('run callbacks', () => {
         expect(cb3.mock.calls.length).toBe(1);
 
     });
+
+    it('should call all callback with arguments', () => {
+
+        // Arrange
+        const cb1 = jest.fn();
+        const cb2 = jest.fn();
+        const callbacks = [cb1, cb2];
+
+        const arg1 = "string_argument";
+        const arg2 = 42;
+        const arg3 = true;
+
+        // Act
+        runCallbacks(callbacks, arg1, arg2, arg3);
+
+        // Assert
+        expect(cb1).toHaveBeenCalledTimes(1)
+        expect(cb1).toHaveBeenCalledWith(arg1, arg2, arg3);
+
+        expect(cb2).toHaveBeenCalledTimes(1);
+        expect(cb2).toHaveBeenCalledWith(arg1, arg2, arg3);
+    });
 });

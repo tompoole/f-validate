@@ -8,14 +8,14 @@ export const addCallBack = (callBacks, callBack) => {
 
 };
 
-export const runCallbacks = callBacks => {
+export const runCallbacks = (callBacks, ...args) => {
 
     if (!callBacks) {
         return;
     }
 
     callBacks.forEach(callback => {
-        callback();
+        callback(...args);
     });
 
 };
